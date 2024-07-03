@@ -7,7 +7,7 @@
 | Balasooriya B A P I | 220054N | balasooriyabapi.22@uom.lk
 | liyanage D L B B | 220362G |banuka2002liyanage@gmail.com|
 | Pathirana P D R O | 220448C |oshadha1619@gmail.com|
-| Fernando A R D | 220161N ||
+| Fernando A R D | 220161N |rusirufernando547@gmail.com|
 | Dineshara M C | 220128V |chandupadineshara@gmail.com|
 
 
