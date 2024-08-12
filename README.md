@@ -12,8 +12,3 @@
 
 
 # Notes
--Things to talk on the first meeting
-* [ ] Starting The project - building the basic line following robot
-* [ ] Components and parts (CAD Designs, PCB Designs, etc)
-* [ ] Assigning subsystems
-* [ ] Arduino as the main controller 
