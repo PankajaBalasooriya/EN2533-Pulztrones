@@ -13,6 +13,8 @@ const int enbPin = 3; //left
 QTRSensors qtr;
 
 
+void moveForward(int16_t SpeedM1, int16_t SpeedM2);
+
 // initializing the global variables
 const uint16_t SensorCount = 8;
 uint16_t sensorValues[SensorCount];
