@@ -5,6 +5,7 @@
 
 void initBluetoothDebug(long baudRate = 9600);
 void sendBluetoothData(String data);
+void sendBluetoothDataln(String data);
 void logToMonitor(String data);
 
 #endif

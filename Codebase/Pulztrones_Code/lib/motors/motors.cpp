@@ -7,8 +7,8 @@ const int rightMotorForward = 23;
 const int leftMotorBackward = 24;
 const int leftMotorForward = 25;
 
-const int enaPin = 4;  // Left motor PWM pin
-const int enbPin = 3;  // Right motor PWM pin
+const int enaPin = 5;  // Left motor PWM pin
+const int enbPin = 4;  // Right motor PWM pin
 
 /*
  * Function to initialize motor control pins.
