@@ -2,10 +2,10 @@
 #include <QTRSensors.h>
 
 // Define motor control pins
-const int leftMotorForward = 23;
-const int leftMotorBackward = 24;
-const int rightMotorForward = 25;
-const int rightMotorBackward = 26;
+const int leftMotorForward = 22;
+const int leftMotorBackward = 23;
+const int rightMotorForward = 24;
+const int rightMotorBackward = 25;
 const int enaPin = 2; //right
 const int enbPin = 3; //left
 
