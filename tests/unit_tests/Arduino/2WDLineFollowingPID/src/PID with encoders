@@ -1,0 +1,41 @@
+#include <Arduino.h>
+#include "pid.h"
+#include "encoders.h"
+
+// Motor pins (replace with your actual motor control pins)
+#define LEFT_MOTOR_PIN 9
+#define RIGHT_MOTOR_PIN 10
+
+// Setpoint (target encoder counts for motor movement)
+int setpointLeft = 1000;  // Target encoder count for left motor
+int setpointRight = 1000; // Target encoder count for right motor
+
+void setup() {
+    // Initialize encoders
+    initEncoders();
+
+    // Initialize motor control pins
+    pinMode(LEFT_MOTOR_PIN, OUTPUT);
+    pinMode(RIGHT_MOTOR_PIN, OUTPUT);
+
+    // Optional: Reset encoders at the start
+    resetEncoders();
+}
+
+void loop() {
+    // Step 1: Get current encoder counts
+    long leftEncoderValue = getLeftEncoderCounts();
+    long rightEncoderValue = getRightEncoderCounts();
+    
+    // Step 2: Calculate the error for each motor
+    int errorLeft = setpointLeft - leftEncoderValue;
+    int errorRight = setpointRight - rightEncoderValue;
+    
+    // Step 3: Calculate PID output for each motor using the encoder error
+    int motorSpeedLeft = calcPID_Enc(errorLeft);
+    int motorSpeedRight = calcPID_Enc(errorRight);
+    
+    // Step 4: Control the motors with the calculated speeds
+    analogWrite(LEFT_MOTOR_PIN, constrain(motorSpeedLeft, 0, 255));    // Adjust the left motor's speed
+    analogWrite(RIGHT_MOTOR_PIN, constrain(motorSpeedRight, 0, 255));  // Adjust the right motor's speed
+}
