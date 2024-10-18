@@ -14,6 +14,7 @@ extern const int enbPin; // Right motor PWM pin
 void setMotorLPWM(int speed);
 void setMotorRPWM(int speed);
 void resetMotors();
+void MotorBreak();
 
 void moveForward(int SpeedM1, int SpeedM2);
 
