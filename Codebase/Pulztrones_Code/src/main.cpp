@@ -71,6 +71,7 @@ void setup() {
   //calibrateIRSensors();
 
 
+
  
 
   
@@ -78,13 +79,14 @@ void setup() {
 
 void loop() {
 // Get and print raw values
+/*
 switch (currentTask) {
     case START:
         robot.moveForwardEnc(100, 100);
         currentTask = BINARY_CODE_DETECTION;
         break;
 }
-  
+  */
 }
 
 // put function definitions here:
