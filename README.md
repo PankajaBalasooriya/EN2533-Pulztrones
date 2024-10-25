@@ -42,8 +42,8 @@
 | 25             | Digital I/O           |   leftMotorForward    |
 | 26             | Digital I/O           |   RIGHT_ENCODER_PIN_B |
 | 27             | Digital I/O           |   LEFT_ENCODER_PIN_B  |
-| 28             | Digital I/O           |  S0_PIN               |
-| 29             | Digital I/O           |  S1_PIN               |
+| 28             | Digital I/O           |  S1_PIN               |
+| 29             | Digital I/O           |  S0_PIN               |
 | 30             | Digital I/O           |  S2_PIN               |
 | 31             | Digital I/O           |  S3_PIN               |
 | 32             | Digital I/O           |  OUT_PIN_L            |
