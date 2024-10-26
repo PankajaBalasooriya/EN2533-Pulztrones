@@ -31,6 +31,6 @@ void calibrateIRSensors() {
 }
 
 // Read black line position
-int16_t readBlackLinePosition() {
+int readBlackLinePosition() {
     return qtr.readLineBlack(sensorValues);
 }

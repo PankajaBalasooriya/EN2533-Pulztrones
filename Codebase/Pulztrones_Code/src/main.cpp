@@ -1,7 +1,9 @@
 #include <Arduino.h>
 
-#include <Adafruit_VL53L0X.h>
 #include <QTRSensors.h>
+#include "Ticker.h"
+#include <MPU6500_WE.h>
+
 
 #include "motors.h"
 #include "BluetoothDebug.h"
@@ -13,6 +15,73 @@
 #include "irs.h"
 
 
+// Constants for line following
+const int BASE_SPEED = 75;  // Base motor speed (0-255)
+const int MAX_SPEED = 200;   // Maximum motor speed
+const int MIN_SPEED = 40;     // Minimum motor speed
+
+// PID Constants - adjust these values for your robot
+const float KP = 0.035;        // Proportional gain
+const float KI = 0;      // Integral gain
+const float KD = 0.250;       // Derivative gain
+//0.055
+/*
+const float KP = 0.55;        // Proportional gain
+const float KI = 0;      // Integral gain
+const float KD = 0.35;       // Derivative gain
+*/
+
+// Variables for PID calculation
+float lastError = 0;
+float integral = 0;
+
+// Function to calculate PID output
+float calculatePID(int error) {
+    // Proportional term
+    float P = error * KP;
+    
+    // Integral term
+    integral += error;
+    integral = constrain(integral, -10000, 10000);  // Prevent integral windup
+    float I = integral * KI;
+    
+    // Derivative term
+    float D = (error - lastError) * KD;
+    lastError = error;
+    
+    // Calculate total correction
+    return P + I + D;
+}
+
+void lineFollowingLoop() {
+    // Read the position of the line (0 to 7000)
+    // For 8 sensors, the value will be between 0 and 7000
+    // 3500 represents the center position
+    int position = readBlackLinePosition();
+    
+    
+    // Calculate the error from center
+    // Error will be positive when line is on the right, negative when on the left
+    int error = position - 3500;
+
+    //Serial2.print(error);
+    //Serial2.print(", ");
+    
+    // Calculate the PID correction value
+    float pidOutput = calculatePID(error);
+    
+    // Calculate motor speeds
+    int leftSpeed = BASE_SPEED + pidOutput;
+    int rightSpeed = BASE_SPEED - pidOutput;
+    
+    // Constrain motor speeds to valid range
+    leftSpeed = constrain(leftSpeed, MIN_SPEED, MAX_SPEED);
+    rightSpeed = constrain(rightSpeed, MIN_SPEED, MAX_SPEED);
+    
+    // Apply speeds to motors
+    moveForward(leftSpeed, rightSpeed);
+}
+
 
 
 void setup() {
@@ -21,21 +90,28 @@ void setup() {
   initMotorPins();
   initEncoders();
   initIRSensors();
-
-
-  delay(1000);
+  
+  
+  delay(2000);
   calibrateIRSensors();
-  
-  
- 
 
+  
+
+   
+   
+
+  
 
   
 }
 
 void loop() {
-  printIRData();
+  
+  lineFollowingLoop();
+    
+  
 
+ //printEncoderData();
 }
 
 
