@@ -1,8 +1,8 @@
 #include <Arduino.h>
 
 #include <QTRSensors.h>
-#include "Ticker.h"
 #include <MPU6500_WE.h>
+#include <TimerOne.h>
 
 
 #include "motors.h"
@@ -14,43 +14,50 @@
 #include "data.h"
 #include "irs.h"
 
+// Constants for robot physical properties
+const float WHEEL_DIAMETER_MM = 68.0;
+const float WHEEL_BASE_MM = 193.0;
+const float COUNTS_PER_REVOLUTION = 826.0;
+const float MM_PER_COUNT = (PI * WHEEL_DIAMETER_MM) / COUNTS_PER_REVOLUTION;
+
 
 // Constants for line following
-const int BASE_SPEED = 75;  // Base motor speed (0-255)
-const int MAX_SPEED = 200;   // Maximum motor speed
-const int MIN_SPEED = 40;     // Minimum motor speed
+const int BASE_SPEED = 75;  
+const int MAX_SPEED = 200;   
+const int MIN_SPEED = 50;     
 
-// PID Constants - adjust these values for your robot
+
+
+/* Without dt
 const float KP = 0.035;        // Proportional gain
-const float KI = 0;      // Integral gain
 const float KD = 0.250;       // Derivative gain
-//0.055
-/*
-const float KP = 0.55;        // Proportional gain
-const float KI = 0;      // Integral gain
-const float KD = 0.35;       // Derivative gain
+0.0148
+0.0005
 */
+
+const float KP = 0.0152;        // Proportional gain
+const float KD = 0.00075;       // Derivative gain
 
 // Variables for PID calculation
 float lastError = 0;
-float integral = 0;
+
+unsigned long prevTimePID = 0;
 
 // Function to calculate PID output
 float calculatePID(int error) {
+    unsigned long currentTimePID = millis();
+    float dt = (currentTimePID - prevTimePID) / 1000.0;
+    prevTimePID = currentTimePID;
     // Proportional term
     float P = error * KP;
     
-    // Integral term
-    integral += error;
-    integral = constrain(integral, -10000, 10000);  // Prevent integral windup
-    float I = integral * KI;
-    
     // Derivative term
-    float D = (error - lastError) * KD;
+    float D = ((error - lastError) / dt) * KD;
     lastError = error;
     
+    
     // Calculate total correction
-    return P + I + D;
+    return P + D;
 }
 
 void lineFollowingLoop() {
@@ -64,12 +71,11 @@ void lineFollowingLoop() {
     // Error will be positive when line is on the right, negative when on the left
     int error = position - 3500;
 
-    //Serial2.print(error);
-    //Serial2.print(", ");
+    
     
     // Calculate the PID correction value
     float pidOutput = calculatePID(error);
-    
+    Serial2.println(pidOutput);
     // Calculate motor speeds
     int leftSpeed = BASE_SPEED + pidOutput;
     int rightSpeed = BASE_SPEED - pidOutput;
@@ -82,6 +88,48 @@ void lineFollowingLoop() {
     moveForward(leftSpeed, rightSpeed);
 }
 
+unsigned long prevTimeCalc = 0;
+float leftVel = 0;
+float rightVel = 0;
+volatile long prevLeftCount = 0, prevRightCount = 0;
+volatile float actualVelX = 0, actualVelW = 0;
+volatile float encoderVelW = 0;
+
+
+
+void updateVelocities() {
+    unsigned long currentTime = millis();
+    float deltaTime = (currentTime - prevTimeCalc) / 1000.0;
+    prevTimeCalc = currentTime;
+    
+    // Read encoder counts
+    long leftCount = getLeftEncoderCounts();
+    long rightCount = getRightEncoderCounts();
+    
+    
+    // Calculate wheel velocities in mm/s
+     leftVel = ((leftCount - prevLeftCount) * MM_PER_COUNT) / deltaTime;
+    rightVel = ((rightCount - prevRightCount) * MM_PER_COUNT) / deltaTime;
+    
+    prevLeftCount = leftCount;
+    prevRightCount = rightCount;
+    
+    // Calculate linear and angular velocities
+    actualVelX = (leftVel + rightVel) / 2.0;
+    encoderVelW = (rightVel - leftVel) / WHEEL_BASE_MM;
+    
+    //gyroVelW = getGyroZ() * DEG_TO_RAD;
+
+
+    // Apply low-pass filter
+    //const float alpha = 0.8; // Filter coefficient (0-1)
+    //actualVelW = alpha * gyroVelW + (1 - alpha) * encoderVelW;
+    actualVelW = encoderVelW;
+}
+
+
+
+
 
 
 void setup() {
@@ -90,12 +138,14 @@ void setup() {
   initMotorPins();
   initEncoders();
   initIRSensors();
+
+  Timer1.initialize(20000); // at 20 ms
+  Timer1.attachInterrupt(updateVelocities);
   
   
   delay(2000);
   calibrateIRSensors();
 
-  
 
    
    
@@ -104,14 +154,15 @@ void setup() {
 
   
 }
+int k = 1;
 
 void loop() {
   
-  lineFollowingLoop();
-    
   
+  
+  lineFollowingLoop();
 
- //printEncoderData();
+
 }
 
 
