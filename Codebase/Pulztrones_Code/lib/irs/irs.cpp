@@ -34,3 +34,8 @@ void calibrateIRSensors() {
 int readBlackLinePosition() {
     return qtr.readLineBlack(sensorValues);
 }
+
+int readWhiteLinePosition(){
+    return qtr.readLineWhite(sensorValues);
+}
+

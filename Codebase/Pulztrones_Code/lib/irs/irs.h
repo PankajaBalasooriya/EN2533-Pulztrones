@@ -13,5 +13,6 @@ extern uint16_t sensorValues[8];  // Use a fixed size for sensorValues
 void initIRSensors();
 void calibrateIRSensors();
 int readBlackLinePosition();
+int readWhiteLinePosition();
 
 #endif
