@@ -24,6 +24,8 @@ void FollowBlackLine() {
     // Calculate the error from the center
     int error = position - 3500;
 
+    
+
     // Calculate the PID correction value
     float pidOutput = PIDLine(error);
     Serial2.println(pidOutput);
@@ -60,7 +62,7 @@ void FollowWhiteLine() {
     rightSpeed = constrain(rightSpeed, MIN_SPEED, MAX_SPEED);
 
     // Apply speeds to motors
-    moveForward(leftSpeed, rightSpeed);
+    moveForward(leftSpeed - 20, rightSpeed);
 }
 
 

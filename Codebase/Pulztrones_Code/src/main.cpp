@@ -96,10 +96,12 @@ void setup() {
 void loop() {
   
   
-  FollowWhiteLine();
+  //FollowWhiteLine();
+  //printIRData();
+  
   
 
-  
+
 }
 
 
