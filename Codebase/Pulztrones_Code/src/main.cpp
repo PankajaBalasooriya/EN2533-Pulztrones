@@ -15,9 +15,9 @@
 #include "irs.h"
 
 
-const float WHEEL_DIAMETER_MM = 68.0;
+const float WHEEL_DIAMETER_MM = 66.0;
 const float WHEEL_BASE_MM = 193.0;
-const float COUNTS_PER_REVOLUTION = 826.0;
+const float COUNTS_PER_REVOLUTION = 824.0;
 const float MM_PER_COUNT = (PI * WHEEL_DIAMETER_MM) / COUNTS_PER_REVOLUTION;
 
 
@@ -81,7 +81,8 @@ void setup() {
   
   
   delay(2000);
-  calibrateIRSensors();
+  //calibrateIRSensors();
+  MoveDistanceForward(1000);
 
 
    
@@ -98,7 +99,8 @@ void loop() {
   
   //FollowWhiteLine();
   //printIRData();
-  
+  //printEncoderData();
+
   
 
 

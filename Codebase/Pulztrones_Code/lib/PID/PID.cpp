@@ -9,7 +9,7 @@
 const float KpL = 0.03;
 const float KdL = 2.5;
 
-const float KpEnc = 0;
+const float KpEnc = 1;
 const float KdEnc = 0;
 
 // Static variables for PID calculation

@@ -8,7 +8,7 @@
 // Constants for robot physical properties
 const float WHEEL_DIAMETER_MM = 68.0;
 const float WHEEL_BASE_MM = 193.0;
-const float COUNTS_PER_REVOLUTION = 826.0;
+const float COUNTS_PER_REVOLUTION = 824.0;
 const float MM_PER_COUNT = (PI * WHEEL_DIAMETER_MM) / COUNTS_PER_REVOLUTION;
 
 const int BASE_SPEED = 75;
@@ -66,9 +66,9 @@ void FollowWhiteLine() {
 }
 
 
-float Kp_enc = 0, Kd_enc = .000;
+
 float error_enc = 0.0;
-float derivative_enc = 0.0, correction_enc = 0.0;
+float correction_enc = 0.0;
 
 void MoveDistanceForward(float distance){
     const int target_encoder_count = distance / MM_PER_COUNT;
