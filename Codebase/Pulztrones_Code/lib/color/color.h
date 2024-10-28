@@ -3,16 +3,17 @@
 
 #include <Arduino.h>
 
+// Pin definitions for TCS230 sensors
+extern const int leftS0, leftS1, leftS2, leftS3, leftSensorOut;
+extern const int middleS0, middleS1, middleS2, middleS3, middleSensorOut;
+extern const int rightS0, rightS1, rightS2, rightS3, rightSensorOut;
 
-// Pin definitions
-#define S0_PIN 28
-#define S1_PIN 29
-#define S2_PIN 30
-#define S3_PIN 31
-#define OUT_PIN_LEFT 32
-#define OUT_PIN_CENTER 33
-#define OUT_PIN_RIGHT 34
+// Function declarations
+void setupSensor(int S0, int S1, int S2, int S3, int sensorOut);
 
-
+String getLeftColor();
+String getMiddleColor();
+String getRightColor();
+String getColor(int S0, int S1, int S2, int S3, int sensorOut);
 
 #endif // COLOR_H
