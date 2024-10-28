@@ -84,6 +84,8 @@ void setup() {
   calibrateIRSensors();
   //MoveDistanceForward(1000);
   //turn(1);
+  Serial.begin(9600);
+  
 
 
    
@@ -97,7 +99,11 @@ void setup() {
 
 void loop() {
   
-  FollowWhiteLine();
+  //FollowWhiteLine();
+  Serial2.print(analogRead(A8));
+  Serial2.print(", ");
+  Serial2.println(analogRead(A9));
+
   
   //printIRData();
   

@@ -8,6 +8,9 @@
 extern QTRSensors qtr;
 const uint16_t SensorCount = 8;  // Define SensorCount as a constant
 extern uint16_t sensorValues[8];  // Use a fixed size for sensorValues
+extern bool leftSide;
+extern bool rightSide;
+
 
 // Add these constants to irs.h
 #define JUNCTION_THRESHOLD 50  // Threshold for detecting line presence
@@ -15,8 +18,8 @@ extern uint16_t sensorValues[8];  // Use a fixed size for sensorValues
 
 // Add these function declarations to irs.h
 bool isAtJunction();
-bool isAtTJunction();
-bool isAtLJunction();
+bool isAtTJunction(bool j);
+bool isAtLJunction(bool j);
 void handleJunction(char direction);  // 'L' for left, 'R' for right
 
 // Function declarations

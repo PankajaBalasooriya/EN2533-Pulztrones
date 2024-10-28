@@ -6,7 +6,7 @@
 
 
 // PID constants
-const float KpL = 0.04;
+const float KpL = 0.062;//0.04
 const float KdL = 7;
 
 const float KpEnc = 1;
@@ -14,7 +14,7 @@ const float KdEnc = 0;
 
 // Static variables for PID calculation
 static float lastError = 0;
-static unsigned long prevTimePID = 0;
+//static unsigned long prevTimePID = 0;
 
 
 float PIDLine(int error) {

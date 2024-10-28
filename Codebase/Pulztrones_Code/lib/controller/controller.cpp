@@ -47,6 +47,7 @@ void FollowWhiteLine() {
     int position = readWhiteLinePosition();
     
     // Check for junction
+    /*
     if (isAtTJunction() || isAtLJunction()) {
         // Stop the robot
         //moveForward(0, 0);
@@ -60,6 +61,33 @@ void FollowWhiteLine() {
         handleJunction('L');  // Default to left turn
         return;
     }
+    */
+   bool j = isAtJunction();
+   bool L = isAtLJunction(j);
+   bool T = isAtTJunction(j);
+   
+
+   if (T || L) {
+        // Stop the robot
+        MoveDistanceForward(40);
+        MotorBreak();
+        
+    
+        if (T) {
+            handleJunction('S');
+        } else if (L) {
+            if (leftSide) {
+                handleJunction('L');
+            } else {
+                handleJunction('R');
+            }
+        }
+        return;
+    }
+
+
+
+
 
     // Normal line following code continues...
     int error = position - 3500;
@@ -120,7 +148,7 @@ void turn(int direction) {
 
 
     // Constants
-    const int COUNTS_PER_90_DEGREE = 1060; // Experimentally determined
+    const int COUNTS_PER_90_DEGREE = 1080; // Experimentally determined
     const float MAX_TURN_SPEED = 100; // Maximum turn speed
     const float MIN_TURN_SPEED = 70; // Minimum turn speed to overcome static friction
 
@@ -183,18 +211,15 @@ void turn(int direction) {
 
 void handleJunction(char direction) {
     // Stop briefly
-    moveForward(0, 0);
-    delay(200);
+    MotorBreak();
     
     if (direction == 'L') {
         turn(-1);  // Turn left
     } else if (direction == 'R') {
         turn(1);  // Turn right
+    } else if (direction == 'S') {
+        MoveDistanceForward(0);
     }
-    
-    // Move forward slightly to clear the junction
-    moveForward(BASE_SPEED, BASE_SPEED);
-    delay(300);
 }
 
 

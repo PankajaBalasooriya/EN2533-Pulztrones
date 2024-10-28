@@ -23,12 +23,12 @@ void printIRData() {
 
     // Print QTR sensor values to Serial2
     for (uint8_t i = 0; i < SensorCount; i++) {
-        Serial2.print(sensorValues[i]);
+        Serial.print(sensorValues[i]);
         if (i < SensorCount - 1) {
-            Serial2.print(", ");
+            Serial.print(", ");
         }
     }
-    Serial2.println();
+    Serial.println();
 
     delay(100);
 }
