@@ -13,6 +13,8 @@
 #include "controller.h"
 #include "data.h"
 #include "irs.h"
+#include "loop.h"
+#include "buzzer.h"
 
 
 const float WHEEL_DIAMETER_MM = 66.0;
@@ -28,6 +30,7 @@ float rightVel = 0;
 volatile long prevLeftCount = 0, prevRightCount = 0;
 volatile float actualVelX = 0, actualVelW = 0;
 volatile float encoderVelW = 0;
+
 
 
 
@@ -69,22 +72,30 @@ void updateVelocities() {
 
 
 
+
+
+
 void setup() {
   
   initBluetoothDebug();
   initMotorPins();
   initEncoders();
   initIRSensors();
+  initBuzzer();
+  
 
-  Timer1.initialize(20000); // at 20 ms
-  Timer1.attachInterrupt(updateVelocities);
+  //Timer1.initialize(40000); // at 40 ms
+  //Timer1.attachInterrupt(timerloop);
   
-  
+  Buzzer_Toggle(100);
   delay(2000);
   calibrateIRSensors();
-  //MoveDistanceForward(1000);
+  Buzzer_Toggle(100);
+  delay(5000);
+  Buzzer_UniquePattern();
+  MoveDistanceForward(70);
   //turn(1);
-  Serial.begin(9600);
+  //Serial.begin(9600);
   
 
 
@@ -99,10 +110,8 @@ void setup() {
 
 void loop() {
   
-  //FollowWhiteLine();
-  Serial2.print(analogRead(A8));
-  Serial2.print(", ");
-  Serial2.println(analogRead(A9));
+  FollowWhiteLine();
+  
 
   
   //printIRData();

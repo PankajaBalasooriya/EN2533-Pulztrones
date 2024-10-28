@@ -62,9 +62,11 @@ void FollowWhiteLine() {
         return;
     }
     */
-   bool j = isAtJunction();
-   bool L = isAtLJunction(j);
-   bool T = isAtTJunction(j);
+   int leftIR = analogRead(A8);
+   int rightIR = analogRead(A9);
+   bool j = isAtJunction(leftIR, rightIR);
+   bool L = isAtLJunction(j, leftIR, rightIR);
+   bool T = isAtTJunction(j, leftIR, rightIR);
    
 
    if (T || L) {

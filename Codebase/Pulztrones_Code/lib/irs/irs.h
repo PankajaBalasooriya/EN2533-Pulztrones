@@ -17,9 +17,9 @@ extern bool rightSide;
 #define MIN_SENSORS_FOR_JUNCTION 6  // Minimum number of sensors that must detect line for junction
 
 // Add these function declarations to irs.h
-bool isAtJunction();
-bool isAtTJunction(bool j);
-bool isAtLJunction(bool j);
+bool isAtJunction(int leftIR, int rightIR);
+bool isAtTJunction(bool j, int leftIR, int rightIR);
+bool isAtLJunction(bool j, int leftIR, int rightIR);
 void handleJunction(char direction);  // 'L' for left, 'R' for right
 
 // Function declarations

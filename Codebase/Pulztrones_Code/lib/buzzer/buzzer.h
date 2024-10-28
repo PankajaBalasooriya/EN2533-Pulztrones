@@ -4,6 +4,7 @@
 #include <Arduino.h>
 
 
+void initBuzzer();
 void Buzzer_On();
 void Buzzer_Off();
 void Buzzer_Toggle(uint32_t t);
