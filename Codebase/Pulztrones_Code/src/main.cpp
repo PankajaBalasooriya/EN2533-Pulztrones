@@ -82,7 +82,8 @@ void setup() {
   
   delay(2000);
   //calibrateIRSensors();
-  MoveDistanceForward(1000);
+  //MoveDistanceForward(1000);
+  //turn(1);
 
 
    
@@ -99,7 +100,8 @@ void loop() {
   
   //FollowWhiteLine();
   //printIRData();
-  //printEncoderData();
+  
+  printEncoderData();
 
   
 

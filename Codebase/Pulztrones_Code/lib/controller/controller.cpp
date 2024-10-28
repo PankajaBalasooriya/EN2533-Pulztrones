@@ -51,7 +51,7 @@ void FollowWhiteLine() {
 
     // Calculate the PID correction value
     float pidOutput = PIDLine(error);
-    Serial2.println(pidOutput);
+    //Serial2.println(pidOutput);
 
     // Calculate motor speeds
     int leftSpeed = BASE_SPEED + pidOutput;
@@ -100,4 +100,68 @@ void MoveDistanceForward(float distance){
     MotorBreak();
     setMotorLPWM(0);
     setMotorRPWM(0);
+}
+
+void turn(int direction) {
+
+
+    // Constants
+    const int COUNTS_PER_90_DEGREE = 1060; // Experimentally determined
+    const float MAX_TURN_SPEED = 100; // Maximum turn speed
+    const float MIN_TURN_SPEED = 70; // Minimum turn speed to overcome static friction
+
+    // PD controller constants
+    const float Kp = 0.7; // Proportional gain
+    const float Kd = 0.1; // Derivative gain
+
+    // Variables
+    int target_encoder_diff = COUNTS_PER_90_DEGREE;
+    int encoder_diff = 0;
+    int left_encoder_current, right_encoder_current;
+    float error = 0, last_error = 0, derivative = 0;
+    float turn_speed = 0;
+
+    // Reset encoders
+    resetEncoders();
+
+    while (encoder_diff < target_encoder_diff) {
+        // Get current encoder counts
+        left_encoder_current = getLeftEncoderCounts();
+        right_encoder_current = getRightEncoderCounts();
+
+        // Calculate encoder difference
+        encoder_diff = abs(right_encoder_current - left_encoder_current);
+
+        // Calculate error
+        error = target_encoder_diff - encoder_diff;
+
+        // Calculate derivative
+        derivative = error - last_error;
+
+        // PD controller
+        turn_speed = Kp * error + Kd * derivative;
+
+        // Limit turn speed
+        turn_speed = fmin(fmax(turn_speed, MIN_TURN_SPEED), MAX_TURN_SPEED);
+
+        // Set motor speeds based on direction
+        float left_speed = (direction > 0) ? turn_speed : -turn_speed;
+        float right_speed = (direction > 0) ? -turn_speed : turn_speed;
+
+        // Apply motor speeds
+        setMotorLPWM(left_speed);
+        setMotorRPWM(right_speed);
+
+        // Save current error for next iteration
+        last_error = error;
+
+        // Small delay to avoid overwhelming the microcontroller
+    }
+
+    // Stop motors after reaching the target
+    setMotorLPWM(0);
+    setMotorRPWM(0);
+
+    // Reset encoders
+    resetEncoders();
 }
