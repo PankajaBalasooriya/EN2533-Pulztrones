@@ -6,8 +6,8 @@
 
 
 // PID constants
-const float KpL = 0.03;
-const float KdL = 2.5;
+const float KpL = 0.04;
+const float KdL = 7;
 
 const float KpEnc = 1;
 const float KdEnc = 0;

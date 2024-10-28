@@ -11,7 +11,7 @@ const float WHEEL_BASE_MM = 193.0;
 const float COUNTS_PER_REVOLUTION = 824.0;
 const float MM_PER_COUNT = (PI * WHEEL_DIAMETER_MM) / COUNTS_PER_REVOLUTION;
 
-const int BASE_SPEED = 75;
+const int BASE_SPEED = 90;
 const int MAX_SPEED = 200;
 const int MIN_SPEED = 50;
 
@@ -28,7 +28,7 @@ void FollowBlackLine() {
 
     // Calculate the PID correction value
     float pidOutput = PIDLine(error);
-    Serial2.println(pidOutput);
+    //Serial2.println(pidOutput);
 
     // Calculate motor speeds
     int leftSpeed = BASE_SPEED + pidOutput;
@@ -45,25 +45,39 @@ void FollowBlackLine() {
 void FollowWhiteLine() {
     // Read the position of the line (0 to 7000)
     int position = readWhiteLinePosition();
+    
+    // Check for junction
+    if (isAtTJunction() || isAtLJunction()) {
+        // Stop the robot
+        //moveForward(0, 0);
+        //delay(500);  // Short pause to ensure complete stop
+        MoveDistanceForward(50);  // Move forward slightly to clear the junction
 
-    // Calculate the error from the center
+        MotorBreak();
+
+        
+        // Handle the junction (modify direction as needed)
+        handleJunction('L');  // Default to left turn
+        return;
+    }
+
+    // Normal line following code continues...
     int error = position - 3500;
-
-    // Calculate the PID correction value
     float pidOutput = PIDLine(error);
-    //Serial2.println(pidOutput);
-
-    // Calculate motor speeds
+    
     int leftSpeed = BASE_SPEED + pidOutput;
     int rightSpeed = BASE_SPEED - pidOutput;
-
-    // Constrain motor speeds to the valid range
+    
     leftSpeed = constrain(leftSpeed, MIN_SPEED, MAX_SPEED);
     rightSpeed = constrain(rightSpeed, MIN_SPEED, MAX_SPEED);
-
-    // Apply speeds to motors
+    
     moveForward(leftSpeed - 20, rightSpeed);
 }
+
+
+
+
+
 
 
 
@@ -165,3 +179,22 @@ void turn(int direction) {
     // Reset encoders
     resetEncoders();
 }
+
+
+void handleJunction(char direction) {
+    // Stop briefly
+    moveForward(0, 0);
+    delay(200);
+    
+    if (direction == 'L') {
+        turn(-1);  // Turn left
+    } else if (direction == 'R') {
+        turn(1);  // Turn right
+    }
+    
+    // Move forward slightly to clear the junction
+    moveForward(BASE_SPEED, BASE_SPEED);
+    delay(300);
+}
+
+

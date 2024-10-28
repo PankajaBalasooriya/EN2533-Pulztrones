@@ -15,7 +15,7 @@ void initIRSensors() {
 void calibrateIRSensors() {
     Serial2.println("Starting calibration...");
 
-    for (uint8_t i = 0; i < 250; i++) {
+    for (uint8_t i = 0; i < 100; i++) {
         qtr.calibrate();
         delay(20);
 
@@ -39,3 +39,34 @@ int readWhiteLinePosition(){
     return qtr.readLineWhite(sensorValues);
 }
 
+bool isAtJunction() {
+    // Count how many sensors detect the line
+    int sensorsOnLine = 0;
+    for (uint8_t i = 0; i < SensorCount; i++) {
+        if (sensorValues[i] < JUNCTION_THRESHOLD) {
+            sensorsOnLine++;
+        }
+    }
+    
+    return sensorsOnLine >= MIN_SENSORS_FOR_JUNCTION;
+}
+
+bool isAtTJunction() {
+    // Check if most sensors detect the line (indicating a T junction)
+    return isAtJunction() && 
+           sensorValues[0] < JUNCTION_THRESHOLD && 
+           sensorValues[SensorCount-1] < JUNCTION_THRESHOLD;
+}
+
+bool isAtLJunction() {
+    // For L junction, check if sensors on one side all detect the line
+    bool leftSide = (sensorValues[0] <JUNCTION_THRESHOLD &&
+                    sensorValues[1] < JUNCTION_THRESHOLD &&
+                    sensorValues[2] < JUNCTION_THRESHOLD);
+    
+    bool rightSide = (sensorValues[SensorCount-3] < JUNCTION_THRESHOLD &&
+                     sensorValues[SensorCount-2] < JUNCTION_THRESHOLD &&
+                     sensorValues[SensorCount-1] < JUNCTION_THRESHOLD);
+    
+    return isAtJunction() && (leftSide || rightSide);
+}
