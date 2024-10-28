@@ -42,21 +42,21 @@
 | 25             | Digital I/O           |   leftMotorForward    |
 | 26             | Digital I/O           |   RIGHT_ENCODER_PIN_B |
 | 27             | Digital I/O           |   LEFT_ENCODER_PIN_B  |
-| 28             | Digital I/O           |  S0_PIN               |
-| 29             | Digital I/O           |  S1_PIN               |
-| 30             | Digital I/O           |  S2_PIN               |
-| 31             | Digital I/O           |  S3_PIN               |
+| 28             | Digital I/O           |  S0_PIN_L               |
+| 29             | Digital I/O           |  S1_PIN_L               |
+| 30             | Digital I/O           |  S2_PIN_L               |
+| 31             | Digital I/O           |  S3_PIN_L               |
 | 32             | Digital I/O           |  OUT_PIN_R           |
-| 33             | Digital I/O           |  OUT_PIN _C            |
+| 33             | Digital I/O           |  OUT_PIN _M            |
 | 34             | Digital I/O           |  OUT_PIN_L            |
-| 35             | Digital I/O           |                       |
-| 36             | Digital I/O           |                       |
-| 37             | Digital I/O           |                       |
-| 38             | Digital I/O           |                       |
-| 39             | Digital I/O           |                       |
-| 40             | Digital I/O           |                       |
-| 41             | Digital I/O           |                       |
-| 42             | Digital I/O           |                       |
+| 35             | Digital I/O           |   S0_PIN_M                    |
+| 36             | Digital I/O           |    S1_PIN_M                   |
+| 37             | Digital I/O           |    S2_PIN_M                   |
+| 38             | Digital I/O           |    S3_PIN_M                   |
+| 39             | Digital I/O           |     S0_PIN_R                  |
+| 40             | Digital I/O           |     S1_PIN_R                  |
+| 41             | Digital I/O           |     S2_PIN_R                  |
+| 42             | Digital I/O           |     S3_PIN_R                  |
 | 43             | Digital I/O           |                       |
 | 44             | Digital I/O, PWM      |                       |
 | 45             | Digital I/O, PWM      |                       |
