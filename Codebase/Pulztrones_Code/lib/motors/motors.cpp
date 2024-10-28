@@ -85,6 +85,8 @@ void MotorBreak() {
     digitalWrite(rightMotorForward, HIGH);
     digitalWrite(rightMotorBackward, HIGH);
     
+    delay(200);  // Delay to allow motors to stop
+
     resetMotors();
 }
 

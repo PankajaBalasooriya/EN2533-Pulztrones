@@ -1,38 +1,45 @@
-#include "pid.h"
-#include <Arduino.h>
+#include "PID.h"
+#include "Arduino.h"
+#include "motors.h"
+#include "encoders.h"
 
-// PID control variables for white line following
-float KpWL = 1.0;
-float KdWL = 0.22;
-float lastErrWL = 0;
 
-// PID control variables for black line following
-float KpBL = 1.0;
-float KdBL = 0.7;
-float lastErrBL = 0;
 
-// PID control variables for movement using encoders
-float KpEnc = 1.5;
-float KdEnc = 0.9;
-float lastErrEnc = 0;
+// PID constants
+const float KpL = 0.04;
+const float KdL = 7;
 
-// PID function for white line following
-int calcPID_WL(int error) {
-    int motorSpeed = KpWL * error + KdWL * (error - lastErrWL);
-    lastErrWL = error;
-    return motorSpeed;
+const float KpEnc = 1;
+const float KdEnc = 0;
+
+// Static variables for PID calculation
+static float lastError = 0;
+static unsigned long prevTimePID = 0;
+
+
+float PIDLine(int error) {
+    
+    // Proportional term
+    float P = error * KpL;
+    
+    // Derivative term
+    float D = (error - lastError) * KdL;
+    lastError = error;
+    
+    // Calculate total correction
+    return P + D;
 }
 
-// PID function for black line following
-int calcPID_BL(int error) {
-    int motorSpeed = KpBL * error + KdBL * (error - lastErrBL);
-    lastErrBL = error;
-    return motorSpeed;
+float PIDEnc(int error) {
+    
+    // Proportional term
+    float P = error * KpEnc;
+    
+    // Derivative term
+    float D = (error - lastError) * KdEnc;
+    lastError = error;
+    
+    // Calculate total correction
+    return P + D;
 }
 
-// PID function for movement using encoders
-int calcPID_Enc(int16_t error) {
-    int motorSpeed = KpEnc * error + KdEnc * (error - lastErrEnc);
-    lastErrEnc = error;
-    return motorSpeed;
-}

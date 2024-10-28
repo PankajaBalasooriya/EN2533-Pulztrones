@@ -1,7 +1,9 @@
 #include <Arduino.h>
 
-#include <Adafruit_VL53L0X.h>
 #include <QTRSensors.h>
+#include <MPU6500_WE.h>
+#include <TimerOne.h>
+
 
 #include "motors.h"
 #include "BluetoothDebug.h"
@@ -9,114 +11,104 @@
 #include "encoders.h"
 #include "color.h"
 #include "controller.h"
+#include "data.h"
+#include "irs.h"
+
+
+const float WHEEL_DIAMETER_MM = 66.0;
+const float WHEEL_BASE_MM = 193.0;
+const float COUNTS_PER_REVOLUTION = 824.0;
+const float MM_PER_COUNT = (PI * WHEEL_DIAMETER_MM) / COUNTS_PER_REVOLUTION;
 
 
 
-RobotController robot;
+unsigned long prevTimeCalc = 0;
+float leftVel = 0;
+float rightVel = 0;
+volatile long prevLeftCount = 0, prevRightCount = 0;
+volatile float actualVelX = 0, actualVelW = 0;
+volatile float encoderVelW = 0;
 
 
-// Class instances
-QTRSensors qtr;
+
+void updateVelocities() {
+    unsigned long currentTime = millis();
+    float deltaTime = (currentTime - prevTimeCalc) / 1000.0;
+    prevTimeCalc = currentTime;
+    
+    // Read encoder counts
+    long leftCount = getLeftEncoderCounts();
+    long rightCount = getRightEncoderCounts();
+    
+    
+    // Calculate wheel velocities in mm/s
+     leftVel = ((leftCount - prevLeftCount) * MM_PER_COUNT) / deltaTime;
+    rightVel = ((rightCount - prevRightCount) * MM_PER_COUNT) / deltaTime;
+    
+    prevLeftCount = leftCount;
+    prevRightCount = rightCount;
+    
+    // Calculate linear and angular velocities
+    actualVelX = (leftVel + rightVel) / 2.0;
+    encoderVelW = (rightVel - leftVel) / WHEEL_BASE_MM;
+    
+    //gyroVelW = getGyroZ() * DEG_TO_RAD;
 
 
-// initializing the global variables
-const uint16_t SensorCount = 8;
-uint16_t sensorValues[SensorCount];
-bool LineFollowing = false;
+    // Apply low-pass filter
+    //const float alpha = 0.8; // Filter coefficient (0-1)
+    //actualVelW = alpha * gyroVelW + (1 - alpha) * encoderVelW;
+    actualVelW = encoderVelW;
+}
 
 
-float lastError = 0;
-
-// Motor Base speeds
-int M1 = 30;
-int M2 = 30;
 
 
-// put function declarations here:
-void calibrateIRSensors();
-void leftEdgeISR();
-void rightEdgeISR();
 
 
-enum Task {
-  START,
-  BINARY_CODE_DETECTION,
-  LINE_FOLLOWING,
-  MAZE_NAVIGATION,
-  COLOR_LINE_FOLLOWING,
-  COIN_DROP
-};
 
-Task currentTask = START;
+
 
 void setup() {
   
   initBluetoothDebug();
-  robot.init();
+  initMotorPins();
+  initEncoders();
+  initIRSensors();
 
-  //IR Sensor Interrupt pins
-  pinMode(2, OUTPUT);
-  pinMode(3, OUTPUT);
-
-
-  attachInterrupt(digitalPinToInterrupt(2), leftEdgeISR, CHANGE);
-  attachInterrupt(digitalPinToInterrupt(3), rightEdgeISR, CHANGE);
-
-  qtr.setTypeAnalog();
-  qtr.setSensorPins((const uint8_t[]){A0, A1, A2, A3, A4, A5, A6, A7}, SensorCount);
-  qtr.setEmitterPin(2);
-
- 
+  Timer1.initialize(20000); // at 20 ms
+  Timer1.attachInterrupt(updateVelocities);
   
-  //calibrateIRSensors();
-
-
-
- 
-
   
-}
-
-void loop() {
-// Get and print raw values
-/*
-switch (currentTask) {
-    case START:
-        robot.moveForwardEnc(100, 100);
-        currentTask = BINARY_CODE_DETECTION;
-        break;
-}
-  */
-}
-
-// put function definitions here:
-
-void calibrateIRSensors() {
-  qtr.setTypeAnalog();
-  qtr.setSensorPins((const uint8_t[]){A0, A1, A2, A3, A4, A5, A6, A7}, SensorCount);
-  //qtr.setEmitterPin(22); // emitter is controlled by digital pin 22
+  delay(2000);
+  calibrateIRSensors();
+  //MoveDistanceForward(1000);
+  //turn(1);
 
 
-  for (uint8_t i = 0; i < 250; i++)
-  {
-    qtr.calibrate();
-    delay(20);
-  }
-} 
-
-void leftEdgeISR() {
-    if(!LineFollowing){
-        return;
-    }
-}    
-    
+   
    
 
-void rightEdgeISR() {
-   if(!LineFollowing){
-        return;
-    }
+  
+
+  
 }
+
+
+void loop() {
+  
+  FollowWhiteLine();
+  
+  //printIRData();
+  
+  //printEncoderData();
+
+  
+
+
+}
+
+
 
 
 
@@ -186,4 +178,26 @@ static unsigned long lastPrintTime = 0;
     }
 
   
+
+
+
+
+  //printing 
+  qtr
+
+  // Read QTR sensor values and get the line position
+    int16_t position = qtr.readLineWhite(sensorValues);
+
+    // Print QTR sensor values to Serial2
+    //Serial2.print("QTR Sensor Values: ");
+    for (uint8_t i = 0; i < SensorCount; i++) {
+        Serial2.print(sensorValues[i]);
+        if (i < SensorCount - 1) {
+            Serial2.print(", ");
+        }
+    }
+    Serial2.println();
+
+    // Add a delay to avoid printing too fast
+    delay(100);
 */
