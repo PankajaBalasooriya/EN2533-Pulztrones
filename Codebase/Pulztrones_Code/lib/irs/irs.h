@@ -14,7 +14,7 @@ extern bool rightSide;
 
 // Add these constants to irs.h
 #define JUNCTION_THRESHOLD 50  // Threshold for detecting line presence
-#define MIN_SENSORS_FOR_JUNCTION 6  // Minimum number of sensors that must detect line for junction
+#define MIN_SENSORS_FOR_JUNCTION 5  // Minimum number of sensors that must detect line for junction
 
 // Add these function declarations to irs.h
 bool isAtJunction(int leftIR, int rightIR);

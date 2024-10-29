@@ -91,8 +91,11 @@ void setup() {
   delay(2000);
   calibrateIRSensors();
   Buzzer_Toggle(100);
+
+  
   delay(5000);
   Buzzer_UniquePattern();
+  delay(2000);
   MoveDistanceForward(70);
   //turn(1);
   //Serial.begin(9600);
@@ -111,6 +114,9 @@ void setup() {
 void loop() {
   
   FollowWhiteLine();
+
+  
+  
   
 
   

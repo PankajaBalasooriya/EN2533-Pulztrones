@@ -11,8 +11,8 @@ const float WHEEL_BASE_MM = 193.0;
 const float COUNTS_PER_REVOLUTION = 824.0;
 const float MM_PER_COUNT = (PI * WHEEL_DIAMETER_MM) / COUNTS_PER_REVOLUTION;
 
-const int BASE_SPEED = 90;
-const int MAX_SPEED = 200;
+const int BASE_SPEED = 80;
+const int MAX_SPEED = 120;
 const int MIN_SPEED = 50;
 
 
@@ -71,16 +71,20 @@ void FollowWhiteLine() {
 
    if (T || L) {
         // Stop the robot
-        MoveDistanceForward(40);
+        
         MotorBreak();
+        delay(50);
         
     
         if (T) {
+            MoveDistanceForward(45);
             handleJunction('S');
         } else if (L) {
             if (leftSide) {
+                MoveDistanceForward(40);
                 handleJunction('L');
             } else {
+                MoveDistanceForward(25);
                 handleJunction('R');
             }
         }
@@ -134,8 +138,8 @@ void MoveDistanceForward(float distance){
         float total_correction = correction_enc;
 
         // Calculate motor speeds
-        float left_speed = BASE_SPEED + total_correction;
-        float right_speed = BASE_SPEED - total_correction;
+        float left_speed = BASE_SPEED - 10 + total_correction;
+        float right_speed = BASE_SPEED - 10 - total_correction;
 
         setMotorLPWM(left_speed);
         setMotorRPWM(right_speed);
@@ -150,13 +154,13 @@ void turn(int direction) {
 
 
     // Constants
-    const int COUNTS_PER_90_DEGREE = 1080; // Experimentally determined
+    const int COUNTS_PER_90_DEGREE = 1060; // Experimentally determined
     const float MAX_TURN_SPEED = 100; // Maximum turn speed
     const float MIN_TURN_SPEED = 70; // Minimum turn speed to overcome static friction
 
     // PD controller constants
-    const float Kp = 0.7; // Proportional gain
-    const float Kd = 0.1; // Derivative gain
+    const float Kp = 0.6; // Proportional gain
+    const float Kd = 1; // Derivative gain
 
     // Variables
     int target_encoder_diff = COUNTS_PER_90_DEGREE;
@@ -191,6 +195,13 @@ void turn(int direction) {
         // Set motor speeds based on direction
         float left_speed = (direction > 0) ? turn_speed : -turn_speed;
         float right_speed = (direction > 0) ? -turn_speed : turn_speed;
+
+        if(left_speed > 0){
+            left_speed = left_speed - 20;
+        }
+        else{
+            left_speed = left_speed + 20;
+        }
 
         // Apply motor speeds
         setMotorLPWM(left_speed);
