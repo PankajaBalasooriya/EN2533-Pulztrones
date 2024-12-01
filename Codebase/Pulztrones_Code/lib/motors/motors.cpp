@@ -14,7 +14,7 @@ const int enbPin = 4;  // Right motor PWM pin
  * Function to initialize motor control pins.
  * Sets all motor control and PWM pins as OUTPUT.
  */
-void initMotorPins() {
+void initMotors() {
   pinMode(leftMotorForward, OUTPUT);
   pinMode(leftMotorBackward, OUTPUT);
   pinMode(rightMotorForward, OUTPUT);
@@ -22,6 +22,8 @@ void initMotorPins() {
 
   pinMode(enaPin, OUTPUT);
   pinMode(enbPin, OUTPUT);
+
+  resetMotors();
 }
 
 

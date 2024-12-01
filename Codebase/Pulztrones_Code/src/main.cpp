@@ -13,14 +13,9 @@
 #include "controller.h"
 #include "data.h"
 #include "irs.h"
-#include "loop.h"
 #include "buzzer.h"
+#include "config.h"
 
-
-const float WHEEL_DIAMETER_MM = 66.0;
-const float WHEEL_BASE_MM = 193.0;
-const float COUNTS_PER_REVOLUTION = 824.0;
-const float MM_PER_COUNT = (PI * WHEEL_DIAMETER_MM) / COUNTS_PER_REVOLUTION;
 
 
 
@@ -67,10 +62,76 @@ void updateVelocities() {
 
 
 
+float steering_KP = 0.04;         // Proportional constant (tune as needed)
+float steering_KD = 0;         // Derivative constant (tune as needed)
+float last_error = 0.0;          // To store the previous error for derivative calculation
+const float SPEEDMAX_EXPLORE = 100.0; // Maximum speed for scaling
+const float ADJUST_LIMIT = 60.0; // Limit for adjustment value
+
+unsigned long last_loop_time = 0;  // To store the previous loop time
+float LOOP_INTERVAL = 0.01;       // Initialize with a default value (in seconds)
+
+int base_speed = 100;
+int MAX_MOTOR_SPEED = 200;
+int left_motor_speed = 0;
+int right_motor_speed = 0;
 
 
 
 
+float calculate_steering_adjustment(float error) {
+    // Calculate the proportional term
+    float pTerm = steering_KP * error;
+
+    // Calculate the derivative term
+    float dTerm = steering_KD * (error - last_error);
+    dTerm = dTerm / LOOP_INTERVAL;
+
+    // Combine proportional and derivative terms
+    float adjustment = (pTerm + dTerm);
+
+    // Scale adjustment by forward speed
+    adjustment *= (actualVelX) / SPEEDMAX_EXPLORE;
+
+    // Constrain the adjustment to the allowable range
+    //adjustment = constrain(adjustment, -ADJUST_LIMIT, ADJUST_LIMIT);
+
+    // Update the last error for the next iteration
+    last_error = error;
+
+    // Return the calculated adjustment
+    return adjustment;
+}
+
+// Variables for the omega controller
+float s_omega_error = 0;          // Current omega error
+float s_old_omega_error = 0;      // Previous omega error
+const float rotKP = 1.0;          // Proportional gain (tune as needed)
+const float rotKD = 0.1;          // Derivative gain (tune as needed)
+extern bool g_steering_enabled;   // Global flag to enable/disable steering
+
+
+// rotation controller
+float omega_controller(float omega, float steering_adjustment) {
+    float omega_error = actualVelW - omega;
+
+    //omega_error += steering_adjustment
+    // Add steering adjustment if steering is enabled
+    if (g_steering_enabled) {
+        omega_error += steering_adjustment;
+    }
+
+    // Calculate the derivative term
+    float d_term = omega_error - s_old_omega_error;
+
+    // Update the old omega error
+    s_old_omega_error = s_omega_error;
+
+    // Calculate the output using proportional and derivative terms
+    float output = rotKP * s_omega_error + rotKD * d_term / LOOP_INTERVAL;
+
+    return output;
+}
 
 
 
@@ -78,14 +139,13 @@ void updateVelocities() {
 void setup() {
   
   initBluetoothDebug();
-  initMotorPins();
-  initEncoders();
-  initIRSensors();
-  initBuzzer();
+  //initMotors();
+  //initEncoders();
+  //initIRSensors();
+  //initBuzzer();
   
 
-  //Timer1.initialize(40000); // at 40 ms
-  //Timer1.attachInterrupt(timerloop);
+  
   
   Buzzer_Toggle(100);
   delay(2000);
@@ -96,13 +156,11 @@ void setup() {
   delay(5000);
   Buzzer_UniquePattern();
   delay(2000);
-  MoveDistanceForward(70);
-  //turn(1);
-  //Serial.begin(9600);
   
+  
+  Timer1.initialize(30000); // at 30 ms
+  Timer1.attachInterrupt(updateVelocities);
 
-
-   
    
 
   
@@ -113,19 +171,40 @@ void setup() {
 
 void loop() {
   
-  FollowWhiteLine();
+//// Read QTR sensor values and get the line position
+    //int16_t position = readWhiteLinePosition();
+    int16_t position = readBlackLinePosition();
+    float error = position - 3500;
 
-  
-  
-  
+    float alpha = 0.1;
+    error = alpha * error + (1 - alpha) * error; // expoenential  moving average filter
 
-  
-  //printIRData();
-  
+    float steering_adjustment = calculate_steering_adjustment(error);
+
+    // Calculate motor speeds
+    left_motor_speed = base_speed + steering_adjustment;
+    right_motor_speed = base_speed - steering_adjustment;
+
+    // Constrain motor speeds to valid PWM range (-255 to 255)
+    left_motor_speed = constrain(left_motor_speed, -MAX_MOTOR_SPEED, MAX_MOTOR_SPEED);
+    right_motor_speed = constrain(right_motor_speed, -MAX_MOTOR_SPEED, MAX_MOTOR_SPEED);
+
+    // Set motor speeds
+    setMotorLPWM(left_motor_speed);
+    setMotorRPWM(right_motor_speed);
+
+    
+    // Format and send position data for Serial Plotter
+    Serial2.print(">");
+    Serial2.print("V:");
+    Serial2.print(actualVelX);
+    Serial2.print(",W:");
+    Serial2.print(actualVelW);
+    Serial2.print("\r\n");
+    
+    //delay(100); // Delay for smoother plotting
+
   //printEncoderData();
-
-  
-
 
 }
 
@@ -149,76 +228,3 @@ void loop() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-// line following loop
-/*
-int16_t position = qtr.readLineWhite(sensorValues);
-
-  int error = position - 3500;
-
-
-  int motorSpeed = calcPID_WL(error);
-  
-
-  int16_t m1Speed = M1 + motorSpeed;
-  int16_t m2Speed = M2 - motorSpeed;
-
-
-  // Ensure the motor speeds are within valid range
-  m1Speed = constrain(m1Speed, 0, 255);
-  m2Speed = constrain(m2Speed, 0, 255);
-
-  moveForward(m1Speed, m2Speed);
-  
-
-
-
-
-// encoder loop
-static unsigned long lastPrintTime = 0;
-    unsigned long currentTime = millis();
-
-    if (currentTime - lastPrintTime >= 100) {  
-        Serial2.print("Left Encoder: ");
-        Serial2.print(getLeftEncoderCounts());
-        Serial2.print(", Right Encoder: ");
-        Serial2.println(getRightEncoderCounts());
-        lastPrintTime = currentTime;
-    }
-
-  
-
-
-
-
-  //printing 
-  qtr
-
-  // Read QTR sensor values and get the line position
-    int16_t position = qtr.readLineWhite(sensorValues);
-
-    // Print QTR sensor values to Serial2
-    //Serial2.print("QTR Sensor Values: ");
-    for (uint8_t i = 0; i < SensorCount; i++) {
-        Serial2.print(sensorValues[i]);
-        if (i < SensorCount - 1) {
-            Serial2.print(", ");
-        }
-    }
-    Serial2.println();
-
-    // Add a delay to avoid printing too fast
-    delay(100);
-*/
