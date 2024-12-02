@@ -17,6 +17,11 @@ class Robot {
         Robot();
         void init();
 
+        void turn_IP180();
+        void turn_IP90R();
+        void turn_IP90L();
+
+
 };
 
 

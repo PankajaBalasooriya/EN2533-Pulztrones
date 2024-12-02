@@ -1,59 +1,134 @@
-#include <Arduino.h>
 #include "encoders.h"
 
+// Global encoder instance
+Encoders encoders;
 
-#define LEFT_ENCODER_PIN_A 19   
-#define LEFT_ENCODER_PIN_B 27   
+Encoders::Encoders(){
+    reset();
+}
 
-#define RIGHT_ENCODER_PIN_A 18 
-#define RIGHT_ENCODER_PIN_B 26 
-
-// Encoder counts
-volatile long leftEncoderCount = 0;
-volatile long rightEncoderCount = 0;
-
-// Interrupt Service Routine for left encoder channel A
-void leftEncoderISR() {
-    // Determine direction using channel B
-    if (digitalRead(LEFT_ENCODER_PIN_B) == HIGH) {
-        leftEncoderCount++;
-    } else {
-        leftEncoderCount--;
+void Encoders::reset() {
+    ATOMIC {
+      r_left_counter = 0;
+      r_right_counter = 0;
+      r_robot_distance = 0;
+      r_robot_angle = 0;
     }
 }
 
-// Interrupt Service Routine for right encoder channel A
-void rightEncoderISR() {
-    // Determine direction using channel B
-    if (digitalRead(RIGHT_ENCODER_PIN_B) == HIGH) {
-        rightEncoderCount++;
-    } else {
-        rightEncoderCount--;
+void Encoders::begin(){
+    pinMode(ENCODER_LEFT_CLK, INPUT);
+    pinMode(ENCODER_LEFT_B, INPUT);
+    pinMode(ENCODER_RIGHT_CLK, INPUT);
+    pinMode(ENCODER_RIGHT_B, INPUT);
+
+    attachInterrupt(digitalPinToInterrupt(ENCODER_LEFT_CLK), callback_left_encoder_isr, CHANGE);
+    attachInterrupt(digitalPinToInterrupt(ENCODER_RIGHT_CLK), callback_right_encoder_isr, CHANGE);
+    reset();
+}
+
+void Encoders::left_input_change() {
+    static bool oldA = false;
+    static bool oldB = false;
+    // bool newB = digitalReadFast(ENCODER_LEFT_B);
+    bool newB = fast_read_Encoder_LEFT_B();
+    bool newA = fast_read_Encoder_LEFT_CLK() ^ newB;
+    int delta = ENCODER_LEFT_POLARITY * ((oldA ^ newB) - (newA ^ oldB));
+    r_left_counter += delta;
+    oldA = newA;
+    oldB = newB;
+}
+
+void Encoders::right_input_change() {
+    static bool oldA = false;
+    static bool oldB = false;
+    // bool newB = digitalReadFast(ENCODER_RIGHT_B);
+    bool newB = fast_read_Encoder_RIGHT_B();
+    bool newA = fast_read_Encoder_RIGHT_CLK() ^ newB;
+    int delta = ENCODER_RIGHT_POLARITY * ((oldA ^ newB) - (newA ^ oldB));
+    r_right_counter += delta;
+    oldA = newA;
+    oldB = newB;
+}
+
+
+void Encoders::update() {
+    int left_delta = 0;
+    int right_delta = 0;
+    // Make sure values don't change while being read. Be quick.
+    ATOMIC {
+      left_delta = r_left_counter;
+      right_delta = r_right_counter;
+      r_left_counter = 0;
+      r_right_counter = 0;
     }
+    float left_change = left_delta * MM_PER_COUNT_LEFT;
+    float right_change = right_delta * MM_PER_COUNT_RIGHT;
+    r_fwd_change = 0.5 * (right_change + left_change);
+    r_robot_distance += r_fwd_change;
+    r_rot_change = (right_change - left_change) * DEG_PER_MM_DIFFERENCE;
+    r_robot_angle += r_rot_change;
+  }
+
+float Encoders::robot_distance() {
+    float distance;
+    ATOMIC {
+      distance = r_robot_distance;
+    }
+    return distance;
+  }
+
+  float Encoders::robot_speed() {
+    float speed;
+    ATOMIC {
+      speed = LOOP_FREQUENCY * r_fwd_change;
+    }
+    return speed;
+  }
+
+  float Encoders::robot_omega() {
+    float omega;
+    ATOMIC {
+      omega = LOOP_FREQUENCY * r_rot_change;
+    }
+    return omega;
+  }
+
+  float Encoders::robot_fwd_change() {
+    float distance;
+    ATOMIC {
+      distance = r_fwd_change;
+    }
+    return distance;
+  }
+
+  float Encoders::robot_rot_change() {
+    float distance;
+    ATOMIC {
+      distance = r_rot_change;
+    }
+    return distance;
+  }
+
+  float Encoders::robot_angle() {
+    float angle;
+    ATOMIC {
+      angle = r_robot_angle;
+    }
+    return angle;
+  }
+
+
+   
+
+
+
+
+// Callback functions
+void callback_left_encoder_isr() {
+    encoders.left_input_change();
 }
 
-void initEncoders() {
-    // Initialize encoder pins
-    pinMode(LEFT_ENCODER_PIN_A, INPUT_PULLUP);
-    pinMode(LEFT_ENCODER_PIN_B, INPUT_PULLUP);
-    
-    pinMode(RIGHT_ENCODER_PIN_A, INPUT_PULLUP);
-    pinMode(RIGHT_ENCODER_PIN_B, INPUT_PULLUP);
-
-    // Attach interrupts to encoder pins
-    attachInterrupt(digitalPinToInterrupt(LEFT_ENCODER_PIN_A), leftEncoderISR, RISING);
-    attachInterrupt(digitalPinToInterrupt(RIGHT_ENCODER_PIN_A), rightEncoderISR, RISING);
-}
-
-long getLeftEncoderCounts() {
-    return leftEncoderCount;
-}
-
-long getRightEncoderCounts() {
-    return rightEncoderCount;
-}
-
-void resetEncoders() {
-    leftEncoderCount = 0;
-    rightEncoderCount = 0;
+void callback_right_encoder_isr() {
+    encoders.right_input_change();
 }
