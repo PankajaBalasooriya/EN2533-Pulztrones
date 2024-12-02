@@ -28,14 +28,11 @@ void Systick::update() {
     encoders.update();
     motion.update();
     // sensors.update();
+
     
 
     // Update motor controllers with current motion and sensor feedback
-    controller.update_controllers(
-        motion.velocity(), 
-        motion.omega(),
-        sensors.get_steering_feedback()
-    );
+    controller.update_controllers(motion.velocity(), motion.omega(), get_steering_feedback());
 
     // Start ADC conversion cycle
     // adc.start_conversion_cycle();

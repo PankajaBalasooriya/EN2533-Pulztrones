@@ -45,6 +45,31 @@ float Controller::angle_controller(float steering_adjustment) {
 
   //Todo: Implemet feedforward control
 
+float Controller::calculate_steering_adjustment(float error) {
+    // Calculate the proportional term
+    float pTerm = STEERING_KP * error;
+
+    // Calculate the derivative term
+    float dTerm = STEERING_KD * (error - r_previous_steering_error);
+    dTerm = dTerm * LOOP_FREQUENCY;
+
+    // Combine proportional and derivative terms
+    float adjustment = (pTerm + dTerm);
+
+    // Scale adjustment by forward speed
+    adjustment *= forward.speed() / SPEEDMAX_EXPLORE;
+
+    // Constrain the adjustment to the allowable range
+    //adjustment = constrain(adjustment, -ADJUST_LIMIT, ADJUST_LIMIT);
+
+    // Update the last error for the next iteration
+    r_previous_steering_error = error;
+
+    // Return the calculated adjustment
+    return adjustment;
+}
+
+
 
 void Controller::update_controllers(float velocity, float omega, float steering_adjustment) {
     r_velocity = velocity;

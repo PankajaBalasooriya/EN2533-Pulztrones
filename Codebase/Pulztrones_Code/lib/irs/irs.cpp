@@ -43,3 +43,8 @@ int readWhiteLinePosition(){
     return qtr.readLineWhite(sensorValues);
 }
 
+float get_steering_feedback(){
+    float steering_adjustment = controller.calculate_steering_adjustment(readBlackLinePosition() - 3500);
+    return steering_adjustment;
+}
+    

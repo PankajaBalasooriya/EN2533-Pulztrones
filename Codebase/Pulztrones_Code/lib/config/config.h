@@ -3,16 +3,18 @@
 
 #include <Arduino.h>
 
-// Constants
-const float RADIANS_PER_DEGREE = 2 * PI / 360.0;
-const float DEGREES_PER_RADIAN = 360.0 / 2 * PI;
-const float DEG_PER_MM_DIFFERENCE = (180.0 / (WHEEL_BASE_MM * PI));
 
 
 // Wheel Dimensions
 const float WHEEL_DIAMETER_MM = 66.0;        // mm
 const float WHEEL_BASE_MM = 193.0;           // Distance between wheel centers in millimeters
 const float ROBOT_RADIUS = WHEEL_BASE_MM / 2.0;
+
+// Constants
+const float RADIANS_PER_DEGREE = 2 * PI / 360.0;
+const float DEGREES_PER_RADIAN = 360.0 / 2 * PI;
+const float DEG_PER_MM_DIFFERENCE = (180.0 / (WHEEL_BASE_MM * PI));
+
 
 // Encoder Specifications
 const float COUNTS_PER_REVOLUTION = 824.0;   // Encoder counts per complete wheel revolution
@@ -43,6 +45,8 @@ const int MIN_PWM_SPEED = 50;          // Minimum PWM speed setting
 const int BASE_SPEED = 80;
 const int MAX_SPEED = 120;
 const int MIN_SPEED = 50;
+
+const float SPEEDMAX_EXPLORE = 100; // Maximum speed for scaling
 
 
 // Control loop timing. Pre-calculate to save time in interrupts
@@ -77,7 +81,7 @@ const float ROT_KP = 0.5;
 const float ROT_KD = LOOP_FREQUENCY * 0;
 
 // controller constants for the steering controller
-const float STEERING_KP = 0.25;
+const float STEERING_KP = 0.04;
 const float STEERING_KD = 0.00;
 const float STEERING_ADJUST_LIMIT = 10.0;  // deg/s
 
@@ -116,11 +120,12 @@ const int ALPHA_SPIN_TURN = 3600;
  * these functions or use a suitable built-in function if it is fast enough
  */
 // Fast read macros for each encoder pin
+/*
 #define fast_read_Encoder_LEFT_B() ((int)((PINA & (1UL << 5)) ? HIGH : LOW))
 #define fast_read_Encoder_RIGHT_B() ((int)((PINA & (1UL << 4)) ? HIGH : LOW))
 #define fast_read_Encoder_LEFT_CLK() ((int)((PIND & (1UL << 2)) ? HIGH : LOW))
 #define fast_read_Encoder_RIGHT_CLK() ((int)((PIND & (1UL << 3)) ? HIGH : LOW))
-
+*/
 
 
 

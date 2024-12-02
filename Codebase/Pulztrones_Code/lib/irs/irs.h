@@ -3,6 +3,7 @@
 #define IRS_H
 
 #include <QTRSensors.h>
+#include "controller.h"
 
 // Declare the QTRSensors instance and functions
 extern QTRSensors qtr;
@@ -15,5 +16,6 @@ void initIRSensors();
 void calibrateIRSensors();
 int readBlackLinePosition();
 int readWhiteLinePosition();
+float get_steering_feedback()
 
 #endif

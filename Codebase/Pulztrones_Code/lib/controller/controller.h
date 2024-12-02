@@ -5,6 +5,7 @@
 #include "config.h"
 #include "encoders.h"
 #include "motors.h"
+#include "motion.h"
 
 class Controller;
 
@@ -58,13 +59,16 @@ class Controller {
    * voltages for the left and right motors.
    */
   void update_controllers(float velocity, float omega, float steering_adjustment);
+
+  float calculate_steering_adjustment(float error);
   
 
  private:
   bool r_controller_output_enabled = true;
-  bool r_feedforward_enabled = true;
+  bool r_feedforward_enabled = false;
   float r_previous_fwd_error = 0;
   float r_previous_rot_error = 0;
+  float r_previous_steering_error = 0;
   float r_fwd_error = 0;
   float r_rot_error = 0;
   float r_velocity = 0;

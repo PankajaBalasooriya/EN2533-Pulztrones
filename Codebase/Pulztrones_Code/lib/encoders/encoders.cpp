@@ -31,8 +31,10 @@ void Encoders::left_input_change() {
     static bool oldA = false;
     static bool oldB = false;
     // bool newB = digitalReadFast(ENCODER_LEFT_B);
-    bool newB = fast_read_Encoder_LEFT_B();
-    bool newA = fast_read_Encoder_LEFT_CLK() ^ newB;
+    //bool newB = fast_read_Encoder_LEFT_B();
+    bool newB = digitalRead(ENCODER_LEFT_B);
+    //bool newA = fast_read_Encoder_LEFT_CLK() ^ newB;
+    bool newA = digitalRead(ENCODER_LEFT_CLK) ^ newB;
     int delta = ENCODER_LEFT_POLARITY * ((oldA ^ newB) - (newA ^ oldB));
     r_left_counter += delta;
     oldA = newA;
@@ -43,8 +45,10 @@ void Encoders::right_input_change() {
     static bool oldA = false;
     static bool oldB = false;
     // bool newB = digitalReadFast(ENCODER_RIGHT_B);
-    bool newB = fast_read_Encoder_RIGHT_B();
-    bool newA = fast_read_Encoder_RIGHT_CLK() ^ newB;
+    //bool newB = fast_read_Encoder_RIGHT_B();
+    bool newB = digitalRead(ENCODER_RIGHT_B);
+    //bool newA = fast_read_Encoder_RIGHT_CLK() ^ newB;
+    bool newA = digitalRead(ENCODER_RIGHT_CLK) ^ newB;
     int delta = ENCODER_RIGHT_POLARITY * ((oldA ^ newB) - (newA ^ oldB));
     r_right_counter += delta;
     oldA = newA;

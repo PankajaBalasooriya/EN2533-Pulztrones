@@ -8,11 +8,8 @@ Robot::Robot() {
 }
 
 void Robot::init(){
-    initMotors();
-    //initEncoders();
-    initIRSensors();
-    initBuzzer();
-}
+    
+};
 
 void turn_IP180() {
     static int direction = 1;

@@ -4,6 +4,7 @@
 #include <Arduino.h>
 #include "profile.h"
 #include "controller.h"
+#include "encoders.h"
 
 /***
  *

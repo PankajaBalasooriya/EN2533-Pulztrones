@@ -6,18 +6,18 @@
 #include "motion.h"
 #include "motors.h"
 #include "controller.h"
-
+#include "irs.h"
 class Systick {
 public:
     // Initialize the systick timer
     void begin();
 
-    void NewFunction();
+
 
     // Update method for time-critical control functions
     void update();
 };
 
-extern Systick systick;
+
 
 #endif // SYSTICK_H
