@@ -1,7 +1,5 @@
 #include "encoders.h"
 
-// Global encoder instance
-Encoders encoders;
 
 Encoders::Encoders(){
     reset();
@@ -22,37 +20,25 @@ void Encoders::begin(){
     pinMode(ENCODER_RIGHT_CLK, INPUT);
     pinMode(ENCODER_RIGHT_B, INPUT);
 
-    attachInterrupt(digitalPinToInterrupt(ENCODER_LEFT_CLK), callback_left_encoder_isr, CHANGE);
-    attachInterrupt(digitalPinToInterrupt(ENCODER_RIGHT_CLK), callback_right_encoder_isr, CHANGE);
+    attachInterrupt(digitalPinToInterrupt(ENCODER_LEFT_CLK), callback_left_encoder_isr, RISING);
+    attachInterrupt(digitalPinToInterrupt(ENCODER_RIGHT_CLK), callback_right_encoder_isr, RISING);
     reset();
 }
 
 void Encoders::left_input_change() {
-    static bool oldA = false;
-    static bool oldB = false;
-    // bool newB = digitalReadFast(ENCODER_LEFT_B);
-    //bool newB = fast_read_Encoder_LEFT_B();
-    bool newB = digitalRead(ENCODER_LEFT_B);
-    //bool newA = fast_read_Encoder_LEFT_CLK() ^ newB;
-    bool newA = digitalRead(ENCODER_LEFT_CLK) ^ newB;
-    int delta = ENCODER_LEFT_POLARITY * ((oldA ^ newB) - (newA ^ oldB));
-    r_left_counter += delta;
-    oldA = newA;
-    oldB = newB;
+    if(digitalRead(ENCODER_LEFT_B) == HIGH){
+        r_left_counter++;
+    }else{
+        r_left_counter--;
+    }
 }
 
 void Encoders::right_input_change() {
-    static bool oldA = false;
-    static bool oldB = false;
-    // bool newB = digitalReadFast(ENCODER_RIGHT_B);
-    //bool newB = fast_read_Encoder_RIGHT_B();
-    bool newB = digitalRead(ENCODER_RIGHT_B);
-    //bool newA = fast_read_Encoder_RIGHT_CLK() ^ newB;
-    bool newA = digitalRead(ENCODER_RIGHT_CLK) ^ newB;
-    int delta = ENCODER_RIGHT_POLARITY * ((oldA ^ newB) - (newA ^ oldB));
-    r_right_counter += delta;
-    oldA = newA;
-    oldB = newB;
+    if(digitalRead(ENCODER_RIGHT_B) == HIGH){
+        r_right_counter++;
+    }else{
+        r_right_counter--;
+    }
 }
 
 

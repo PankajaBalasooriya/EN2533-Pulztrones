@@ -5,6 +5,7 @@
 #include "profile.h"
 #include "controller.h"
 #include "encoders.h"
+#include "motors.h"
 
 /***
  *

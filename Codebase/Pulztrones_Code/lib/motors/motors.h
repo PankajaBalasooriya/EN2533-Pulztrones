@@ -19,6 +19,6 @@ void MotorBreak();
 void moveForward(int SpeedM1, int SpeedM2);
 
 // Function to initialize motor control pins
-void initMotors();
+void initMotorPins();
 
 #endif /* MOTORS_H_ */

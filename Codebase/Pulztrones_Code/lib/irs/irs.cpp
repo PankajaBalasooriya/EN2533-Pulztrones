@@ -43,8 +43,58 @@ int readWhiteLinePosition(){
     return qtr.readLineWhite(sensorValues);
 }
 
+bool isAtJunction(int leftIR, int rightIR) {
+    // Count how many sensors detect the line
+    int sensorsOnLine = 0;
+    for (uint8_t i = 0; i < SensorCount; i++) {
+        if (sensorValues[i] < JUNCTION_THRESHOLD) {
+            sensorsOnLine++;
+        }
+    }
+    
+    return sensorsOnLine >= MIN_SENSORS_FOR_JUNCTION;
+
+    // if (leftIR < 100 && rightIR < 100){
+    //     return true;
+    // }
+    // return false;
+}
+
+bool isAtTJunction(bool j, int leftIR, int rightIR) {
+    // Check if most sensors detect the line (indicating a T junction)
+    // return j && sensorValues[0] < JUNCTION_THRESHOLD && 
+    //        sensorValues[SensorCount-1] < JUNCTION_THRESHOLD;
+    if (leftIR < 100 && rightIR < 100){
+        return true;
+    }
+    return false;
+}
+
+bool isAtLJunction(bool j, int leftIR, int rightIR) {
+    //For L junction, check if sensors on one side all detect the line
+    leftSide = (sensorValues[0] <JUNCTION_THRESHOLD &&
+                    sensorValues[1] < JUNCTION_THRESHOLD &&
+                    sensorValues[2] < JUNCTION_THRESHOLD);
+    
+    rightSide = (sensorValues[SensorCount-3] < JUNCTION_THRESHOLD &&
+                     sensorValues[SensorCount-2] < JUNCTION_THRESHOLD &&
+                     sensorValues[SensorCount-1] < JUNCTION_THRESHOLD);
+    
+    return j && (leftSide || rightSide);
+
+    // if(leftIR < 100 && rightIR > 100){
+    //     leftSide = true;
+    //     rightSide = false;
+    // }
+    // if(rightIR < 100 && leftIR > 100){
+    //     rightSide = true;
+    //     leftSide = false;
+    // }
+    // return j && (leftSide || rightSide);
+}
+
+
 float get_steering_feedback(){
     float steering_adjustment = controller.calculate_steering_adjustment(readBlackLinePosition() - 3500);
     return steering_adjustment;
 }
-    

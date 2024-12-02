@@ -1,7 +1,5 @@
 #include "profile.h"
 
-Profile forward;
-Profile rotation;
 
 void Profile::reset(){
     ATOMIC {

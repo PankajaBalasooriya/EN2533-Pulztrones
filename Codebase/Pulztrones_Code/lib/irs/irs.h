@@ -9,13 +9,26 @@
 extern QTRSensors qtr;
 const uint16_t SensorCount = 8;  // Define SensorCount as a constant
 extern uint16_t sensorValues[8];  // Use a fixed size for sensorValues
+extern bool leftSide;
+extern bool rightSide;
 
+
+// Add these constants to irs.h
+#define JUNCTION_THRESHOLD 50  // Threshold for detecting line presence
+#define MIN_SENSORS_FOR_JUNCTION 5  // Minimum number of sensors that must detect line for junction
+
+// Add these function declarations to irs.h
+bool isAtJunction(int leftIR, int rightIR);
+bool isAtTJunction(bool j, int leftIR, int rightIR);
+bool isAtLJunction(bool j, int leftIR, int rightIR);
+void handleJunction(char direction);  // 'L' for left, 'R' for right
 
 // Function declarations
 void initIRSensors();
 void calibrateIRSensors();
 int readBlackLinePosition();
 int readWhiteLinePosition();
-float get_steering_feedback()
+
+float get_steering_feedback();
 
 #endif

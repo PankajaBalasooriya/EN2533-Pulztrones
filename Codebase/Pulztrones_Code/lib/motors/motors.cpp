@@ -2,8 +2,8 @@
 #include <motors.h>
 
 // Initialize motor control pins
-const int rightMotorBackward = 22;
-const int rightMotorForward = 23;
+const int rightMotorBackward = 23;
+const int rightMotorForward = 22;
 const int leftMotorBackward = 24;
 const int leftMotorForward = 25;
 
@@ -14,7 +14,7 @@ const int enbPin = 4;  // Right motor PWM pin
  * Function to initialize motor control pins.
  * Sets all motor control and PWM pins as OUTPUT.
  */
-void initMotors() {
+void initMotorPins() {
   pinMode(leftMotorForward, OUTPUT);
   pinMode(leftMotorBackward, OUTPUT);
   pinMode(rightMotorForward, OUTPUT);
@@ -22,8 +22,6 @@ void initMotors() {
 
   pinMode(enaPin, OUTPUT);
   pinMode(enbPin, OUTPUT);
-
-  resetMotors();
 }
 
 

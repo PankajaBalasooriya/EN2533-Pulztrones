@@ -1,6 +1,6 @@
 #include "controller.h"
 
-Controller controller;
+
 
 void Controller::enable_controllers() {
   r_controller_output_enabled = true;
@@ -45,7 +45,7 @@ float Controller::angle_controller(float steering_adjustment) {
 
   //Todo: Implemet feedforward control
 
-float Controller::calculate_steering_adjustment(float error) {
+  float Controller::calculate_steering_adjustment(float error) {
     // Calculate the proportional term
     float pTerm = STEERING_KP * error;
 
@@ -57,7 +57,7 @@ float Controller::calculate_steering_adjustment(float error) {
     float adjustment = (pTerm + dTerm);
 
     // Scale adjustment by forward speed
-    adjustment *= forward.speed() / SPEEDMAX_EXPLORE;
+    adjustment *= forward.speed() / MAX_SPEED_LINE_FOLLOW;
 
     // Constrain the adjustment to the allowable range
     //adjustment = constrain(adjustment, -ADJUST_LIMIT, ADJUST_LIMIT);
@@ -68,6 +68,7 @@ float Controller::calculate_steering_adjustment(float error) {
     // Return the calculated adjustment
     return adjustment;
 }
+
 
 
 

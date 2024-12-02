@@ -1,4 +1,7 @@
 #include "BluetoothDebug.h"
+#include "encoders.h"
+#include "irs.h"
+#include "controller.h"
 
 // Initialize Bluetooth communication on Serial2
 void initBluetoothDebug(long baudRate) {
@@ -18,3 +21,29 @@ void sendBluetoothDataln(String data) {
 }
 
 
+
+
+
+
+/*
+void printIRData() {
+    // Read QTR sensor values and get the line position
+    int16_t position = readBlackLinePosition();
+
+    // Print QTR sensor values to Serial2
+    for (uint8_t i = 0; i < SensorCount; i++) {
+        Serial.print(sensorValues[i]);
+        if (i < SensorCount - 1) {
+            Serial.print(", ");
+        }
+    }
+    Serial.println();
+
+    delay(100);
+}
+*/
+
+
+
+    
+   

@@ -116,6 +116,3 @@ void Motion::wait_until_distance(float distance) {
     float target = forward.position() + distance;
     wait_until_position(target);
 }
-
-// Global motion object
-Motion motion;
