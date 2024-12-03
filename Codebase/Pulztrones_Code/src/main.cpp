@@ -15,6 +15,7 @@
 #include "profile.h"
 #include "motion.h"
 #include "robot.h"
+#include "sensors.h"
 
 Encoders encoders;
 Motion motion;
@@ -25,6 +26,7 @@ Profile rotation;
 Controller controller;
 
 Robot robot;
+
 
 
 
