@@ -2,10 +2,10 @@
 #include <motors.h>
 
 // Initialize motor control pins
-const int rightMotorBackward = 23;
-const int rightMotorForward = 22;
-const int leftMotorBackward = 24;
-const int leftMotorForward = 25;
+const int rightMotorBackward = 22;
+const int rightMotorForward = 23;
+const int leftMotorBackward = 25;
+const int leftMotorForward = 24;
 
 const int enaPin = 5;  // Left motor PWM pin
 const int enbPin = 4;  // Right motor PWM pin

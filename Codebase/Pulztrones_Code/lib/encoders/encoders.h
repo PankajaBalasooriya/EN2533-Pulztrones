@@ -71,6 +71,7 @@ class Encoders {
   float robot_fwd_change();
   float robot_rot_change();
   float robot_angle();
+  void getCounts(int& left_count, int& right_count);
 
  private:
   volatile float r_robot_distance;

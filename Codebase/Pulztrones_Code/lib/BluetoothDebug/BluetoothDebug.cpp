@@ -7,7 +7,7 @@
 void initBluetoothDebug(long baudRate) {
     Serial2.begin(baudRate);  // Initialize Bluetooth at the specified baud rate
     delay(1000);              // Give time for everything to initialize
-    Serial.println("Bluetooth Debugging Ready!");
+    Serial2.println("Bluetooth Debugging Ready!");
 }
 
 

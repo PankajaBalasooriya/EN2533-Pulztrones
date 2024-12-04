@@ -43,22 +43,23 @@ void setup() {
   
   
   Buzzer_Toggle(100);
-  delay(2000);
+  //delay(2000);
   calibrateIRSensors();
   Buzzer_Toggle(100);
 
   
-  delay(5000);
+  //delay(5000);
   Buzzer_UniquePattern();
-  delay(2000);
+  //delay(2000);
   
-
+  //Serial.begin(9600);
   Systick_begin();
   
   robot.run(2000);
 
 
-   
+   //setMotorLPWM(255);
+   //setMotorRPWM(255);
    
 
   

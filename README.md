@@ -16,8 +16,8 @@
 |----------------|----------------------|-----------------------|
 | 0              | Digital I/O (UART RX) |                       |
 | 1              | Digital I/O (UART TX) |                       |
-| 2              | Digital I/O, PWM      |                   |
-| 3              | Digital I/O, PWM      |                   |
+| 2              | Digital I/O, PWM      |                       |
+| 3              | Digital I/O, PWM      |                       |
 | 4              | Digital I/O, PWM      |        enbPin         |
 | 5              | Digital I/O, PWM      |        enaPin         |
 | 6              | Digital I/O, PWM      |                       |
@@ -30,12 +30,12 @@
 | 13             | Digital I/O           |                       |
 | 14             | Digital I/O (UART TX) |                       |
 | 15             | Digital I/O (UART RX) |                       |
-| 16             | Digital I/O (UART TX) |              |
-| 17             | Digital I/O (UART RX) |               |
+| 16             | Digital I/O (UART TX) |       Bluetooth       |
+| 17             | Digital I/O (UART RX) |       Bluetooth       |
 | 18             | Digital I/O (UART TX) |   RIGHT_ENCODER_PIN_A |
 | 19             | Digital I/O (UART RX) |    LEFT_ENCODER_PIN_A |
-| 20             | Digital I/O (I2C SDA) |          I2C          |
-| 21             | Digital I/O (I2C SCL) |          I2C          |
+| 20             | Digital I/O (I2C SDA) |          I2C   MUX    |
+| 21             | Digital I/O (I2C SCL) |          I2C   MUX    |
 | 22             | Digital I/O           |   rightMotorBackward  |
 | 23             | Digital I/O           |   rightMotorForward   |
 | 24             | Digital I/O           |   leftMotorBackward   |
@@ -44,14 +44,14 @@
 | 27             | Digital I/O           |   LEFT_ENCODER_PIN_B  |
 | 28             | Digital I/O           |    Ultrasonic Eco     |
 | 29             | Digital I/O           |    Ultrasonic Trigger |
-| 30             | Digital I/O           |                |
-| 31             | Digital I/O           |                 |
-| 32             | Digital I/O           |             |
-| 33             | Digital I/O           |              |
-| 34             | Digital I/O           |              |
-| 35             | Digital I/O           |                       |
-| 36             | Digital I/O           |                       |
-| 37             | Digital I/O           |                       |
+| 30             | Digital I/O           |         Buzzer        |
+| 31             | Digital I/O           |      I2c MUX A0       |
+| 32             | Digital I/O           |    I2c MUX A1         |
+| 33             | Digital I/O           |    I2c MUX A2         |
+| 34             | Digital I/O           |       B1              |
+| 35             | Digital I/O           |          B2           |
+| 36             | Digital I/O           |            B3         |
+| 37             | Digital I/O           |       I2c MUX RST     |
 | 38             | Digital I/O           |                       |
 | 39             | Digital I/O           |                       |
 | 40             | Digital I/O           |                       |
@@ -67,7 +67,7 @@
 | 50             | Digital I/O (SPI MISO)|                       |
 | 51             | Digital I/O (SPI MOSI)|                       |
 | 52             | Digital I/O (SPI SCK) |                       |
-| 53             | Digital I/O (SPI SS)  |                       |
+| 53             | Digital I/O (SPI SS)  |             NOT ALLOCATED          |
 | A0             | Analog Input          |      Raykha A0        |
 | A1             | Analog Input          |      Raykha A1        |
 | A2             | Analog Input          |      Raykha A2        |

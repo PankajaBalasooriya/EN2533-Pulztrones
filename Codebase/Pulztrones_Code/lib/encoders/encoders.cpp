@@ -35,9 +35,9 @@ void Encoders::left_input_change() {
 
 void Encoders::right_input_change() {
     if(digitalRead(ENCODER_RIGHT_B) == HIGH){
-        r_right_counter++;
-    }else{
         r_right_counter--;
+    }else{
+        r_right_counter++;
     }
 }
 
@@ -47,7 +47,7 @@ void Encoders::update() {
     int right_delta = 0;
     // Make sure values don't change while being read. Be quick.
     ATOMIC {
-      left_delta = r_left_counter;
+      left_delta = r_left_counter ;
       right_delta = r_right_counter;
       r_left_counter = 0;
       r_right_counter = 0;
@@ -107,6 +107,14 @@ float Encoders::robot_distance() {
     }
     return angle;
   }
+
+  void Encoders::getCounts(int& left_count, int& right_count) {
+    ATOMIC {
+        left_count = r_left_counter;
+        right_count = r_right_counter;
+    }
+}
+
 
 
    

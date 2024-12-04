@@ -33,22 +33,72 @@ const float DEGREES_PER_RADIAN = 360.0 / 2 * PI;
 //*** MOTION CONTROL CONSTANTS **********************************************//
 // forward motion controller constants
 const float FWD_KP = 0.5;
-const float FWD_KD = LOOP_FREQUENCY * 0.5;
+const float FWD_KD = LOOP_FREQUENCY * 0;
 
 // rotation motion controller constants
-const float ROT_KP = 0.5;
-const float ROT_KD = LOOP_FREQUENCY * 0.5;
+const float ROT_KP = 1;
+const float ROT_KD = LOOP_FREQUENCY * 0;
 
 // controller constants for the steering controller
 const float STEERING_KP = 0.04;
 const float STEERING_KD = 0.00;
 const float STEERING_ADJUST_LIMIT = 10.0;  // deg/s
 
+// Dynamic performance constants
+// There is a video describing how to get these numbers and calculate the feedforward
+// constants here: https://youtu.be/BrabDeHGsa0
+const float FWD_KM = 475.0;  // mm/s/Volt
+const float FWD_TM = 0.190;  // forward time constant
+const float ROT_KM = 775.0;  // deg/s/Volt
+const float ROT_TM = 0.210;  // rotation time constant
+
+
+// Motor Feedforward
+/***
+ * Speed Feedforward is used to add a drive voltage proportional to the motor speed
+ * The units are Volts per mm/s and the value will be different for each
+ * robot where the motor + gearbox + wheel diamter + robot weight are different
+ * You can experimentally determine a suitable value by turning off the controller
+ * and then commanding a set voltage to the motors. The same voltage is applied to
+ * each motor. Have the robot report its speed regularly or have it measure
+ * its steady state speed after a period of acceleration.
+ * Do this for several applied voltages from 0.5 Volts to 5 Volts in steps of 0.5V
+ * Plot a chart of steady state speed against voltage. The slope of that graph is
+ * the speed feedforward, SPEED_FF.
+ * Note that the line will not pass through the origin because there will be
+ * some minimum voltage needed just to ovecome friction and get the wheels to turn at all.
+ * That minimum voltage is the BIAS_FF. It is not dependent upon speed but is expressed
+ * here as a fraction for comparison.
+ *
+ * If you want to find out more about how these equations come about and the theory
+ * behind the method and its derivation have a look at this video:
+ * https://youtu.be/qKoPRacXk9Q
+ *
+ * And this paper:
+ * https://github.com/ukmars/motorlab/blob/main/documents/dirty-pd-controller.pdf
+ *
+ *
+ */
+const float MAX_MOTOR_VOLTS = 12.0;
+const float BATTERY_VOLTAGE = 12.0;
+
+const int MOTOR_MAX_PWM = 255;
+
+const float SPEED_FF = (1.0 / FWD_KM);
+const float ACC_FF = (FWD_TM / FWD_KM);
+const float BIAS_FF = 0.121;
+const float TOP_SPEED = (6.0 - BIAS_FF) / SPEED_FF;
+
+
 
 
 // encoder polarity is either 1 or -1 and is used to account for reversal of the encoder phases
 #define ENCODER_LEFT_POLARITY (1)
-#define ENCODER_RIGHT_POLARITY (1)
+#define ENCODER_RIGHT_POLARITY (-1)
+
+// motor polarity is either 1 or -1 and is used to account for reversal of the motor wiring
+#define MOTOR_LEFT_POLARITY (1)
+#define MOTOR_RIGHT_POLARITY (1)
 
 //Todo: implement rotation bias
 // The robot is likely to have wheels of different diameters or motors of slightly

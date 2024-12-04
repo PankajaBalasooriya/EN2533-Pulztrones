@@ -61,6 +61,51 @@ class Controller {
   void update_controllers(float velocity, float omega, float steering_adjustment);
 
   float calculate_steering_adjustment(float error);
+  
+
+  /**
+   * Feed forward attempts to work out what voltage the motors would need
+   * to run at the current speed and acceleration.
+   *
+   * Without this, the controller has a lot of work to do and will be
+   * much harder to tune for good performance.
+   *
+   * The drive train is not symmetric and there is significant stiction.
+   * If used with PID, a simpler, single value will be sufficient.
+   *
+   */
+  float leftFeedForward(float speed);
+  float rightFeedForward(float speed);
+
+  /**
+   * Once the motor voltages have been calculated, they need to be converted
+   * into suitable PWM values for the motor drivers.
+   *
+   * In this section, the calculations for that are done, taking into account
+   * the available battery voltage and the limits of the PWM hardware.
+   *
+   * If there is not enough voltage available from the battery, the output
+   * will just saturate and the motor will not get up to speed.
+   *
+   * Some people add code to light up an LED whenever the drive output is
+   * saturated.
+   */
+  int pwm_compensated(float desired_voltage, float battery_voltage);
+  void set_left_motor_volts(float volts);
+  void set_right_motor_volts(float volts);
+  
+  void set_left_motor_pwm(int pwm);
+  void set_right_motor_pwm(int pwm);
+
+  /**
+   * These getters are used for logging and debugging.
+   */
+  int get_fwd_millivolts();
+  int get_rot_millivolts();
+  float get_left_motor_volts();
+  float get_right_motor_volts();
+  void set_speeds(float velocity, float omega); 
+
 
   
 
@@ -75,8 +120,8 @@ class Controller {
   float r_velocity = 0;
   float r_omega = 0;
   // these are maintained only for logging
-  float r_left_motor_pwm = 0;
-  float r_right_motor_pwm = 0;
+  float r_left_motor_volts = 0;
+  float r_right_motor_volts = 0;
 };
 
 
