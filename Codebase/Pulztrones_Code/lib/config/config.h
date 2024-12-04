@@ -47,7 +47,8 @@ const float STEERING_ADJUST_LIMIT = 10.0;  // deg/s
 // Dynamic performance constants
 // There is a video describing how to get these numbers and calculate the feedforward
 // constants here: https://youtu.be/BrabDeHGsa0
-const float FWD_KM = 475.0;  // mm/s/Volt
+//const float FWD_KM = 475.0;  // mm/s/Volt
+const float FWD_KM = 30.5;  // mm/s/Volt
 const float FWD_TM = 0.190;  // forward time constant
 const float ROT_KM = 775.0;  // deg/s/Volt
 const float ROT_TM = 0.210;  // rotation time constant
@@ -152,5 +153,9 @@ const int ALPHA_SPIN_TURN = 3600;
 #define ATOMIC
 #endif
 //***************************************************************************//
+
+
+// time between logged lines when reporting is enabled (milliseconds)
+const int REPORTING_INTERVAL = 10;
 
 #endif

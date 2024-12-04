@@ -9,6 +9,7 @@
 #include "encoders.h"
 #include "irs.h"
 #include "sensors.h"
+#include "reporting.h"
 
 void Systick_begin();
 void Systick_update();
