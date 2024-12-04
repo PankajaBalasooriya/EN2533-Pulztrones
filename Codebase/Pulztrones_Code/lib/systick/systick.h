@@ -8,6 +8,7 @@
 #include "motion.h"
 #include "encoders.h"
 #include "irs.h"
+#include "sensors.h"
 
 void Systick_begin();
 void Systick_update();

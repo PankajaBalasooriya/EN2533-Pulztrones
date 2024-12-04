@@ -24,6 +24,7 @@ Motion motion;
 Profile forward;
 Profile rotation;
 Controller controller;
+Sensors sensors;
 
 Robot robot;
 
@@ -54,7 +55,7 @@ void setup() {
 
   Systick_begin();
   
-  robot.run(1000);
+  robot.run(2000);
 
 
    

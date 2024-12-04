@@ -33,11 +33,11 @@ const float DEGREES_PER_RADIAN = 360.0 / 2 * PI;
 //*** MOTION CONTROL CONSTANTS **********************************************//
 // forward motion controller constants
 const float FWD_KP = 0.5;
-const float FWD_KD = LOOP_FREQUENCY * 0;
+const float FWD_KD = LOOP_FREQUENCY * 0.5;
 
 // rotation motion controller constants
 const float ROT_KP = 0.5;
-const float ROT_KD = LOOP_FREQUENCY * 0;
+const float ROT_KD = LOOP_FREQUENCY * 0.5;
 
 // controller constants for the steering controller
 const float STEERING_KP = 0.04;

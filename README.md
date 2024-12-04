@@ -16,8 +16,8 @@
 |----------------|----------------------|-----------------------|
 | 0              | Digital I/O (UART RX) |                       |
 | 1              | Digital I/O (UART TX) |                       |
-| 2              | Digital I/O, PWM      |         IR L          |
-| 3              | Digital I/O, PWM      |         IR R          |
+| 2              | Digital I/O, PWM      |                   |
+| 3              | Digital I/O, PWM      |                   |
 | 4              | Digital I/O, PWM      |        enbPin         |
 | 5              | Digital I/O, PWM      |        enaPin         |
 | 6              | Digital I/O, PWM      |                       |
@@ -30,8 +30,8 @@
 | 13             | Digital I/O           |                       |
 | 14             | Digital I/O (UART TX) |                       |
 | 15             | Digital I/O (UART RX) |                       |
-| 16             | Digital I/O (UART TX) | HC-05 RX              |
-| 17             | Digital I/O (UART RX) | HC-05 TX              |
+| 16             | Digital I/O (UART TX) |              |
+| 17             | Digital I/O (UART RX) |               |
 | 18             | Digital I/O (UART TX) |   RIGHT_ENCODER_PIN_A |
 | 19             | Digital I/O (UART RX) |    LEFT_ENCODER_PIN_A |
 | 20             | Digital I/O (I2C SDA) |          I2C          |
@@ -42,13 +42,13 @@
 | 25             | Digital I/O           |   leftMotorForward    |
 | 26             | Digital I/O           |   RIGHT_ENCODER_PIN_B |
 | 27             | Digital I/O           |   LEFT_ENCODER_PIN_B  |
-| 28             | Digital I/O           |  S0_PIN               |
-| 29             | Digital I/O           |  S1_PIN               |
-| 30             | Digital I/O           |  S2_PIN               |
-| 31             | Digital I/O           |  S3_PIN               |
-| 32             | Digital I/O           |  OUT_PIN_R           |
-| 33             | Digital I/O           |  OUT_PIN _C            |
-| 34             | Digital I/O           |  OUT_PIN_L            |
+| 28             | Digital I/O           |    Ultrasonic Eco     |
+| 29             | Digital I/O           |    Ultrasonic Trigger |
+| 30             | Digital I/O           |                |
+| 31             | Digital I/O           |                 |
+| 32             | Digital I/O           |             |
+| 33             | Digital I/O           |              |
+| 34             | Digital I/O           |              |
 | 35             | Digital I/O           |                       |
 | 36             | Digital I/O           |                       |
 | 37             | Digital I/O           |                       |

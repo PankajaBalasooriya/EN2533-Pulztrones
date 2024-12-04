@@ -8,7 +8,8 @@ void Systick_begin(){
 void Systick_update(){
     encoders.update();
     motion.update();
+    sensors.update();
     //Serial2.println(encoders.robot_speed());
 
-    controller.update_controllers(motion.velocity(), motion.omega(), get_steering_feedback());
+    controller.update_controllers(motion.velocity(), motion.omega(), sensors.get_steering_feedback());
 }

@@ -6,9 +6,13 @@
 #include "config.h"
 
 enum {
-  LINE_FOLLOW,
-  STEER_NORMAL
+  WHITE_LINE_FOLLOW,
+  STEER_NORMAL,
+  BLACK_LINE_FOLLOW,
 };
+
+class Sensors;
+extern Sensors sensors;
 
 class Sensors {
     public:
@@ -50,6 +54,8 @@ class Sensors {
    * @return robot cross-track-error. Too far left is negative.
    */
   void update();
+
+  int normal_steering_error();
 
        
     private:

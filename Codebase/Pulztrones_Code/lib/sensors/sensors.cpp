@@ -1,5 +1,6 @@
 #include "sensors.h"
 
+
 float Sensors::get_steering_feedback() {
     return r_steering_adjustment;
   }
@@ -24,12 +25,24 @@ float Sensors::get_steering_feedback() {
     g_steering_mode = mode;
   }
 
+  //Todo: impelemt for white black and color steering + implement without using the library
+  // line following error
+  int Sensors::normal_steering_error(){
+
+    if (g_steering_mode == WHITE_LINE_FOLLOW) {
+      return readWhiteLinePosition() - 3500;
+    } else if (g_steering_mode == BLACK_LINE_FOLLOW) {
+      return readBlackLinePosition() - 3500;
+    } else
+    {
+      return 0;
+    }
+  }
+
+
 
   void Sensors::update(){
     // calculate the alignment errors - too far left is negative
-    //Todo: Implement for white black and steering
-    int error = readBlackLinePosition() - 3500;
-
-    r_cross_track_error = error;
+    r_cross_track_error = normal_steering_error();
     calculate_steering_adjustment();
   }
