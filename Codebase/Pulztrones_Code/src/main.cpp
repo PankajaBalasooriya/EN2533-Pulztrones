@@ -16,6 +16,7 @@
 #include "motion.h"
 #include "robot.h"
 #include "sensors.h"
+#include "reporting.h"
 
 Encoders encoders;
 Motion motion;
@@ -25,6 +26,8 @@ Profile forward;
 Profile rotation;
 Controller controller;
 Sensors sensors;
+Reporter reporter;
+
 
 Robot robot;
 
@@ -54,12 +57,14 @@ void setup() {
   
   //Serial.begin(9600);
   Systick_begin();
-  
-  robot.run(2000);
+
+  //reporter.set_printer(Serial2);
+  //reporter.report_profile_header();
+  //robot.run(2000);
 
 
-   //setMotorLPWM(255);
-   //setMotorRPWM(255);
+   setMotorLPWM(225);
+   setMotorRPWM(225);
    
 
   

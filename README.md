@@ -20,7 +20,7 @@
 | 3              | Digital I/O, PWM      |                       |
 | 4              | Digital I/O, PWM      |        enbPin         |
 | 5              | Digital I/O, PWM      |        enaPin         |
-| 6              | Digital I/O, PWM      |                       |
+| 6              | Digital I/O, PWM      |    Mechanism Servo    |
 | 7              | Digital I/O           |                       |
 | 8              | Digital I/O           |                       |
 | 9              | Digital I/O, PWM      |                       |
@@ -51,12 +51,12 @@
 | 34             | Digital I/O           |       B1              |
 | 35             | Digital I/O           |          B2           |
 | 36             | Digital I/O           |            B3         |
-| 37             | Digital I/O           |       I2c MUX RST     |
-| 38             | Digital I/O           |                       |
-| 39             | Digital I/O           |                       |
-| 40             | Digital I/O           |                       |
-| 41             | Digital I/O           |                       |
-| 42             | Digital I/O           |                       |
+| 37             | Digital I/O           |       BLUE LED      |
+| 38             | Digital I/O           |       S0              |
+| 39             | Digital I/O           |        OUT            |
+| 40             | Digital I/O           |         S2            |
+| 41             | Digital I/O           |           S3          |
+| 42             | Digital I/O           |            S1         |
 | 43             | Digital I/O           |                       |
 | 44             | Digital I/O, PWM      |                       |
 | 45             | Digital I/O, PWM      |                       |
@@ -67,7 +67,7 @@
 | 50             | Digital I/O (SPI MISO)|                       |
 | 51             | Digital I/O (SPI MOSI)|                       |
 | 52             | Digital I/O (SPI SCK) |                       |
-| 53             | Digital I/O (SPI SS)  |             NOT ALLOCATED          |
+| 53             | Digital I/O (SPI SS)  |    RED LED            |
 | A0             | Analog Input          |      Raykha A0        |
 | A1             | Analog Input          |      Raykha A1        |
 | A2             | Analog Input          |      Raykha A2        |

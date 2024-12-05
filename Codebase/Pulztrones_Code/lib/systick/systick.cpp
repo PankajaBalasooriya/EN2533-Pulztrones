@@ -13,8 +13,11 @@ void Systick_update(){
     //encoders.getCounts(left_count, right_count);
     motion.update();
     sensors.update();
-    //Serial.println(encoders.robot_speed());
+    Serial2.print(">");
+    Serial2.print("Speed:");
+    Serial2.println(encoders.robot_speed());
     
 
-    controller.update_controllers(motion.velocity(), motion.omega(), sensors.get_steering_feedback());
+    //controller.update_controllers(motion.velocity(), motion.omega(), sensors.get_steering_feedback());
+    //reporter.report_profile();
 }
