@@ -12,7 +12,7 @@ void setup() {
   Serial.println("Starting VL53L0X sensors with PCA9548A multiplexer");
 
   // Initialize each sensor on a different channel
-  for (uint8_t i = 0; i < 3; i++) {
+  for (uint8_t i = 2; i < 3; i++) {
     selectChannel(i);
     if (!vl53[i].init()) {
       Serial.print(F("Failed to initialize sensor "));
