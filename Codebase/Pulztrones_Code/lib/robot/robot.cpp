@@ -1,6 +1,6 @@
 #include "robot.h"
-#include "motion.h"
-#include "config.h"
+
+
 
 Robot::Robot() {
     // Initialize the robot
@@ -11,22 +11,21 @@ void Robot::init(){
     
 };
 
-void Robot::turn_IP180() {
-    static int direction = 1;
-    direction *= -1;  // alternate direction each time it is called
-    motion.spin_turn(direction * 180, OMEGA_SPIN_TURN, ALPHA_SPIN_TURN);
+void Robot::set_task(Task task) {
+    task = task;
   }
 
-void Robot::turn_IP90R() {
-    motion.spin_turn(-90, OMEGA_SPIN_TURN, ALPHA_SPIN_TURN);
-  }
+void Robot::turn_right_90(){
+    turn_right_90();
+}
 
-  void Robot::turn_IP90L() {
-    motion.spin_turn(90, OMEGA_SPIN_TURN, ALPHA_SPIN_TURN);
-  }
+void Robot::turn_left_90(){
+    turn_left_90();
+}
 
-void Robot::run(int mm) {
-    motion.reset_drive_system();
-    motion.move(mm, 200, 0, 1000);
-    motion.reset_drive_system();
-  }
+void Robot::turn_left_180(){
+    turn_left_180();
+}
+
+
+

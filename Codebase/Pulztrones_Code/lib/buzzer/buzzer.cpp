@@ -1,22 +1,23 @@
 #include "buzzer.h"
 
-int buzzerPin = 30;
+int BUZZER_PIN = 30;
+
 
 void initBuzzer() {
-    pinMode(buzzerPin, OUTPUT);
-    digitalWrite(buzzerPin, LOW);
+    pinMode(BUZZER_PIN, OUTPUT);
+    digitalWrite(BUZZER_PIN, LOW);
 }
 
 
 void Buzzer_On()
 {
-    digitalWrite(buzzerPin, HIGH);
+    digitalWrite(BUZZER_PIN, HIGH);
 }
 
 // Turn off the buzzer (PC15 low)
 void Buzzer_Off()
 {
-    digitalWrite(buzzerPin, LOW);
+    digitalWrite(BUZZER_PIN, LOW);
 }
 
 // Toggle the buzzer state with a specified delay

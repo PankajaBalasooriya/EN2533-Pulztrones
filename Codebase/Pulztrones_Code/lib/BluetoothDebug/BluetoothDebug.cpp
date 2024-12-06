@@ -1,13 +1,13 @@
 #include "BluetoothDebug.h"
 #include "encoders.h"
 #include "irs.h"
-#include "controller.h"
+
 
 // Initialize Bluetooth communication on Serial2
 void initBluetoothDebug(long baudRate) {
     Serial2.begin(baudRate);  // Initialize Bluetooth at the specified baud rate
     delay(1000);              // Give time for everything to initialize
-    Serial2.println("Bluetooth Debugging Ready!");
+    Serial.println("Bluetooth Debugging Ready!");
 }
 
 
@@ -20,12 +20,19 @@ void sendBluetoothDataln(String data) {
     Serial2.println(data);
 }
 
+void printEncoderData() {
+    static unsigned long lastPrintTime = 0;
+    unsigned long currentTime = millis();
 
+    if (currentTime - lastPrintTime >= 100) {
+        Serial2.print("Left Encoder: ");
+        Serial2.print(getLeftEncoderCounts());
+        Serial2.print(", Right Encoder: ");
+        Serial2.println(getRightEncoderCounts());
+        lastPrintTime = currentTime;
+    }
+}
 
-
-
-
-/*
 void printIRData() {
     // Read QTR sensor values and get the line position
     int16_t position = readBlackLinePosition();
@@ -41,9 +48,3 @@ void printIRData() {
 
     delay(100);
 }
-*/
-
-
-
-    
-   

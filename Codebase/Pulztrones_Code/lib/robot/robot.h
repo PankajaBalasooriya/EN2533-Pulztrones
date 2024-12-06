@@ -6,21 +6,27 @@
 #include "encoders.h"
 #include "irs.h"
 #include "buzzer.h"
+#include "config.h"
+#include "controller.h"
 
-class Robot ;
+class Robot;
 extern Robot robot;
 
 class Robot {
     public:
-        enum State{LINE_FOLLOW, BARCODE, STOP};
+        enum Task{START_SQUARE,LINE_FOLLOW, BARCODE, STOP};
 
         Robot();
         void init();
 
-        void turn_IP180();
-        void turn_IP90R();
-        void turn_IP90L();
-        void run(int mm);
+        void set_task(Task task);
+        void turn_right_90();
+        void turn_left_90();
+        void turn_left_180();
+        
+    
+    private:
+        volatile int task = LINE_FOLLOW;
 
 
 };

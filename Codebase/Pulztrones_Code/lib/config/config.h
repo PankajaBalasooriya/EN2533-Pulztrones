@@ -3,9 +3,7 @@
 
 #include <Arduino.h>
 
-// Control loop timing. Pre-calculate to save time in interrupts
-const float LOOP_FREQUENCY = 50.0; //Hz
-const float LOOP_INTERVAL = (1.0 / LOOP_FREQUENCY);
+
 
 //***** ROBOT SPECIFICATIONS *****************************************************//
 const float WHEEL_DIAMETER_MM = 66.0;
@@ -30,10 +28,11 @@ const float DEGREES_PER_RADIAN = 360.0 / 2 * PI;
 
 
 //***** IO PINS *****************************************************//
-#define ENCODER_LEFT_CLK 19  // Maps to PIND, bit 2
-#define ENCODER_RIGHT_CLK 18 // Maps to PIND, bit 3
-#define ENCODER_LEFT_B 27    // Maps to PINA, bit 5
-#define ENCODER_RIGHT_B 26   // Maps to PINA, bit 4
+const int LEFT_MARKER_SENSOR = A9;
+const int RIGHT_MARKER_SENSOR = A8;
+
+
+
 
 
 
@@ -41,63 +40,32 @@ const float DEGREES_PER_RADIAN = 360.0 / 2 * PI;
 //*** MOTION CONTROL CONSTANTS **********************************************//
 // forward motion controller constants
 const float FWD_KP = 0.5;
-const float FWD_KD = LOOP_FREQUENCY * 0;
+const float FWD_KD = 0;
 
-// rotation motion controller constants
-const float ROT_KP = 0.05;
-const float ROT_KD = LOOP_FREQUENCY * 0.25;
+// Constants
+const int COUNTS_PER_90_DEGREE = 1060; // Experimentally determined
+
+const int COUNTS_PER_90_DEGREE_RIGHT = 1100; // Experimentally determined
+const int COUNTS_PER_90_DEGREE_LEFT = 1080; // Experimentally determined
+
+const int COUNTS_PER_180_DEGREE_LEFT = 2200;
+
+
+const float MAX_TURN_SPEED = 100; // Maximum turn speed
+const float MIN_TURN_SPEED = 70; // Minimum turn speed to overcome static friction
+
+// PD controller constants
+const float Kp_TURN = 0.6; // Proportional gain
+const float Kd_TURN = 1; // Derivative gain
 
 // controller constants for the steering controller
 const float STEERING_KP = 0.04;
 const float STEERING_KD = 0.00;
 const float STEERING_ADJUST_LIMIT = 10.0;  // deg/s
 
-// Dynamic performance constants
-// There is a video describing how to get these numbers and calculate the feedforward
-// constants here: https://youtu.be/BrabDeHGsa0
-//const float FWD_KM = 475.0;  // mm/s/Volt
-const float FWD_KM = 30.5;  // mm/s/Volt
-const float FWD_TM = 0.190;  // forward time constant
-const float ROT_KM = 775.0;  // deg/s/Volt
-const float ROT_TM = 0.210;  // rotation time constant
 
-
-// Motor Feedforward
-/***
- * Speed Feedforward is used to add a drive voltage proportional to the motor speed
- * The units are Volts per mm/s and the value will be different for each
- * robot where the motor + gearbox + wheel diamter + robot weight are different
- * You can experimentally determine a suitable value by turning off the controller
- * and then commanding a set voltage to the motors. The same voltage is applied to
- * each motor. Have the robot report its speed regularly or have it measure
- * its steady state speed after a period of acceleration.
- * Do this for several applied voltages from 0.5 Volts to 5 Volts in steps of 0.5V
- * Plot a chart of steady state speed against voltage. The slope of that graph is
- * the speed feedforward, SPEED_FF.
- * Note that the line will not pass through the origin because there will be
- * some minimum voltage needed just to ovecome friction and get the wheels to turn at all.
- * That minimum voltage is the BIAS_FF. It is not dependent upon speed but is expressed
- * here as a fraction for comparison.
- *
- * If you want to find out more about how these equations come about and the theory
- * behind the method and its derivation have a look at this video:
- * https://youtu.be/qKoPRacXk9Q
- *
- * And this paper:
- * https://github.com/ukmars/motorlab/blob/main/documents/dirty-pd-controller.pdf
- *
- *
- */
-const float MAX_MOTOR_VOLTS = 12.0;
-const float BATTERY_VOLTAGE = 12.0;
 
 const int MOTOR_MAX_PWM = 255;
-
-const float SPEED_FF = (1.0 / FWD_KM);
-const float ACC_FF = (FWD_TM / FWD_KM);
-const float BIAS_FF = 0.121;
-const float TOP_SPEED = (6.0 - BIAS_FF) / SPEED_FF;
-
 
 
 
@@ -109,26 +77,12 @@ const float TOP_SPEED = (6.0 - BIAS_FF) / SPEED_FF;
 #define MOTOR_LEFT_POLARITY (1)
 #define MOTOR_RIGHT_POLARITY (1)
 
-//Todo: implement rotation bias
-// The robot is likely to have wheels of different diameters or motors of slightly
-// different characteristics and that must be compensated for if the robot is to
-// reliably drive in a straight line.
-// This number adjusts the encoder count and must be  added to the right
-// and subtracted from the left motor.
-//const float ROTATION_BIAS = 0.0025;  // Negative makes robot curve to left
-//const float MM_PER_COUNT_LEFT = (1 - ROTATION_BIAS) * MM_PER_COUNT;
-//const float MM_PER_COUNT_RIGHT = (1 + ROTATION_BIAS) * MM_PER_COUNT;
-//const float MM_PER_COUNT_LEFT =  MM_PER_COUNT;
-//const float MM_PER_COUNT_RIGHT = MM_PER_COUNT;
-
 
 
 //***** PERFORMANCE CONSTANTS************************************************//
-// search and run speeds in mm/s and mm
-const int MAX_SPEED_LINE_FOLLOW = 150;
-
-const int OMEGA_SPIN_TURN = 360;
-const int ALPHA_SPIN_TURN = 3600;
+const int BASE_SPEED = 80;
+const int MAX_SPEED = 120;
+const int MIN_SPEED = 50;
 
 
 /******************************************************************************
@@ -163,7 +117,6 @@ const int ALPHA_SPIN_TURN = 3600;
 //***************************************************************************//
 
 
-// time between logged lines when reporting is enabled (milliseconds)
-const int REPORTING_INTERVAL = 10;
+
 
 #endif

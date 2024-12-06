@@ -1,73 +1,53 @@
 #include <Arduino.h>
 
 #include <QTRSensors.h>
+#include <MPU6500_WE.h>
+#include <TimerOne.h>
+
 
 #include "motors.h"
 #include "BluetoothDebug.h"
 #include "PID.h"
 #include "encoders.h"
+#include "color.h"
 #include "controller.h"
 #include "irs.h"
 #include "buzzer.h"
-
-#include "systick.h"
-#include "config.h"
-#include "profile.h"
-#include "motion.h"
 #include "robot.h"
-#include "sensors.h"
-#include "reporting.h"
-
-Encoders encoders;
-Motion motion;
-
-
-Profile forward;
-Profile rotation;
-Controller controller;
-Sensors sensors;
-Reporter reporter;
-
-
-Robot robot;
 
 
 
 
+  
 
 void setup() {
   
   initBluetoothDebug();
   initMotorPins();
-
+  initEncoders();
   initIRSensors();
   initBuzzer();
   
-  //encoders.begin();
-  
+
+  //Timer1.initialize(40000); // at 40 ms
+  //Timer1.attachInterrupt(timerloop);
   
   Buzzer_Toggle(100);
   delay(2000);
-  //calibrateIRSensors();
+ // calibrateIRSensors();
   Buzzer_Toggle(100);
 
   
   //delay(5000);
-  Buzzer_UniquePattern();
-  //delay(2000);
-  //sensors.set_steering_mode(WHITE_LINE_FOLLOW);
+  //Buzzer_UniquePattern();
+  delay(2000);
+  //MoveDistanceForward(200);
+  //turn_left_180();
   //Serial.begin(9600);
-  Systick_begin();
-
-  //reporter.set_printer(Serial2);
-  //reporter.report_profile_header();
-  robot.run(500);
-  //robot.turn_IP90R();
+  
 
 
-   //setMotorLPWM(0);
-   //setMotorRPWM(-100);
-   
+   Counting_and_Line_Navigation();
 
   
 
@@ -76,8 +56,12 @@ void setup() {
 
 
 void loop() {
-  
-  
+// Serial2.print(">");  
+// Serial2.print("L_IR:");
+// Serial2.print(analogRead(LEFT_MARKER_SENSOR));
+// Serial2.print("R_IR:");
+// Serial2.print(analogRead(RIGHT_MARKER_SENSOR));
+// Serial2.print("\r\n");
 
 
 }

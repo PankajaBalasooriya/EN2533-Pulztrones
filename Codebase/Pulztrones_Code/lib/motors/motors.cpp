@@ -10,6 +10,7 @@ const int leftMotorForward = 24;
 const int enaPin = 5;  // Left motor PWM pin
 const int enbPin = 4;  // Right motor PWM pin
 
+
 /*
  * Function to initialize motor control pins.
  * Sets all motor control and PWM pins as OUTPUT.
@@ -89,3 +90,4 @@ void MotorBreak() {
 
     resetMotors();
 }
+

@@ -1,185 +1,426 @@
 #include "controller.h"
+#include "motors.h"
+#include "PID.h"
+#include "encoders.h"
+#include "color.h"
+#include "irs.h"
+#include "config.h"
 
 
+void FollowBlackLine() {
+    // Read the position of the line (0 to 7000)
+    int position = readBlackLinePosition();
 
-void Controller::enable_controllers() {
-  r_controller_output_enabled = true;
+    // Calculate the error from the center
+    int error = position - 3500;
+
+
+    // Calculate the PID correction value
+    float pidOutput = PIDLine(error);
+    //Serial2.println(pidOutput);
+
+    // Calculate motor speeds
+    int leftSpeed = BASE_SPEED + pidOutput;
+    int rightSpeed = BASE_SPEED - pidOutput;
+
+    // Constrain motor speeds to the valid range
+    leftSpeed = constrain(leftSpeed, MIN_SPEED, MAX_SPEED);
+    rightSpeed = constrain(rightSpeed, MIN_SPEED, MAX_SPEED);
+
+    // Apply speeds to motors
+    moveForward(leftSpeed, rightSpeed);
 }
 
-void Controller::disable_controllers() {
-    r_controller_output_enabled = false;
-}
+void FollowWhiteLine() {
+    // Read the position of the line (0 to 7000)
+    int position = readWhiteLinePosition();
 
-void Controller::reset_controllers() {
-    r_fwd_error = 0;
-    r_rot_error = 0;
-    r_previous_fwd_error = 0;
-    r_previous_rot_error = 0;
-}
-
-void Controller::stop() {
-    set_left_motor_volts(0);
-    set_right_motor_volts(0);
-}
-
-float Controller::position_controller(){
-    float increment = r_velocity * LOOP_INTERVAL;
-    r_fwd_error += increment - encoders.robot_fwd_change();
-    float diff = r_fwd_error - r_previous_fwd_error;
-    r_previous_fwd_error = r_fwd_error;
-    float output = FWD_KP * r_fwd_error + FWD_KD * diff;
-    return output;
-}
-
-float Controller::angle_controller(float steering_adjustment) {
-    float increment = r_omega * LOOP_INTERVAL;
-    r_rot_error += increment - encoders.robot_rot_change();
-    r_rot_error += steering_adjustment;
-    float diff = r_rot_error - r_previous_rot_error;
-    r_previous_rot_error = r_rot_error;
-    float output = ROT_KP * r_rot_error + ROT_KD * diff;
-    return output;
-  }
-
-  //Todo: Implemet feedforward control
-  float Controller::leftFeedForward(float speed) {
-    static float oldSpeed = speed;
-    float leftFF = speed * SPEED_FF;
-    if (speed > 0) {
-      leftFF += BIAS_FF;
-    } else if (speed < 0) {
-      leftFF -= BIAS_FF;
-    } else {
-      // No bias when the speed is 0
-    }
-    float acc = (speed - oldSpeed) * LOOP_FREQUENCY;
-    oldSpeed = speed;
-    float accFF = ACC_FF * acc;
-    leftFF += accFF;
-    return leftFF;
-  }
-
-  float Controller::rightFeedForward(float speed) {
-    static float oldSpeed = speed;
-    float rightFF = speed * SPEED_FF;
-    if (speed > 0) {
-      rightFF += BIAS_FF;
-    } else if (speed < 0) {
-      rightFF -= BIAS_FF;
-    } else {
-      // No bias when the speed is 0
-    }
-    float acc = (speed - oldSpeed) * LOOP_FREQUENCY;
-    oldSpeed = speed;
-    float accFF = ACC_FF * acc;
-    rightFF += accFF;
-    return rightFF;
-  }
-  
-
-
-
-
-void Controller::update_controllers(float velocity, float omega, float steering_adjustment) {
-    r_velocity = velocity;
-    r_omega = omega;
-    float pos_output = position_controller();
-    float rot_output = angle_controller(steering_adjustment);
-    float left_output = 0;
-    float right_output = 0;
-    left_output = pos_output - rot_output;
-    right_output = pos_output + rot_output;
-
-    float tangent_speed = r_omega * ROBOT_RADIUS * RADIANS_PER_DEGREE;
-    float left_speed = r_velocity - tangent_speed;
-    float right_speed = r_velocity + tangent_speed;
-    float left_ff = leftFeedForward(left_speed);
-    float right_ff = rightFeedForward(right_speed);
+    // Normal line following code continues...
+    int error = position - 3500;
+    float pidOutput = PIDLine(error);
     
+    int leftSpeed = BASE_SPEED + pidOutput;
+    int rightSpeed = BASE_SPEED - pidOutput;
+    
+    leftSpeed = constrain(leftSpeed, MIN_SPEED, MAX_SPEED);
+    rightSpeed = constrain(rightSpeed, MIN_SPEED, MAX_SPEED);
+    
+    moveForward(leftSpeed - 20, rightSpeed);
+}
 
-    if (r_feedforward_enabled) {
-      left_output += left_ff;
-      right_output += right_ff;
+
+
+
+
+
+
+
+float error_enc = 0.0;
+float correction_enc = 0.0;
+
+void MoveDistanceForward(float distance){
+    const int target_encoder_count = distance / MM_PER_COUNT;
+    int encoder_count_left = 0;
+    int encoder_count_right = 0;
+
+
+    resetEncoders();
+
+    while(encoder_count_left < target_encoder_count && encoder_count_right < target_encoder_count){
+        encoder_count_left = getLeftEncoderCounts();
+        encoder_count_right = getRightEncoderCounts();
+
+        // Calculate encoder-based PID
+        error_enc = encoder_count_right - encoder_count_left;
+        correction_enc = PIDEnc(error_enc);
+
+        // Combine encoder and IR corrections (with priority on encoder)
+        float total_correction = correction_enc;
+
+        // Calculate motor speeds
+        float left_speed = BASE_SPEED - 10 + total_correction;
+        float right_speed = BASE_SPEED - 10 - total_correction;
+
+        setMotorLPWM(left_speed);
+        setMotorRPWM(right_speed);
+
     }
-    if (r_controller_output_enabled) {
-      //tODO: implement motor output
-      set_right_motor_volts(right_output);
-      set_left_motor_volts(left_output);
+    MotorBreak();
+    setMotorLPWM(0);
+    setMotorRPWM(0);
+}
+
+void turn(int direction) {
+    // Variables
+    int target_encoder_diff = COUNTS_PER_90_DEGREE;
+    int encoder_diff = 0;
+    int left_encoder_current, right_encoder_current;
+    float error = 0, last_error = 0, derivative = 0;
+    float turn_speed = 0;
+
+    // Reset encoders
+    resetEncoders();
+
+    while (encoder_diff < target_encoder_diff) {
+        // Get current encoder counts
+        left_encoder_current = getLeftEncoderCounts();
+        right_encoder_current = getRightEncoderCounts();
+
+        // Calculate encoder difference
+        encoder_diff = abs(right_encoder_current - left_encoder_current);
+
+        // Calculate error
+        error = target_encoder_diff - encoder_diff;
+
+        // Calculate derivative
+        derivative = error - last_error;
+
+        // PD controller
+        turn_speed = Kp_TURN * error + Kd_TURN * derivative;
+
+        // Limit turn speed
+        turn_speed = fmin(fmax(turn_speed, MIN_TURN_SPEED), MAX_TURN_SPEED);
+
+        // Set motor speeds based on direction
+        float left_speed = (direction > 0) ? turn_speed : -turn_speed;
+        float right_speed = (direction > 0) ? -turn_speed : turn_speed;
+
+        if(left_speed > 0){
+            left_speed = left_speed - 20;
+        }
+        else{
+            left_speed = left_speed + 20;
+        }
+
+        // Apply motor speeds
+        setMotorLPWM(left_speed);
+        setMotorRPWM(right_speed);
+
+        // Save current error for next iteration
+        last_error = error;
+
+        // Small delay to avoid overwhelming the microcontroller
     }
-  }
 
-  /**
-   * Once the motor voltages have been calculated, they need to be converted
-   * into suitable PWM values for the motor drivers.
-   *
-   * In this section, the calculations for that are done, taking into account
-   * the available battery voltage and the limits of the PWM hardware.
-   *
-   * If there is not enough voltage available from the battery, the output
-   * will just saturate and the motor will not get up to speed.
-   *
-   * Some people add code to light up an LED whenever the drive output is
-   * saturated.
-   */
-  int Controller::pwm_compensated(float desired_voltage, float battery_voltage) {
-    int pwm = MOTOR_MAX_PWM * desired_voltage / battery_voltage;
-    return pwm;
-  }
+    // Stop motors after reaching the target
+    setMotorLPWM(0);
+    setMotorRPWM(0);
 
-  void Controller::set_left_motor_volts(float volts) {
-    volts = constrain(volts, -MAX_MOTOR_VOLTS, MAX_MOTOR_VOLTS);
-    r_left_motor_volts = volts;
-    int motorPWM = pwm_compensated(volts, BATTERY_VOLTAGE);
-    controller.set_left_motor_pwm(motorPWM);
-  }
+    // Reset encoders
+    resetEncoders();
+}
 
-  void Controller::set_right_motor_volts(float volts) {
-    volts = constrain(volts, -MAX_MOTOR_VOLTS, MAX_MOTOR_VOLTS);
-    r_right_motor_volts = volts;
-    int motorPWM = pwm_compensated(volts, BATTERY_VOLTAGE);
-    controller.set_right_motor_pwm(motorPWM);
-  }
 
-  void Controller::set_left_motor_pwm(int pwm) {
-    pwm = MOTOR_LEFT_POLARITY * constrain(pwm, -MOTOR_MAX_PWM, MOTOR_MAX_PWM);
-    setMotorLPWM(pwm - 30);
-  }
-  // TODO: HARDWARE DEPENDENCY
-  void Controller::set_right_motor_pwm(int pwm) {
-    pwm = MOTOR_RIGHT_POLARITY * constrain(pwm, -MOTOR_MAX_PWM, MOTOR_MAX_PWM);
-    setMotorRPWM(pwm);
-  }
+void turn_right_90() {
+    // Variables
+    int target_encoder_diff = COUNTS_PER_90_DEGREE_RIGHT;
+    int encoder_diff = 0;
+    int left_encoder_current, right_encoder_current;
+    float error = 0, last_error = 0, derivative = 0;
+    float turn_speed = 0;
 
-  /**
-   * These getters are used for logging and debugging.
-   */
-  int Controller::get_fwd_millivolts() {
-    return 1000 * (get_right_motor_volts() + get_left_motor_volts());
-  }
+    // Reset encoders
+    resetEncoders();
 
-  int Controller::get_rot_millivolts() {
-    return 1000 * (get_right_motor_volts() - get_left_motor_volts());
-  }
+    while (encoder_diff < target_encoder_diff) {
+        // Get current encoder counts
+        left_encoder_current = getLeftEncoderCounts();
+        right_encoder_current = getRightEncoderCounts();
 
-  float Controller::get_left_motor_volts() {
-    float volts = 0;
-    ATOMIC {
-      volts = r_left_motor_volts;
+        // Calculate encoder difference
+        encoder_diff = abs(right_encoder_current - left_encoder_current);
+
+        // Calculate error
+        error = target_encoder_diff - encoder_diff;
+
+        // Calculate derivative
+        derivative = error - last_error;
+
+        // PD controller
+        turn_speed = Kp_TURN * error + Kd_TURN * derivative;
+
+        // Limit turn speed
+        turn_speed = fmin(fmax(turn_speed, MIN_TURN_SPEED), MAX_TURN_SPEED);
+
+        // Set motor speeds based on direction
+        float left_speed =  turn_speed;
+        float right_speed = -turn_speed;
+
+        left_speed = left_speed - 20;
+
+
+        // Apply motor speeds
+        setMotorLPWM(left_speed);
+        setMotorRPWM(right_speed);
+
+        // Save current error for next iteration
+        last_error = error;
+
+        // Small delay to avoid overwhelming the microcontroller
     }
-    return volts;
-  }
 
-  float Controller::get_right_motor_volts() {
-    float volts = 0;
-    ATOMIC {
-      volts = r_right_motor_volts;
-    }
-    return volts;
-  }
+    // Stop motors after reaching the target
+    setMotorLPWM(0);
+    setMotorRPWM(0);
 
-  void Controller::set_speeds(float velocity, float omega) {
-    ATOMIC {
-      r_velocity = velocity;
-      r_omega = omega;
+    // Reset encoders
+    resetEncoders();
+
+    
+}
+
+
+void turn_left_90() {
+    // Variables
+    int target_encoder_diff = COUNTS_PER_90_DEGREE_LEFT;
+    int encoder_diff = 0;
+    int left_encoder_current, right_encoder_current;
+    float error = 0, last_error = 0, derivative = 0;
+    float turn_speed = 0;
+
+    // Reset encoders
+    resetEncoders();
+
+    while (encoder_diff < target_encoder_diff) {
+        // Get current encoder counts
+        left_encoder_current = getLeftEncoderCounts();
+        right_encoder_current = getRightEncoderCounts();
+
+        // Calculate encoder difference
+        encoder_diff = abs(right_encoder_current - left_encoder_current);
+
+        // Calculate error
+        error = target_encoder_diff - encoder_diff;
+
+        // Calculate derivative
+        derivative = error - last_error;
+
+        // PD controller
+        turn_speed = Kp_TURN * error + Kd_TURN * derivative;
+
+        // Limit turn speed
+        turn_speed = fmin(fmax(turn_speed, MIN_TURN_SPEED), MAX_TURN_SPEED);
+
+        // Set motor speeds based on direction
+        float left_speed = -turn_speed;
+        float right_speed = turn_speed;
+
+        
+                       
+        left_speed = left_speed + 20;
+        
+
+        // Apply motor speeds
+        setMotorLPWM(left_speed);
+        setMotorRPWM(right_speed);
+
+        // Save current error for next iteration
+        last_error = error;
+
+        // Small delay to avoid overwhelming the microcontroller
     }
-  }
+
+    // Stop motors after reaching the target
+    setMotorLPWM(0);
+    setMotorRPWM(0);
+
+    // Reset encoders
+    resetEncoders();
+}
+
+
+void turn_left_180() {
+    // Variables
+    int target_encoder_diff = COUNTS_PER_180_DEGREE_LEFT;
+    int encoder_diff = 0;
+    int left_encoder_current, right_encoder_current;
+    float error = 0, last_error = 0, derivative = 0;
+    float turn_speed = 0;
+
+    // Reset encoders
+    resetEncoders();
+
+    while (encoder_diff < target_encoder_diff) {
+        // Get current encoder counts
+        left_encoder_current = getLeftEncoderCounts();
+        right_encoder_current = getRightEncoderCounts();
+
+        // Calculate encoder difference
+        encoder_diff = abs(right_encoder_current - left_encoder_current);
+
+        // Calculate error
+        error = target_encoder_diff - encoder_diff;
+
+        // Calculate derivative
+        derivative = error - last_error;
+
+        // PD controller
+        turn_speed = Kp_TURN * error + Kd_TURN * derivative;
+
+        // Limit turn speed
+        turn_speed = fmin(fmax(turn_speed, MIN_TURN_SPEED), MAX_TURN_SPEED);
+
+        // Set motor speeds based on direction
+        float left_speed = -turn_speed;
+        float right_speed = turn_speed;
+
+        
+                       
+        left_speed = left_speed + 20;
+        
+
+        // Apply motor speeds
+        setMotorLPWM(left_speed);
+        setMotorRPWM(right_speed);
+
+        // Save current error for next iteration
+        last_error = error;
+
+        // Small delay to avoid overwhelming the microcontroller
+    }
+
+    // Stop motors after reaching the target
+    setMotorLPWM(0);
+    setMotorRPWM(0);
+
+    // Reset encoders
+    resetEncoders();
+}
+
+int barcode[12];
+int barcode_index = 0;
+int stripCounter = 0;
+int consecutiveEdges = 0;
+
+void Counting_and_Line_Navigation(){
+    int distance = 2000;
+    const int target_encoder_count = distance / MM_PER_COUNT;
+    int encoder_count_left = 0;
+    int encoder_count_right = 0;
+   
+    int currentColor = 1;
+    int previousColor = 1;
+    int lastStripStart = 0;
+    resetEncoders();
+
+    while(encoder_count_left < target_encoder_count && encoder_count_right < target_encoder_count){
+        encoder_count_left = getLeftEncoderCounts();
+        encoder_count_right = getRightEncoderCounts();
+
+        float distance = (encoder_count_left + encoder_count_right) * 0.5 * MM_PER_COUNT;
+
+        //int ir = analogRead(LEFT_MARKER_SENSOR);
+
+        int leftSensorValue = analogRead(LEFT_MARKER_SENSOR);
+        int rightSensorValue = analogRead(RIGHT_MARKER_SENSOR);
+        // white 1
+        //blacck 0
+
+        if (leftSensorValue > 100 && rightSensorValue > 100){
+            currentColor = 0;
+        }
+        else{
+            currentColor = 1;
+        }
+
+        if(currentColor == 1 && previousColor == 0){
+            lastStripStart = distance;
+            previousColor = 1;
+        }
+        if(currentColor == 0 && previousColor == 1){
+            if(stripCounter == 0){
+                stripCounter++;
+                previousColor = 0;
+                continue;
+            }
+            float strip_length = distance - lastStripStart;
+
+            if(strip_length < 40 && strip_length > 20){
+                consecutiveEdges++;
+                barcode[barcode_index] = 0;
+                barcode_index++;
+            }
+            else if(strip_length > 40){
+                barcode[barcode_index] = 1;
+                barcode_index++;
+                consecutiveEdges = 0;
+            }
+
+            //barcode[barcode_index] = distance - di;
+            //Serial2.println(barcode[barcode_index - 1]);
+            //barcode_index++;
+            previousColor = 0;
+
+        }
+
+        if(consecutiveEdges == 3){
+            break;
+        }
+
+        
+
+
+
+        // Calculate encoder-based PID
+        error_enc = encoder_count_right - encoder_count_left;
+        correction_enc = PIDEnc(error_enc);
+
+        // Combine encoder and IR corrections (with priority on encoder)
+        float total_correction = correction_enc;
+
+        // Calculate motor speeds
+        float left_speed = BASE_SPEED - 10 + total_correction;
+        float right_speed = BASE_SPEED - 10 - total_correction;
+
+        setMotorLPWM(left_speed);
+        setMotorRPWM(right_speed);
+
+    }
+    MotorBreak();
+    setMotorLPWM(0);
+    setMotorRPWM(0);
+}
+
+float distance_from_counts(int left_counts, int right_counts){
+    return (left_counts + right_counts) * 0.5 * MM_PER_COUNT;
+}
