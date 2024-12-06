@@ -34,6 +34,7 @@ Robot robot;
 
 
 
+
 void setup() {
   
   initBluetoothDebug();
@@ -42,29 +43,30 @@ void setup() {
   initIRSensors();
   initBuzzer();
   
-  encoders.begin();
+  //encoders.begin();
   
   
   Buzzer_Toggle(100);
-  //delay(2000);
-  calibrateIRSensors();
+  delay(2000);
+  //calibrateIRSensors();
   Buzzer_Toggle(100);
 
   
   //delay(5000);
   Buzzer_UniquePattern();
   //delay(2000);
-  
+  //sensors.set_steering_mode(WHITE_LINE_FOLLOW);
   //Serial.begin(9600);
   Systick_begin();
 
   //reporter.set_printer(Serial2);
   //reporter.report_profile_header();
-  //robot.run(2000);
+  robot.run(500);
+  //robot.turn_IP90R();
 
 
-   setMotorLPWM(225);
-   setMotorRPWM(225);
+   //setMotorLPWM(0);
+   //setMotorRPWM(-100);
    
 
   

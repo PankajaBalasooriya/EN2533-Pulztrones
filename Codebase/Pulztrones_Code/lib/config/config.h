@@ -13,7 +13,15 @@ const float WHEEL_BASE_MM = 193.0;
 const float ROBOT_RADIUS = WHEEL_BASE_MM / 2.0;
 
 const float COUNTS_PER_REVOLUTION = 824.0;
+const float COUNTS_PER_REVOLUTION_RIGHT = 820.0;
+const float COUNTS_PER_REVOLUTION_LEFT = 818.0;
+
 const float MM_PER_COUNT = (PI * WHEEL_DIAMETER_MM) / COUNTS_PER_REVOLUTION;
+const float MM_PER_COUNT_RIGHT = (PI * WHEEL_DIAMETER_MM) / COUNTS_PER_REVOLUTION_RIGHT;
+const float MM_PER_COUNT_LEFT = (PI * WHEEL_DIAMETER_MM) / COUNTS_PER_REVOLUTION_LEFT;
+
+
+
 
 const float DEG_PER_MM_DIFFERENCE = (180.0 / (WHEEL_BASE_MM * PI));
 const float RADIANS_PER_DEGREE = 2 * PI / 360.0;
@@ -36,8 +44,8 @@ const float FWD_KP = 0.5;
 const float FWD_KD = LOOP_FREQUENCY * 0;
 
 // rotation motion controller constants
-const float ROT_KP = 1;
-const float ROT_KD = LOOP_FREQUENCY * 0;
+const float ROT_KP = 0.05;
+const float ROT_KD = LOOP_FREQUENCY * 0.25;
 
 // controller constants for the steering controller
 const float STEERING_KP = 0.04;
@@ -110,8 +118,8 @@ const float TOP_SPEED = (6.0 - BIAS_FF) / SPEED_FF;
 //const float ROTATION_BIAS = 0.0025;  // Negative makes robot curve to left
 //const float MM_PER_COUNT_LEFT = (1 - ROTATION_BIAS) * MM_PER_COUNT;
 //const float MM_PER_COUNT_RIGHT = (1 + ROTATION_BIAS) * MM_PER_COUNT;
-const float MM_PER_COUNT_LEFT =  MM_PER_COUNT;
-const float MM_PER_COUNT_RIGHT = MM_PER_COUNT;
+//const float MM_PER_COUNT_LEFT =  MM_PER_COUNT;
+//const float MM_PER_COUNT_RIGHT = MM_PER_COUNT;
 
 
 

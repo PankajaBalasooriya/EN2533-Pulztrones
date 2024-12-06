@@ -43,6 +43,6 @@ float Sensors::get_steering_feedback() {
 
   void Sensors::update(){
     // calculate the alignment errors - too far left is negative
-    r_cross_track_error = normal_steering_error();
+    r_cross_track_error = -1 * normal_steering_error();
     calculate_steering_adjustment();
   }

@@ -142,7 +142,7 @@ void Controller::update_controllers(float velocity, float omega, float steering_
 
   void Controller::set_left_motor_pwm(int pwm) {
     pwm = MOTOR_LEFT_POLARITY * constrain(pwm, -MOTOR_MAX_PWM, MOTOR_MAX_PWM);
-    setMotorLPWM(pwm);
+    setMotorLPWM(pwm - 30);
   }
   // TODO: HARDWARE DEPENDENCY
   void Controller::set_right_motor_pwm(int pwm) {
