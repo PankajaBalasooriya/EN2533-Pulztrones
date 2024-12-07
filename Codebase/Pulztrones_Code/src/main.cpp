@@ -47,7 +47,7 @@ void setup() {
   
 
 
-   Counting_and_Line_Navigation();
+   Serial2.print(Counting_and_Line_Navigation());
 
   
 

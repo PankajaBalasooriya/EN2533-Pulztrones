@@ -332,7 +332,7 @@ int barcode_index = 0;
 int stripCounter = 0;
 int consecutiveEdges = 0;
 
-void Counting_and_Line_Navigation(){
+int Counting_and_Line_Navigation(){
     int distance = 2000;
     const int target_encoder_count = distance / MM_PER_COUNT;
     int encoder_count_left = 0;
@@ -419,8 +419,24 @@ void Counting_and_Line_Navigation(){
     MotorBreak();
     setMotorLPWM(0);
     setMotorRPWM(0);
+
+
+    return calculateModulo5(binaryToDecimal(barcode, barcode_index - 3));
 }
 
 float distance_from_counts(int left_counts, int right_counts){
     return (left_counts + right_counts) * 0.5 * MM_PER_COUNT;
+}
+
+int binaryToDecimal(int binaryArray[], int arraySize) {
+    int decimalValue = 0;
+    for (int i = 0; i < arraySize; i++) {
+        // Calculate the decimal value by multiplying each bit by its positional value
+        decimalValue = (decimalValue << 1) | binaryArray[i];
+    }
+    return decimalValue;
+}
+
+int calculateModulo5(int decimalNumber) {
+    return decimalNumber % 5;
 }

@@ -17,5 +17,8 @@ void turn_right_90();
 void turn_left_90();
 void turn_left_180();
 
-void Counting_and_Line_Navigation();
+int Counting_and_Line_Navigation();
+
+int binaryToDecimal(int binaryArray[], int arraySize);
+int calculateModulo5(int decimalNumber);
 #endif
