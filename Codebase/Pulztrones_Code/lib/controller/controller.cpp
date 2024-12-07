@@ -48,10 +48,71 @@ void FollowWhiteLine() {
     moveForward(leftSpeed - 20, rightSpeed);
 }
 
+void FollowWhiteLine_GivenDistance(int distance) {
+    const int target_encoder_count = distance / MM_PER_COUNT;
+    int encoder_count_left = 0;
+    int encoder_count_right = 0;
 
 
+    resetEncoders();
+
+    while(encoder_count_left < target_encoder_count && encoder_count_right < target_encoder_count){
+        encoder_count_left = getLeftEncoderCounts();
+        encoder_count_right = getRightEncoderCounts();
+
+        /// Read the position of the line (0 to 7000)
+        int position = readWhiteLinePosition();
+
+        // Normal line following code continues...
+        int error = position - 3500;
+        float pidOutput = PIDLine(error);
+        
+        int leftSpeed = BASE_SPEED + pidOutput;
+        int rightSpeed = BASE_SPEED - pidOutput;
+        
+        leftSpeed = constrain(leftSpeed, MIN_SPEED, MAX_SPEED);
+        rightSpeed = constrain(rightSpeed, MIN_SPEED, MAX_SPEED);
+        
+        moveForward(leftSpeed - 20, rightSpeed);
+
+    }
+    MotorBreak();
+    setMotorLPWM(0);
+    setMotorRPWM(0);
+}
+
+void FollowWhiteLine_GivenDistance(int distance) {
+    const int target_encoder_count = distance / MM_PER_COUNT;
+    int encoder_count_left = 0;
+    int encoder_count_right = 0;
 
 
+    resetEncoders();
+
+    while(encoder_count_left < target_encoder_count && encoder_count_right < target_encoder_count){
+        encoder_count_left = getLeftEncoderCounts();
+        encoder_count_right = getRightEncoderCounts();
+
+        /// Read the position of the line (0 to 7000)
+        int position = readBlackLinePosition();
+
+        // Normal line following code continues...
+        int error = position - 3500;
+        float pidOutput = PIDLine(error);
+        
+        int leftSpeed = BASE_SPEED + pidOutput;
+        int rightSpeed = BASE_SPEED - pidOutput;
+        
+        leftSpeed = constrain(leftSpeed, MIN_SPEED, MAX_SPEED);
+        rightSpeed = constrain(rightSpeed, MIN_SPEED, MAX_SPEED);
+        
+        moveForward(leftSpeed - 20, rightSpeed);
+
+    }
+    MotorBreak();
+    setMotorLPWM(0);
+    setMotorRPWM(0);
+}
 
 
 
@@ -327,11 +388,22 @@ void turn_left_180() {
     resetEncoders();
 }
 
+
+float distance_from_counts(int left_counts, int right_counts){
+    return (left_counts + right_counts) * 0.5 * MM_PER_COUNT;
+}
+
+
+
+
+
+
+
+// Tasks
 int barcode[12];
 int barcode_index = 0;
 int stripCounter = 0;
 int consecutiveEdges = 0;
-
 int Counting_and_Line_Navigation(){
     int distance = 2000;
     const int target_encoder_count = distance / MM_PER_COUNT;
@@ -424,19 +496,5 @@ int Counting_and_Line_Navigation(){
     return calculateModulo5(binaryToDecimal(barcode, barcode_index - 3));
 }
 
-float distance_from_counts(int left_counts, int right_counts){
-    return (left_counts + right_counts) * 0.5 * MM_PER_COUNT;
-}
 
-int binaryToDecimal(int binaryArray[], int arraySize) {
-    int decimalValue = 0;
-    for (int i = 0; i < arraySize; i++) {
-        // Calculate the decimal value by multiplying each bit by its positional value
-        decimalValue = (decimalValue << 1) | binaryArray[i];
-    }
-    return decimalValue;
-}
 
-int calculateModulo5(int decimalNumber) {
-    return decimalNumber % 5;
-}

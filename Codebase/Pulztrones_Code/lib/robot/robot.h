@@ -14,7 +14,9 @@ extern Robot robot;
 
 class Robot {
     public:
-        enum Task{START_SQUARE,LINE_FOLLOW, BARCODE, STOP};
+        enum Task{START_SQUARE,BARCODE,WHITE_LINE_FOLLOW,MAZE,STOP};
+
+
 
         Robot();
         void init();
@@ -23,10 +25,22 @@ class Robot {
         void turn_right_90();
         void turn_left_90();
         void turn_left_180();
+
+
+        void turn_on_led(int PIN);
+        void turn_off_led(int PIN);
+
+
+
+
+
+
+        void turn_on_LEDS();
+        void turn_off_LEDS();
         
     
     private:
-        volatile int task = LINE_FOLLOW;
+        volatile int task = START_SQUARE;
 
 
 };

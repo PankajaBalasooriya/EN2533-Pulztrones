@@ -3,6 +3,10 @@
 
 #include <Arduino.h>
 
+//***** Common Funcations *****************************************************//
+int binaryToDecimal(int binaryArray[], int arraySize);
+int calculateModulo5(int decimalNumber);
+
 
 
 //***** ROBOT SPECIFICATIONS *****************************************************//
@@ -30,6 +34,9 @@ const float DEGREES_PER_RADIAN = 360.0 / 2 * PI;
 //***** IO PINS *****************************************************//
 const int LEFT_MARKER_SENSOR = A9;
 const int RIGHT_MARKER_SENSOR = A8;
+
+const int BLUE_LED = 37;
+const int RED_LED = 53;
 
 
 

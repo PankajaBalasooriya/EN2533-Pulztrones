@@ -3,6 +3,9 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
+#include <Arduino.h>
+#include "config.h"
+
 extern int encoder_count_left;
 extern int encoder_count_right;
 
@@ -10,6 +13,10 @@ extern int encoder_count_right;
 
 void FollowBlackLine(); 
 void FollowWhiteLine();
+void FollowWhiteLine_Distance(int distance);
+void FollowWhiteLine_GivenDistance(int distance);
+
+
 void MoveDistanceForward(float distance);
 void turn(int);
 
@@ -19,6 +26,5 @@ void turn_left_180();
 
 int Counting_and_Line_Navigation();
 
-int binaryToDecimal(int binaryArray[], int arraySize);
-int calculateModulo5(int decimalNumber);
+
 #endif

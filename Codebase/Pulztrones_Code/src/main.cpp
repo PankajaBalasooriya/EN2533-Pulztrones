@@ -17,7 +17,7 @@
 
 
 
-
+Robot robot;
   
 
 void setup() {
@@ -34,34 +34,32 @@ void setup() {
   
   Buzzer_Toggle(100);
   delay(2000);
- // calibrateIRSensors();
+ calibrateIRSensors();
   Buzzer_Toggle(100);
 
   
   //delay(5000);
-  //Buzzer_UniquePattern();
+  Buzzer_UniquePattern();
   delay(2000);
-  //MoveDistanceForward(200);
-  //turn_left_180();
-  //Serial.begin(9600);
+  
+  //FollowWhiteLine_GivenDistance(250);
+ 
+  
   
 
 
-   Serial2.print(Counting_and_Line_Navigation());
 
-  
+   //Serial2.print(Counting_and_Line_Navigation());
+
+  //Todo: implement turning logic
+  // add code to move forward untill a junction
+  // implement code  to detect presense or absence of a line or a junction
 
   
 }
 
 
 void loop() {
-// Serial2.print(">");  
-// Serial2.print("L_IR:");
-// Serial2.print(analogRead(LEFT_MARKER_SENSOR));
-// Serial2.print("R_IR:");
-// Serial2.print(analogRead(RIGHT_MARKER_SENSOR));
-// Serial2.print("\r\n");
 
 
 }
