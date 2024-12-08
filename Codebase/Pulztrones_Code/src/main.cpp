@@ -1,8 +1,13 @@
 #include <Arduino.h>
 
 #include <QTRSensors.h>
-#include <MPU6500_WE.h>
-#include <TimerOne.h>
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+#include <adafruit_vl53l0x.h>
+#include <Adafruit_MPU6050.h>
+#include <Adafruit_Sensor.h>
+
 
 
 #include "motors.h"
@@ -14,10 +19,12 @@
 #include "irs.h"
 #include "buzzer.h"
 #include "robot.h"
+#include "I2CMUX.h"
 
 
 
 Robot robot;
+I2CMUX mux(0x70);
   
 
 void setup() {
@@ -27,23 +34,21 @@ void setup() {
   initEncoders();
   initIRSensors();
   initBuzzer();
-  
+  mux.begin();
 
-  //Timer1.initialize(40000); // at 40 ms
-  //Timer1.attachInterrupt(timerloop);
-  
+  mux.selectChannel(0);
+
+
   Buzzer_Toggle(100);
   delay(2000);
- calibrateIRSensors();
+ //calibrateIRSensors();
   Buzzer_Toggle(100);
-
   
-  //delay(5000);
   Buzzer_UniquePattern();
   delay(2000);
   
   //FollowWhiteLine_GivenDistance(250);
- 
+  
   
   
 
@@ -64,96 +69,3 @@ void loop() {
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// line following loop
-/*
-int16_t position = qtr.readLineWhite(sensorValues);
-
-  int error = position - 3500;
-
-
-  int motorSpeed = calcPID_WL(error);
-  
-
-  int16_t m1Speed = M1 + motorSpeed;
-  int16_t m2Speed = M2 - motorSpeed;
-
-
-  // Ensure the motor speeds are within valid range
-  m1Speed = constrain(m1Speed, 0, 255);
-  m2Speed = constrain(m2Speed, 0, 255);
-
-  moveForward(m1Speed, m2Speed);
-  
-
-
-
-
-// encoder loop
-static unsigned long lastPrintTime = 0;
-    unsigned long currentTime = millis();
-
-    if (currentTime - lastPrintTime >= 100) {  
-        Serial2.print("Left Encoder: ");
-        Serial2.print(getLeftEncoderCounts());
-        Serial2.print(", Right Encoder: ");
-        Serial2.println(getRightEncoderCounts());
-        lastPrintTime = currentTime;
-    }
-
-  
-
-
-
-
-  //printing 
-  qtr
-
-  // Read QTR sensor values and get the line position
-    int16_t position = qtr.readLineWhite(sensorValues);
-
-    // Print QTR sensor values to Serial2
-    //Serial2.print("QTR Sensor Values: ");
-    for (uint8_t i = 0; i < SensorCount; i++) {
-        Serial2.print(sensorValues[i]);
-        if (i < SensorCount - 1) {
-            Serial2.print(", ");
-        }
-    }
-    Serial2.println();
-
-    // Add a delay to avoid printing too fast
-    delay(100);
-*/

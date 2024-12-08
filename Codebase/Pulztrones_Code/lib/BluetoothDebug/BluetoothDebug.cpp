@@ -33,18 +33,18 @@ void printEncoderData() {
     }
 }
 
-void printIRData() {
-    // Read QTR sensor values and get the line position
-    int16_t position = readBlackLinePosition();
+// void printIRData() {
+//     // Read QTR sensor values and get the line position
+//     int16_t position = readBlackLinePosition();
 
-    // Print QTR sensor values to Serial2
-    for (uint8_t i = 0; i < SensorCount; i++) {
-        Serial.print(sensorValues[i]);
-        if (i < SensorCount - 1) {
-            Serial.print(", ");
-        }
-    }
-    Serial.println();
+//     // Print QTR sensor values to Serial2
+//     for (uint8_t i = 0; i < SensorCount; i++) {
+//         Serial.print(sensorValues[i]);
+//         if (i < SensorCount - 1) {
+//             Serial.print(", ");
+//         }
+//     }
+//     Serial.println();
 
-    delay(100);
-}
+//     delay(100);
+// }

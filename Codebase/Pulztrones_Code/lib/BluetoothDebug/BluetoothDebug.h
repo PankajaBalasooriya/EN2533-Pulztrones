@@ -9,6 +9,6 @@ void sendBluetoothDataln(String data);
 void logToMonitor(String data);
 
 void printEncoderData();
-void printIRData();
+// void printIRData();
 
 #endif

@@ -13,8 +13,9 @@ extern int encoder_count_right;
 
 void FollowBlackLine(); 
 void FollowWhiteLine();
-void FollowWhiteLine_Distance(int distance);
+//void FollowWhiteLine_Distance(int distance);
 void FollowWhiteLine_GivenDistance(int distance);
+void FollowBlackLine_GivenDistance(int distance);
 
 
 void MoveDistanceForward(float distance);

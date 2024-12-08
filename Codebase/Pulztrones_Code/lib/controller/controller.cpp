@@ -81,7 +81,7 @@ void FollowWhiteLine_GivenDistance(int distance) {
     setMotorRPWM(0);
 }
 
-void FollowWhiteLine_GivenDistance(int distance) {
+void FollowBlackLine_GivenDistance(int distance) {
     const int target_encoder_count = distance / MM_PER_COUNT;
     int encoder_count_left = 0;
     int encoder_count_right = 0;

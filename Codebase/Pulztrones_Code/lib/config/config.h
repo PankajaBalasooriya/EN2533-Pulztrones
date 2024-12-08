@@ -3,6 +3,7 @@
 
 #include <Arduino.h>
 
+
 //***** Common Funcations *****************************************************//
 int binaryToDecimal(int binaryArray[], int arraySize);
 int calculateModulo5(int decimalNumber);

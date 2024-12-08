@@ -48,10 +48,10 @@
 | 31             | Digital I/O           |      I2c MUX A0       |
 | 32             | Digital I/O           |    I2c MUX A1         |
 | 33             | Digital I/O           |    I2c MUX A2         |
-| 34             | Digital I/O           |       B1              |
-| 35             | Digital I/O           |          B2           |
-| 36             | Digital I/O           |            B3         |
-| 37             | Digital I/O           |       BLUE LED      |
+| 34             | Digital I/O           |       B1 (UP/NEXT)    |
+| 35             | Digital I/O           |       B2 (Select)     |
+| 36             | Digital I/O           |       B3 (Back)       |
+| 37             | Digital I/O           |       BLUE LED        |
 | 38             | Digital I/O           |       S0              |
 | 39             | Digital I/O           |        OUT            |
 | 40             | Digital I/O           |         S2            |
@@ -76,8 +76,8 @@
 | A5             | Analog Input          |      Raykha A5        |
 | A6             | Analog Input          |      Raykha A6        |
 | A7             | Analog Input          |      Raykha A7        |
-| A8             | Analog Input          |                       |
-| A9             | Analog Input          |                       |
+| A8             | Analog Input          |    MArker sensor  R   |
+| A9             | Analog Input          |    MArker sensor  L   |
 | A10            | Analog Input          |                       |
 | A11            | Analog Input          |                       |
 | A12            | Analog Input          |                       |
