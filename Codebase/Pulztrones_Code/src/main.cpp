@@ -20,6 +20,7 @@
 #include "buzzer.h"
 #include "robot.h"
 #include "I2CMUX.h"
+#include "tasks.h"
 
 
 
@@ -47,18 +48,31 @@ void setup() {
   Buzzer_UniquePattern();
   delay(2000);
   
-  //FollowWhiteLine_GivenDistance(250);
+
+  while (robot.get_task() != STOP) {
+        switch (robot.get_task()) {
+            case START_SQUARE:
+                start_square();
+                robot.set_task(BARCODE); // Proceed to the next task
+                break;
+            case BARCODE:
+                Counting_and_Line_Navigation();
+                robot.set_task(WHITE_LINE_FOLLOW);
+                break;
+            case WHITE_LINE_FOLLOW:
+                execute_white_line_follow();
+                robot.set_task(MAZE);
+                break;
+            case MAZE:
+                execute_maze();
+                
+                break;
+            default:
+                robot.set_task(STOP);
+                break;
+        }
+    }
   
-  
-  Serial2.println(FollowWhiteLineUntilJunction());
-
-
-
-   //Serial2.print(Counting_and_Line_Navigation());
-
-  //Todo: implement turning logic
-  // add code to move forward untill a junction
-  // implement code  to detect presense or absence of a line or a junction
 
   
 }

@@ -10,6 +10,9 @@
 extern int encoder_count_left;
 extern int encoder_count_right;
 
+extern float error_enc;
+extern float correction_enc;
+
 
 
 void FollowBlackLine(); 
@@ -22,9 +25,9 @@ Junction FollowWhiteLineUntilJunction();
 void MoveDistanceForward(float distance);
 void turn(int);
 
-void turn_right_90();
-void turn_left_90();
-void turn_left_180();
+void turnRight90();
+void turnLeft90();
+void turnLeft180();
 
 int Counting_and_Line_Navigation();
 

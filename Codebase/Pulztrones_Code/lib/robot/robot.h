@@ -8,20 +8,20 @@
 #include "buzzer.h"
 #include "config.h"
 #include "controller.h"
+#include "PID.h"
+
 
 class Robot;
 extern Robot robot;
 
 class Robot {
     public:
-        enum Task{START_SQUARE,BARCODE,WHITE_LINE_FOLLOW,MAZE,STOP};
-
-
+        
 
         Robot();
         void init();
 
-        void set_task(Task task);
+        void set_task(Task newtask);
         void turn_right_90();
         void turn_left_90();
         void turn_left_180();
@@ -31,8 +31,8 @@ class Robot {
         void turn_off_led(int PIN);
 
 
-
-
+        
+        Task get_task();
 
 
         void turn_on_LEDS();
@@ -40,9 +40,7 @@ class Robot {
         
     
     private:
-        volatile int task = START_SQUARE;
-
-
+        Task task = START_SQUARE;
 };
 
 

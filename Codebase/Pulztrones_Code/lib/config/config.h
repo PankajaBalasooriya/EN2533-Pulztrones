@@ -3,6 +3,14 @@
 
 #include <Arduino.h>
 
+enum Task{
+            START_SQUARE,
+            BARCODE,
+            WHITE_LINE_FOLLOW,
+            MAZE,
+            STOP
+        };
+
 enum LineColor {
     WHITELINE,
     BLACKLINE,

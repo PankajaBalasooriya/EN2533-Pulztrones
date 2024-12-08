@@ -241,7 +241,7 @@ void turn(int direction) {
 }
 
 
-void turn_right_90() {
+void turnRight90() {
     // Variables
     int target_encoder_diff = COUNTS_PER_90_DEGREE_RIGHT;
     int encoder_diff = 0;
@@ -300,7 +300,7 @@ void turn_right_90() {
 }
 
 
-void turn_left_90() {
+void turnLeft90() {
     // Variables
     int target_encoder_diff = COUNTS_PER_90_DEGREE_LEFT;
     int encoder_diff = 0;
@@ -359,7 +359,7 @@ void turn_left_90() {
 }
 
 
-void turn_left_180() {
+void turnLeft180() {
     // Variables
     int target_encoder_diff = COUNTS_PER_180_DEGREE_LEFT;
     int encoder_diff = 0;
@@ -427,103 +427,6 @@ float distance_from_counts(int left_counts, int right_counts){
 
 
 
-
-// Tasks
-int barcode[12];
-int barcode_index = 0;
-int stripCounter = 0;
-int consecutiveEdges = 0;
-int Counting_and_Line_Navigation(){
-    int distance = 2000;
-    const int target_encoder_count = distance / MM_PER_COUNT;
-    int encoder_count_left = 0;
-    int encoder_count_right = 0;
-   
-    int currentColor = 1;
-    int previousColor = 1;
-    int lastStripStart = 0;
-    resetEncoders();
-
-    while(encoder_count_left < target_encoder_count && encoder_count_right < target_encoder_count){
-        encoder_count_left = getLeftEncoderCounts();
-        encoder_count_right = getRightEncoderCounts();
-
-        float distance = (encoder_count_left + encoder_count_right) * 0.5 * MM_PER_COUNT;
-
-        //int ir = analogRead(LEFT_MARKER_SENSOR);
-
-        int leftSensorValue = analogRead(LEFT_MARKER_SENSOR);
-        int rightSensorValue = analogRead(RIGHT_MARKER_SENSOR);
-        // white 1
-        //blacck 0
-
-        if (leftSensorValue > 100 && rightSensorValue > 100){
-            currentColor = 0;
-        }
-        else{
-            currentColor = 1;
-        }
-
-        if(currentColor == 1 && previousColor == 0){
-            lastStripStart = distance;
-            previousColor = 1;
-        }
-        if(currentColor == 0 && previousColor == 1){
-            if(stripCounter == 0){
-                stripCounter++;
-                previousColor = 0;
-                continue;
-            }
-            float strip_length = distance - lastStripStart;
-
-            if(strip_length < 40 && strip_length > 20){
-                consecutiveEdges++;
-                barcode[barcode_index] = 0;
-                barcode_index++;
-            }
-            else if(strip_length > 40){
-                barcode[barcode_index] = 1;
-                barcode_index++;
-                consecutiveEdges = 0;
-            }
-
-            //barcode[barcode_index] = distance - di;
-            //Serial2.println(barcode[barcode_index - 1]);
-            //barcode_index++;
-            previousColor = 0;
-
-        }
-
-        if(consecutiveEdges == 3){
-            break;
-        }
-
-        
-
-
-
-        // Calculate encoder-based PID
-        error_enc = encoder_count_right - encoder_count_left;
-        correction_enc = PIDEnc(error_enc);
-
-        // Combine encoder and IR corrections (with priority on encoder)
-        float total_correction = correction_enc;
-
-        // Calculate motor speeds
-        float left_speed = BASE_SPEED - 10 + total_correction;
-        float right_speed = BASE_SPEED - 10 - total_correction;
-
-        setMotorLPWM(left_speed);
-        setMotorRPWM(right_speed);
-
-    }
-    MotorBreak();
-    setMotorLPWM(0);
-    setMotorRPWM(0);
-
-
-    return calculateModulo5(binaryToDecimal(barcode, barcode_index - 3));
-}
 
 
 
