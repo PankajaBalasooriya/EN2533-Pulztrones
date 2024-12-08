@@ -37,6 +37,9 @@ class Robot {
 
         void turn_on_LEDS();
         void turn_off_LEDS();
+
+        void pick_virtual_box();
+        void drop_virtual_box();
         
     
     private:

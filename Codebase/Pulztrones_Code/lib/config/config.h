@@ -6,7 +6,7 @@
 enum Task{
             START_SQUARE,
             BARCODE,
-            WHITE_LINE_FOLLOW,
+            MovetoMaze,
             MAZE,
             STOP
         };

@@ -17,10 +17,12 @@ extern float correction_enc;
 
 void FollowBlackLine(); 
 void FollowWhiteLine();
+void FollowWhiteLineReverse();
 //void FollowWhiteLine_Distance(int distance);
 void FollowWhiteLine_GivenDistance(int distance);
 void FollowBlackLine_GivenDistance(int distance);
 Junction FollowWhiteLineUntilJunction();
+
 
 void MoveDistanceForward(float distance);
 void turn(int);

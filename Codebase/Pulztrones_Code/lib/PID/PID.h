@@ -7,6 +7,7 @@ extern const float KD;        // Derivative gain
 
 // Function declarations
 float PIDLine(int error);
+float PIDLineReverse(int error);
 float PIDEnc(int error);
 
 

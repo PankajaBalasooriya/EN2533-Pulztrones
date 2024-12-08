@@ -48,6 +48,25 @@ void FollowWhiteLine() {
     moveForward(leftSpeed - 20, rightSpeed);
 }
 
+void FollowWhiteLineReverse() {
+    // Read the position of the line (0 to 7000)
+    int position = readWhiteLinePosition();
+
+    // Reverse line following code
+    int error = position - 3500;
+    float pidOutput = PIDLineReverse(error);
+    
+    // Invert the PID output for reverse movement
+    int leftSpeed = -BASE_SPEED-10 - pidOutput;
+    int rightSpeed = -BASE_SPEED-10 + pidOutput;
+    
+    leftSpeed = constrain(leftSpeed, -MAX_SPEED, -MIN_SPEED);
+    rightSpeed = constrain(rightSpeed, -MAX_SPEED, -MIN_SPEED);
+    
+    // Use negative speeds to move backward
+    moveForward(leftSpeed, rightSpeed - 20);
+}
+
 void FollowWhiteLine_GivenDistance(int distance) {
     const int target_encoder_count = distance / MM_PER_COUNT;
     int encoder_count_left = 0;
@@ -144,6 +163,10 @@ Junction FollowWhiteLineUntilJunction(){
 
 
 }
+
+
+
+
 
 float error_enc = 0.0;
 float correction_enc = 0.0;
@@ -242,6 +265,7 @@ void turn(int direction) {
 
 
 void turnRight90() {
+    MoveDistanceForward(22);
     // Variables
     int target_encoder_diff = COUNTS_PER_90_DEGREE_RIGHT;
     int encoder_diff = 0;
@@ -301,6 +325,7 @@ void turnRight90() {
 
 
 void turnLeft90() {
+    MoveDistanceForward(45);
     // Variables
     int target_encoder_diff = COUNTS_PER_90_DEGREE_LEFT;
     int encoder_diff = 0;

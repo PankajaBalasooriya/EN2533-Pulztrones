@@ -26,6 +26,34 @@
 
 Robot robot;
 I2CMUX mux(0x70);
+
+void doTasks(){
+  int VB_POS = 0;
+    while (robot.get_task() != STOP) {
+        switch (robot.get_task()) {
+            case START_SQUARE:
+                start_square();
+                robot.set_task(BARCODE); 
+                break;
+            case BARCODE:
+                VB_POS = Counting_and_Line_Navigation();
+                robot.set_task(MovetoMaze);
+                break;
+            case MovetoMaze:
+                VB_POS = 0;
+                execute_MoveToMaze();
+                robot.set_task(MAZE);
+                break;
+            case MAZE:
+                execute_maze(VB_POS);
+                robot.set_task(STOP);
+                break;
+            default:
+                robot.set_task(STOP);
+                break;
+        }
+    }
+}
   
 
 void setup() {
@@ -45,41 +73,26 @@ void setup() {
   calibrateIRSensors();
   Buzzer_Toggle(100);
   
+  delay(5000);
   Buzzer_UniquePattern();
-  delay(2000);
   
+  
+  robot.init();
+  robot.set_task(MovetoMaze);
+  //doTasks();  
 
-  while (robot.get_task() != STOP) {
-        switch (robot.get_task()) {
-            case START_SQUARE:
-                start_square();
-                robot.set_task(BARCODE); // Proceed to the next task
-                break;
-            case BARCODE:
-                Counting_and_Line_Navigation();
-                robot.set_task(WHITE_LINE_FOLLOW);
-                break;
-            case WHITE_LINE_FOLLOW:
-                execute_white_line_follow();
-                robot.set_task(MAZE);
-                break;
-            case MAZE:
-                execute_maze();
-                
-                break;
-            default:
-                robot.set_task(STOP);
-                break;
-        }
-    }
   
+  //moveForward(-100, -100);
+
+
+  //Todo: implement revese line folloiwng 
 
   
 }
 
 
 void loop() {
-  
+  FollowWhiteLineReverse();
 
 }
 

@@ -15,8 +15,8 @@
 
 void start_square();
 int Counting_and_Line_Navigation();
-void execute_white_line_follow();
-void execute_maze();
+void execute_MoveToMaze();
+void execute_maze(int VB_POS);
 
 
 #endif // TASKS_H
