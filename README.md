@@ -42,8 +42,8 @@
 | 25             | Digital I/O           |   leftMotorForward    |
 | 26             | Digital I/O           |   RIGHT_ENCODER_PIN_B |
 | 27             | Digital I/O           |   LEFT_ENCODER_PIN_B  |
-| 28             | Digital I/O           |    Ultrasonic Eco     |
-| 29             | Digital I/O           |    Ultrasonic Trigger |
+| 28 >>31        | Digital I/O           |    Ultrasonic Eco     |
+| 29 >>32        | Digital I/O           |    Ultrasonic Trigger |
 | 30             | Digital I/O           |         Buzzer        |
 | 31             | Digital I/O           |      I2c MUX A0       |
 | 32             | Digital I/O           |    I2c MUX A1         |
