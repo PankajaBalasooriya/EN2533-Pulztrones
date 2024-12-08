@@ -114,7 +114,36 @@ void FollowBlackLine_GivenDistance(int distance) {
     setMotorRPWM(0);
 }
 
+Junction FollowWhiteLineUntilJunction(){
+    while (true)
+    {
+        int position = readWhiteLinePosition();
+        Junction junction = Detect_Junction_type();
+        if(junction != Junction::Straight){
+            MotorBreak();
+            setMotorLPWM(0);
+            setMotorRPWM(0);
+            return junction;
+        }
 
+        // Normal line following code continues...
+        int error = position - 3500;
+        float pidOutput = PIDLine(error);
+        
+        int leftSpeed = BASE_SPEED + pidOutput;
+        int rightSpeed = BASE_SPEED - pidOutput;
+        
+        leftSpeed = constrain(leftSpeed, MIN_SPEED, MAX_SPEED);
+        rightSpeed = constrain(rightSpeed, MIN_SPEED, MAX_SPEED);
+        
+        moveForward(leftSpeed - 20, rightSpeed);
+    }
+    
+
+    
+
+
+}
 
 float error_enc = 0.0;
 float correction_enc = 0.0;

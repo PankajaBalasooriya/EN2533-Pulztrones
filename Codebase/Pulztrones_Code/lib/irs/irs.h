@@ -3,14 +3,16 @@
 #define IRS_H
 
 #include <QTRSensors.h>
+#include "config.h"
+#include "motors.h"
 
 // Declare the QTRSensors instance and functions
 extern QTRSensors qtr;
 const uint16_t SensorCount = 8;  // Define SensorCount as a constant
 extern uint16_t sensorValues[8];  // Use a fixed size for sensorValues
-extern bool leftSide;
-extern bool rightSide;
 
+
+Junction Detect_Junction_type();
 
 
 // Function declarations

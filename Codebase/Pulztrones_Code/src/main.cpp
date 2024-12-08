@@ -41,7 +41,7 @@ void setup() {
 
   Buzzer_Toggle(100);
   delay(2000);
- //calibrateIRSensors();
+  calibrateIRSensors();
   Buzzer_Toggle(100);
   
   Buzzer_UniquePattern();
@@ -50,7 +50,7 @@ void setup() {
   //FollowWhiteLine_GivenDistance(250);
   
   
-  
+  Serial2.println(FollowWhiteLineUntilJunction());
 
 
 
@@ -65,7 +65,7 @@ void setup() {
 
 
 void loop() {
-
+  
 
 }
 

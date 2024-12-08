@@ -5,6 +5,7 @@
 
 #include <Arduino.h>
 #include "config.h"
+#include "irs.h"
 
 extern int encoder_count_left;
 extern int encoder_count_right;
@@ -16,7 +17,7 @@ void FollowWhiteLine();
 //void FollowWhiteLine_Distance(int distance);
 void FollowWhiteLine_GivenDistance(int distance);
 void FollowBlackLine_GivenDistance(int distance);
-
+Junction FollowWhiteLineUntilJunction();
 
 void MoveDistanceForward(float distance);
 void turn(int);
