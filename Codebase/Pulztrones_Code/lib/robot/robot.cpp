@@ -14,6 +14,10 @@ void Robot::init(){
     pinMode(BUTTON_UP, INPUT);
     pinMode(BUTTON_SELECT, INPUT);
     pinMode(BUTTON_BACK, INPUT);
+
+
+    pinMode(COIN_DROPPER_ON_PIN, OUTPUT);
+    pinMode(ARM_GRIPPER_ON_PIN, OUTPUT);
 };
 
 void Robot::set_task(Task newtask) {
