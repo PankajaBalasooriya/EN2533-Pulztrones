@@ -17,10 +17,10 @@
 | 0              | Digital I/O (UART RX) |                       |
 | 1              | Digital I/O (UART TX) |                       |
 | 2              | Digital I/O, PWM      |                       |
-| 3              | Digital I/O, PWM      |                       |
+| 3              | Digital I/O, PWM      |  B2 (Select)          |
 | 4              | Digital I/O, PWM      |        enbPin         |
 | 5              | Digital I/O, PWM      |        enaPin         |
-| 6              | Digital I/O, PWM      |    mechanis drpper        |
+| 6              | Digital I/O, PWM      |    mechanism gripper  |
 | 7              | Digital I/O           |  arm servo      |
 | 8              | Digital I/O           |  coin  servo    |
 | 9              | Digital I/O, PWM      |                       |
@@ -49,7 +49,7 @@
 | 32             | Digital I/O           |    I2c MUX A1         |
 | 33             | Digital I/O           |    I2c MUX A2         |
 | 34             | Digital I/O           |       B1 (UP/NEXT)    |
-| 35             | Digital I/O           |       B2 (Select)     |
+| 35             | Digital I/O           |                       |
 | 36             | Digital I/O           |       B3 (Back)       |
 | 37             | Digital I/O           |       BLUE LED        |
 | 38             | Digital I/O           |       S0              |
