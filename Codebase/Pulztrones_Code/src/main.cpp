@@ -23,7 +23,13 @@
 #include "tasks.h"
 #include"MenuSystem.h"
 
+<<<<<<< HEAD
 
+=======
+#define BUTTON_NEXT 34     // Pin for UP/NEXT
+#define BUTTON_SELECT 35 // Pin for SELECT
+#define BUTTON_DOWN 36   // Pin for BACK
+>>>>>>> f99f3a3cedc67703c7baffab2a88b42242a43cd4
 
 
 Robot robot;
@@ -91,7 +97,6 @@ void setup() {
   //Todo: implement revese line folloiwng 
     //MoveReverseUntillJunction();
      //MenuSelection 
-
 
 menu.begin();
 
