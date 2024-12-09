@@ -69,20 +69,22 @@ void setup() {
   initBuzzer();
   mux.begin();
 
-  mux.selectChannel(2);
-
+  mux.selectChannel(4);
+// channel 2 -bottom
+// channel 3 - middle
+// channel 4 - top
 
   Buzzer_Toggle(100);
   delay(2000);
-  calibrateIRSensors();
+  //calibrateIRSensors();
   Buzzer_Toggle(100);
   
-  delay(5000);
-  Buzzer_UniquePattern();
+ // delay(5000);
+  //Buzzer_UniquePattern();
   
   
   robot.init();
-  robot.set_task(MovetoMaze);
+  //robot.set_task(MovetoMaze);
   //doTasks();  
 
   
