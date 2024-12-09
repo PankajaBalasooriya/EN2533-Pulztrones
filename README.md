@@ -20,9 +20,9 @@
 | 3              | Digital I/O, PWM      |                       |
 | 4              | Digital I/O, PWM      |        enbPin         |
 | 5              | Digital I/O, PWM      |        enaPin         |
-| 6              | Digital I/O, PWM      |    Mechanism Servo    |
-| 7              | Digital I/O           |                       |
-| 8              | Digital I/O           |                       |
+| 6              | Digital I/O, PWM      |    mechanis drpper        |
+| 7              | Digital I/O           |  arm servo      |
+| 8              | Digital I/O           |  coin  servo    |
 | 9              | Digital I/O, PWM      |                       |
 | 10             | Digital I/O, PWM      |                       |
 | 11             | Digital I/O, PWM      |                       |
@@ -64,10 +64,10 @@
 | 47             | Digital I/O           |                       |
 | 48             | Digital I/O           |                       |
 | 49             | Digital I/O           |                       |
-| 50             | Digital I/O (SPI MISO)|                       |
+| 50             | Digital I/O (SPI MISO)|      Mosfet 2         |
 | 51             | Digital I/O (SPI MOSI)|                       |
-| 52             | Digital I/O (SPI SCK) |                       |
-| 53             | Digital I/O (SPI SS)  |    RED LED            |
+| 52             | Digital I/O (SPI SCK) |      Mosfet 1 (arm)        |
+| 53             | Digital I/O (SPI SS)  |      RED LED          |
 | A0             | Analog Input          |      Raykha A0        |
 | A1             | Analog Input          |      Raykha A1        |
 | A2             | Analog Input          |      Raykha A2        |

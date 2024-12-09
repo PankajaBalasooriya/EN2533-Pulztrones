@@ -62,6 +62,9 @@ const int RIGHT_MARKER_SENSOR = A8;
 const int BLUE_LED = 37;
 const int RED_LED = 53;
 
+#define BUTTON_UP 34     // Pin for UP/NEXT
+#define BUTTON_SELECT 35 // Pin for SELECT
+#define BUTTON_BACK 36   // Pin for BACK
 
 
 

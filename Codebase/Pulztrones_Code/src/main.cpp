@@ -23,9 +23,7 @@
 #include "tasks.h"
 #include"MenuSystem.h"
 
-#define BUTTON_UP 34     // Pin for UP/NEXT
-#define BUTTON_SELECT 35 // Pin for SELECT
-#define BUTTON_BACK 36   // Pin for BACK
+
 
 
 Robot robot;
@@ -84,7 +82,7 @@ void setup() {
   
   robot.init();
   robot.set_task(MovetoMaze);
-  doTasks();  
+  //doTasks();  
 
   
   //moveForward(-100, -100);
@@ -93,9 +91,7 @@ void setup() {
   //Todo: implement revese line folloiwng 
     //MoveReverseUntillJunction();
      //MenuSelection 
-pinMode(BUTTON_UP, INPUT);
-pinMode(BUTTON_SELECT, INPUT);
-pinMode(BUTTON_NEXT, INPUT);
+
 
 menu.begin();
 
@@ -105,7 +101,7 @@ menu.begin();
 void loop() {
   //FollowWhiteLineReverse();
   mux.selectChannel(0); // channel 0 is selected for OLED
-  menu.handleInput(BUTTON_UP, BUTTON_NEXT, BUTTON_SELECT);//MenuSelectioninitiated 
+  menu.handleInput(BUTTON_UP, BUTTON_BACK, BUTTON_SELECT);//MenuSelectioninitiated 
   
 
 }

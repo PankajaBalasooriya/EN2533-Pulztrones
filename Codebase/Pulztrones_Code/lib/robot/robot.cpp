@@ -10,6 +10,10 @@ Robot::Robot() {
 void Robot::init(){
     pinMode(RED_LED, OUTPUT);
     pinMode(BLUE_LED, OUTPUT);
+
+    pinMode(BUTTON_UP, INPUT);
+    pinMode(BUTTON_SELECT, INPUT);
+    pinMode(BUTTON_BACK, INPUT);
 };
 
 void Robot::set_task(Task newtask) {
