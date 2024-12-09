@@ -22,14 +22,16 @@
 #include "I2CMUX.h"
 #include "tasks.h"
 #include"MenuSystem.h"
+#include "CoinDropper.h"
 
 
 
 Robot robot;
 I2CMUX mux(0x70);
 MenuSystem menu(128, 64, -1, 0x3C);
+CoinDropper coinDropper;
 
-Adafruit_VL53L0X lox = Adafruit_VL53L0X();
+
 
 void doTasks(){
   int VB_POS = 0;
@@ -69,45 +71,38 @@ void setup() {
   initBuzzer();
   mux.begin();
 
-  mux.selectChannel(4);
-// channel 2 -bottom
-// channel 3 - middle
-// channel 4 - top
+  mux.selectChannel(2);
+
 
   Buzzer_Toggle(100);
   delay(2000);
   //calibrateIRSensors();
   Buzzer_Toggle(100);
   
- // delay(5000);
-  //Buzzer_UniquePattern();
+  delay(5000);
+  Buzzer_UniquePattern();
   
   
   robot.init();
-  //robot.set_task(MovetoMaze);
+  
+  coinDropper.init(COIN_DROPPER_SERVO_PIN);
+
+  robot.set_task(MovetoMaze);
   //doTasks();  
 
   
-  //moveForward(-100, -100);
 
 
-  //Todo: implement revese line folloiwng 
+ 
     //MoveReverseUntillJunction();
      //MenuSelection 
 
     //menu.begin();
+    Buzzer_Toggle(100);
+    coinDropper.dropCoin();
+   
 
-    Serial2.println("Adafruit VL53L0X test.");
-    if (!lox.begin()) {
-        Serial2.println(F("Failed to boot VL53L0X"));
-        while(1);
-    }
-    // power
-    Serial2.println(F("VL53L0X API Continuous Ranging example\n\n"));
-
-    // start continuous ranging
-    lox.startRangeContinuous();
-
+    
 }
 
 
@@ -115,10 +110,7 @@ void loop() {
   //FollowWhiteLineReverse();
   //mux.selectChannel(0); // channel 0 is selected for OLED
   //menu.handleInput(BUTTON_UP, BUTTON_BACK, BUTTON_SELECT);//MenuSelectioninitiated 
-    if (lox.isRangeComplete()) {
-    Serial2.print("Distance in mm: ");
-    Serial2.println(lox.readRange());
-  }
+   
 
 }
 

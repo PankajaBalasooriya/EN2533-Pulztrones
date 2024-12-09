@@ -66,6 +66,13 @@ const int RED_LED = 53;
 #define BUTTON_SELECT 35 // Pin for SELECT
 #define BUTTON_BACK 36   // Pin for BACK
 
+const int COIN_DROPPER_ON_PIN = 50;
+const int ARM_GRIPPER_ON_PIN = 52;
+
+const int COIN_DROPPER_SERVO_PIN = 8;
+const int ARM_LIFT_SERVO_PIN = 7;
+const int GRIPPER_SERVO_PIN = 6;
+
 
 
 
