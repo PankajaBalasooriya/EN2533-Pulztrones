@@ -23,18 +23,13 @@
 #include "tasks.h"
 #include"MenuSystem.h"
 
-<<<<<<< HEAD
-
-=======
-#define BUTTON_NEXT 34     // Pin for UP/NEXT
-#define BUTTON_SELECT 35 // Pin for SELECT
-#define BUTTON_DOWN 36   // Pin for BACK
->>>>>>> f99f3a3cedc67703c7baffab2a88b42242a43cd4
 
 
 Robot robot;
 I2CMUX mux(0x70);
 MenuSystem menu(128, 64, -1, 0x3C);
+
+Adafruit_VL53L0X lox = Adafruit_VL53L0X();
 
 void doTasks(){
   int VB_POS = 0;
@@ -74,7 +69,7 @@ void setup() {
   initBuzzer();
   mux.begin();
 
-  mux.selectChannel(0);
+  mux.selectChannel(2);
 
 
   Buzzer_Toggle(100);
@@ -98,16 +93,30 @@ void setup() {
     //MoveReverseUntillJunction();
      //MenuSelection 
 
-menu.begin();
+    //menu.begin();
+
+    Serial2.println("Adafruit VL53L0X test.");
+    if (!lox.begin()) {
+        Serial2.println(F("Failed to boot VL53L0X"));
+        while(1);
+    }
+    // power
+    Serial2.println(F("VL53L0X API Continuous Ranging example\n\n"));
+
+    // start continuous ranging
+    lox.startRangeContinuous();
 
 }
 
 
 void loop() {
   //FollowWhiteLineReverse();
-  mux.selectChannel(0); // channel 0 is selected for OLED
-  menu.handleInput(BUTTON_UP, BUTTON_BACK, BUTTON_SELECT);//MenuSelectioninitiated 
-  
+  //mux.selectChannel(0); // channel 0 is selected for OLED
+  //menu.handleInput(BUTTON_UP, BUTTON_BACK, BUTTON_SELECT);//MenuSelectioninitiated 
+    if (lox.isRangeComplete()) {
+    Serial2.print("Distance in mm: ");
+    Serial2.println(lox.readRange());
+  }
 
 }
 
