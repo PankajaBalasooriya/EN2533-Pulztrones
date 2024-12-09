@@ -45,10 +45,14 @@ Task Robot::get_task(){
 //Todo: switch this to Blue led when it is fixed
 void Robot::pick_virtual_box(){
     robot.turn_on_led(RED_LED);
+    Buzzer_Toggle(100);
+    delay(200);
 }
 
 void Robot::drop_virtual_box(){
     robot.turn_off_led(RED_LED);
+    Buzzer_Toggle(100);
+    delay(200); 
 }
 
 

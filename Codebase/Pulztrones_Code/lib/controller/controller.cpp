@@ -57,14 +57,14 @@ void FollowWhiteLineReverse() {
     float pidOutput = PIDLineReverse(error);
     
     // Invert the PID output for reverse movement
-    int leftSpeed = -BASE_SPEED-10 - pidOutput;
-    int rightSpeed = -BASE_SPEED-10 + pidOutput;
+    int leftSpeed = -BASE_SPEED - pidOutput;
+    int rightSpeed = -BASE_SPEED + pidOutput;
     
     leftSpeed = constrain(leftSpeed, -MAX_SPEED, -MIN_SPEED);
     rightSpeed = constrain(rightSpeed, -MAX_SPEED, -MIN_SPEED);
     
     // Use negative speeds to move backward
-    moveForward(leftSpeed, rightSpeed - 20);
+    moveForward(leftSpeed + 20, rightSpeed - 20);
 }
 
 void FollowWhiteLine_GivenDistance(int distance) {
@@ -139,8 +139,10 @@ Junction FollowWhiteLineUntilJunction(){
         int position = readWhiteLinePosition();
         Junction junction = Detect_Junction_type();
         if(junction != Junction::Straight){
-            MotorBreak();
+            //MotorBreak();
             setMotorLPWM(0);
+            setMotorRPWM(150);
+            delay(33);
             setMotorRPWM(0);
             return junction;
         }
@@ -155,7 +157,7 @@ Junction FollowWhiteLineUntilJunction(){
         leftSpeed = constrain(leftSpeed, MIN_SPEED, MAX_SPEED);
         rightSpeed = constrain(rightSpeed, MIN_SPEED, MAX_SPEED);
         
-        moveForward(leftSpeed - 20, rightSpeed);
+        moveForward(leftSpeed - 20, rightSpeed);//l -20
     }
     
 
@@ -202,6 +204,130 @@ void MoveDistanceForward(float distance){
     setMotorLPWM(0);
     setMotorRPWM(0);
 }
+
+void MoveDistanceForward_and_not_stop(float distance){
+    const int target_encoder_count = distance / MM_PER_COUNT;
+    int encoder_count_left = 0;
+    int encoder_count_right = 0;
+
+
+    resetEncoders();
+
+    while(encoder_count_left < target_encoder_count && encoder_count_right < target_encoder_count){
+        encoder_count_left = getLeftEncoderCounts();
+        encoder_count_right = getRightEncoderCounts();
+
+        // Calculate encoder-based PID
+        error_enc = encoder_count_right - encoder_count_left;
+        correction_enc = PIDEnc(error_enc);
+
+        // Combine encoder and IR corrections (with priority on encoder)
+        float total_correction = correction_enc;
+
+        // Calculate motor speeds
+        float left_speed = BASE_SPEED - 10 + total_correction;
+        float right_speed = BASE_SPEED - 10 - total_correction;
+
+        setMotorLPWM(left_speed);
+        setMotorRPWM(right_speed);
+
+    }
+}
+
+void MoveDistanceReverse(float distance) {
+    const int target_encoder_count = -distance / MM_PER_COUNT;
+    int encoder_count_left = 0;
+    int encoder_count_right = 0;
+
+    resetEncoders();
+
+    while(encoder_count_left > target_encoder_count && encoder_count_right > target_encoder_count) {
+        encoder_count_left = getLeftEncoderCounts();
+        encoder_count_right = getRightEncoderCounts();
+
+        // Calculate encoder-based PID
+        error_enc = encoder_count_right - encoder_count_left;
+        correction_enc = PIDEnc(error_enc);
+
+        // Combine encoder corrections
+        float total_correction = correction_enc;
+
+        // Calculate motor speeds - note the negative sign to move in reverse
+        float left_speed = -(BASE_SPEED - total_correction);
+        float right_speed = -(BASE_SPEED + total_correction);
+
+        setMotorLPWM(left_speed);
+        setMotorRPWM(right_speed);
+    }
+    
+    MotorBreak();
+    setMotorLPWM(0);
+    setMotorRPWM(0);
+}
+
+void MoveDistanceReverse_and_not_stop(float distance) {
+    const int target_encoder_count = -distance / MM_PER_COUNT;
+    int encoder_count_left = 0;
+    int encoder_count_right = 0;
+
+    resetEncoders();
+
+    while(encoder_count_left > target_encoder_count && encoder_count_right > target_encoder_count) {
+        encoder_count_left = getLeftEncoderCounts();
+        encoder_count_right = getRightEncoderCounts();
+
+        // Calculate encoder-based PID
+        error_enc = encoder_count_right - encoder_count_left;
+        correction_enc = PIDEnc(error_enc);
+
+        // Combine encoder corrections
+        float total_correction = correction_enc;
+
+        // Calculate motor speeds - note the negative sign to move in reverse
+        float left_speed = -(BASE_SPEED - total_correction);
+        float right_speed = -(BASE_SPEED + total_correction);
+
+        setMotorLPWM(left_speed);
+        setMotorRPWM(right_speed);
+    }
+}
+
+Junction MoveReverseUntillJunction() {
+   
+    int encoder_count_left = 0;
+    int encoder_count_right = 0;
+
+    resetEncoders();
+
+    while(true) {
+        int position = readWhiteLinePosition();
+        Junction junction = Detect_Junction_type();
+        if(junction != Junction::Straight){
+            MotorBreak();
+            setMotorLPWM(0);
+            setMotorRPWM(0);
+            return junction;
+        }
+
+        encoder_count_left = getLeftEncoderCounts();
+        encoder_count_right = getRightEncoderCounts();
+
+        // Calculate encoder-based PID
+        error_enc = encoder_count_right - encoder_count_left;
+        correction_enc = PIDEnc(error_enc);
+
+        // Combine encoder corrections
+        float total_correction = correction_enc;
+
+        // Calculate motor speeds - note the negative sign to move in reverse
+        float left_speed = -(BASE_SPEED - 20 - total_correction);
+        float right_speed = -(BASE_SPEED - 20  + total_correction);
+
+        setMotorLPWM(left_speed);
+        setMotorRPWM(right_speed);
+    }
+}
+
 
 void turn(int direction) {
     // Variables

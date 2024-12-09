@@ -79,20 +79,20 @@ void setup() {
   
   robot.init();
   robot.set_task(MovetoMaze);
-  //doTasks();  
+  doTasks();  
 
   
   //moveForward(-100, -100);
 
 
   //Todo: implement revese line folloiwng 
-
+    //MoveReverseUntillJunction();
   
 }
 
 
 void loop() {
-  FollowWhiteLineReverse();
+  //FollowWhiteLineReverse();
 
 }
 

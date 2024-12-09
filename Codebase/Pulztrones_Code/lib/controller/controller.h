@@ -21,10 +21,17 @@ void FollowWhiteLineReverse();
 //void FollowWhiteLine_Distance(int distance);
 void FollowWhiteLine_GivenDistance(int distance);
 void FollowBlackLine_GivenDistance(int distance);
+
+
 Junction FollowWhiteLineUntilJunction();
 
 
 void MoveDistanceForward(float distance);
+void MoveDistanceReverse(float distance);
+Junction MoveReverseUntillJunction();
+void MoveDistanceReverse_and_not_stop(float distance);
+void MoveDistanceForward_and_not_stop(float distance);
+
 void turn(int);
 
 void turnRight90();
