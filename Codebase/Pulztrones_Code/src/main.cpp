@@ -23,6 +23,7 @@
 #include "tasks.h"
 #include"MenuSystem.h"
 #include "CoinDropper.h"
+#include "ArmMechanism.h"
 
 
 
@@ -30,6 +31,7 @@ Robot robot;
 I2CMUX mux(0x70);
 MenuSystem menu(128, 64, -1, 0x3C);
 CoinDropper coinDropper;
+ArmMechanism armMechanism;
 
 
 
@@ -86,6 +88,7 @@ void setup() {
   robot.init();
   
   coinDropper.init(COIN_DROPPER_SERVO_PIN);
+  armMechanism.init(ARM_LIFT_SERVO_PIN, GRIPPER_SERVO_PIN);
 
   robot.set_task(MovetoMaze);
   //doTasks();  
@@ -96,10 +99,12 @@ void setup() {
  
     //MoveReverseUntillJunction();
      //MenuSelection 
-
+    delay(5000);
     //menu.begin();
     Buzzer_Toggle(100);
-    coinDropper.dropCoin();
+    //coinDropper.dropCoin();
+    //armMechanism.closeGripper();
+    //armMechanism.moveToPickupPosition();
    
 
     
