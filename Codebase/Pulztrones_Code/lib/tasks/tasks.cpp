@@ -112,14 +112,53 @@ int Counting_and_Line_Navigation(){
 
 
 
-void execute_white_line_follow() {
+void execute_MoveToMaze() {
     // Code to execute the white line following task
     Serial2.println("Executing WHITE_LINE_FOLLOW");
     //MoveDistanceForward(40)
     FollowWhiteLineUntilJunction();
+    turnRight90();
+    FollowWhiteLineUntilJunction();
+
 }
 
-void execute_maze() {
+void execute_maze(int VB_POS) {
     // Code to execute the maze task
     Serial2.println("Executing MAZE");
+
+    if(VB_POS == 0){
+        robot.pick_virtual_box();
+        
+        MoveDistanceForward_and_not_stop(30);
+        FollowWhiteLineUntilJunction();
+        robot.drop_virtual_box();
+
+        MoveDistanceReverse_and_not_stop(30);
+        MoveReverseUntillJunction();
+        turnRight90();
+        FollowWhiteLineUntilJunction();
+        turnLeft90();
+        FollowWhiteLineUntilJunction();
+        turnLeft90();
+        FollowWhiteLineUntilJunction();
+
+        //check open
+
+        robot.pick_virtual_box();
+        MoveDistanceReverse(30);
+        MoveReverseUntillJunction();
+        robot.drop_virtual_box();
+
+        MoveReverseUntillJunction();
+        turnLeft90();
+        FollowWhiteLineUntilJunction();
+        turnRight90();
+        FollowWhiteLineUntilJunction();
+        turnRight90();
+        FollowWhiteLineUntilJunction();
+
+        robot.pick_virtual_box();
+        MoveReverseUntillJunction();
+
+    }
 }
