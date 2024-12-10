@@ -24,6 +24,7 @@
 #include"MenuSystem.h"
 #include "CoinDropper.h"
 #include "ArmMechanism.h"
+#include "Ultrasonic.h"
 
 
 
@@ -32,6 +33,8 @@ I2CMUX mux(0x70);
 MenuSystem menu(128, 64, -1, 0x3C);
 CoinDropper coinDropper;
 ArmMechanism armMechanism;
+Ultrasonic ultrasonic(TRIG_PIN, ECHO_PIN);
+
 
 
 
@@ -66,56 +69,47 @@ void doTasks(){
 
 void setup() {
   
-  initBluetoothDebug();
-  initMotorPins();
-  initEncoders();
-  initIRSensors();
-  initBuzzer();
-  mux.begin();
+    initBluetoothDebug();
+    initMotorPins();
+    initEncoders();
+    initIRSensors();
+    initBuzzer();
+    mux.begin();
 
-  mux.selectChannel(2);
+    //setting to channel 0 for OLED
+    mux.selectChannel(0);
 
 
-  Buzzer_Toggle(100);
-  delay(2000);
-  //calibrateIRSensors();
-  Buzzer_Toggle(100);
-  
-  delay(5000);
-  Buzzer_UniquePattern();
-  
-  
-  robot.init();
-  
-  coinDropper.init(COIN_DROPPER_SERVO_PIN);
-  armMechanism.init(ARM_LIFT_SERVO_PIN, GRIPPER_SERVO_PIN);
+    Buzzer_Toggle(100);
+    delay(2000);
+    //calibrateIRSensors();
+    Buzzer_Toggle(100);
 
-  robot.set_task(MovetoMaze);
-  //doTasks();  
+    robot.init();
+    coinDropper.init(COIN_DROPPER_SERVO_PIN);
+    armMechanism.init(ARM_LIFT_SERVO_PIN, GRIPPER_SERVO_PIN);
 
-  
+    robot.set_task(MovetoMaze);
+    //doTasks();  
 
+    menu.begin();
+
+    
 
  
-    //MoveReverseUntillJunction();
-     //MenuSelection 
-    delay(5000);
-    //menu.begin();
-    Buzzer_Toggle(100);
-    //coinDropper.dropCoin();
-    //armMechanism.closeGripper();
-    //armMechanism.moveToPickupPosition();
-   
+
+
+
 
     
 }
 
 
 void loop() {
-  //FollowWhiteLineReverse();
-  //mux.selectChannel(0); // channel 0 is selected for OLED
-  //menu.handleInput(BUTTON_UP, BUTTON_BACK, BUTTON_SELECT);//MenuSelectioninitiated 
-   
+    //FollowWhiteLineReverse();
+    mux.selectChannel(0); // channel 0 is selected for OLED
+    menu.handleInput(BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT);//MenuSelectioninitiated 
 
+    //Serial2.println(robot.check_for_left_wall(ultrasonic));
 }
 

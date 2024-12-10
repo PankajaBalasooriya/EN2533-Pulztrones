@@ -9,6 +9,9 @@
 #include "config.h"
 #include "controller.h"
 #include "PID.h"
+#include "ArmMechanism.h"
+#include "CoinDropper.h"
+#include "Ultrasonic.h"
 
 
 
@@ -41,6 +44,11 @@ class Robot {
 
         void pick_virtual_box();
         void drop_virtual_box();
+
+        void pick_box_and_lift(ArmMechanism &armMechanism);
+        void drop_box_and_release(ArmMechanism &armMechanism);
+
+        int check_for_left_wall(Ultrasonic &ultrasonic);
         
     
     private:

@@ -62,9 +62,9 @@ const int RIGHT_MARKER_SENSOR = A8;
 const int BLUE_LED = 37;
 const int RED_LED = 53;
 
-#define BUTTON_UP 34     // Pin for UP/NEXT
-#define BUTTON_SELECT 35 // Pin for SELECT
-#define BUTTON_BACK 36   // Pin for BACK
+#define BUTTON_DOWN 34     // Pin for UP/NEXT
+#define BUTTON_SELECT 3 // Pin for SELECT
+#define BUTTON_UP 36   // Pin for BACK
 
 const int COIN_DROPPER_ON_PIN = 50;
 const int ARM_GRIPPER_ON_PIN = 52;
@@ -72,6 +72,10 @@ const int ARM_GRIPPER_ON_PIN = 52;
 const int COIN_DROPPER_SERVO_PIN = 8;
 const int ARM_LIFT_SERVO_PIN = 7;
 const int GRIPPER_SERVO_PIN = 6;
+
+const int TRIG_PIN = 32;   // Trigger pin of the ultrasonic sensor
+const int ECHO_PIN = 31;  // Echo pin of the ultrasonic sensor
+
 
 
 

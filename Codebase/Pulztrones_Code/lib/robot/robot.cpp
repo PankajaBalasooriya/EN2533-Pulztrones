@@ -11,9 +11,9 @@ void Robot::init(){
     pinMode(RED_LED, OUTPUT);
     pinMode(BLUE_LED, OUTPUT);
 
-    pinMode(BUTTON_UP, INPUT);
+    pinMode(BUTTON_DOWN, INPUT);
     pinMode(BUTTON_SELECT, INPUT);
-    pinMode(BUTTON_BACK, INPUT);
+    pinMode(BUTTON_UP, INPUT);
 
 
     pinMode(COIN_DROPPER_ON_PIN, OUTPUT);
@@ -45,26 +45,44 @@ void Robot::turn_off_led(int PIN) {
 }
 
 
-
 Task Robot::get_task(){
     return task;
 }
 
-//Todo: switch this to Blue led when it is fixed
+
 void Robot::pick_virtual_box(){
-    robot.turn_on_led(RED_LED);
+    robot.turn_on_led(BLUE_LED);
     Buzzer_Toggle(100);
     delay(200);
 }
 
 void Robot::drop_virtual_box(){
-    robot.turn_off_led(RED_LED);
+    robot.turn_off_led(BLUE_LED);
     Buzzer_Toggle(100);
     delay(200); 
 }
 
+void Robot::pick_box_and_lift(ArmMechanism &armMechanism){
+    armMechanism.holdBox();
+    armMechanism.moveToPickupPosition();
+}
 
+void Robot::drop_box_and_release(ArmMechanism &armMechanism){
+    armMechanism.moveToRestPosition();
+    armMechanism.openGripper();
+}
 
+int Robot::check_for_left_wall(Ultrasonic &ultrasonic){
+    const int ARRAY_SIZE = 5;
+    float distanceArray[ARRAY_SIZE];
+
+    // Measure multiple distances
+    ultrasonic.measureDistances(distanceArray, ARRAY_SIZE);
+  
+    // Check if the path is blocked
+    int isBlocked = ultrasonic.BlockedOrNot(distanceArray, ARRAY_SIZE);
+    return isBlocked;
+}
 
 
 //***** Feature Testing code *****************************************************//

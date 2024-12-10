@@ -18,6 +18,7 @@ public:
     void moveToRestPosition();
     void openGripper();
     void closeGripper();
+    void holdBox();
 
 
 private:
@@ -35,6 +36,7 @@ private:
     static const int GRIPPER_MAX_ANGLE = 100;
     static const int GRIPPER_OPEN_ANGLE = 0;
     static const int GRIPPER_CLOSE_ANGLE = 100;
+    static const int GRIPPER_HOLD_ANGLE = 85;
 
     // Timing constants
     static const int MOVEMENT_PAUSE = 500;
@@ -42,6 +44,7 @@ private:
     // Internal utility methods
     void moveArmLiftServo(int angle);
     void moveGripperServo(int angle);
+    
 };
 
 #endif // ARM_MECHANISM_H

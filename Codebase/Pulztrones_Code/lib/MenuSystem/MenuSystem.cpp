@@ -15,6 +15,9 @@ void MenuSystem::begin() {
     display.setTextColor(WHITE);
     display.setTextSize(1);
     display.display();
+
+    navigateMenu(true);
+    updateDisplay();
 }
 
 void MenuSystem::updateDisplay() {
