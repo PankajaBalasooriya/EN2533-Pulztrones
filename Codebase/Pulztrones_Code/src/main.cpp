@@ -28,12 +28,17 @@
 
 
 
+
 Robot robot;
 I2CMUX mux(0x70);
 MenuSystem menu(128, 64, -1, 0x3C);
 CoinDropper coinDropper;
 ArmMechanism armMechanism;
 Ultrasonic ultrasonic(TRIG_PIN, ECHO_PIN);
+
+
+
+
 
 
 
@@ -75,6 +80,7 @@ void setup() {
     initIRSensors();
     initBuzzer();
     mux.begin();
+    
 
     //setting to channel 0 for OLED
     mux.selectChannel(0);
@@ -86,8 +92,8 @@ void setup() {
     Buzzer_Toggle(100);
 
     robot.init();
-    coinDropper.init(COIN_DROPPER_SERVO_PIN);
-    armMechanism.init(ARM_LIFT_SERVO_PIN, GRIPPER_SERVO_PIN);
+    //coinDropper.init(COIN_DROPPER_SERVO_PIN);
+    //armMechanism.init(ARM_LIFT_SERVO_PIN, GRIPPER_SERVO_PIN);
 
     robot.set_task(MovetoMaze);
     //doTasks();  
@@ -95,7 +101,12 @@ void setup() {
     menu.begin();
 
     
-
+//      mux.selectChannel(2);
+// // channel 2 -bottom
+// // channel 3 - middle
+// // channel 4 - top
+    
+    
  
 
 
@@ -107,9 +118,7 @@ void setup() {
 
 void loop() {
     //FollowWhiteLineReverse();
-    mux.selectChannel(0); // channel 0 is selected for OLED
-    menu.handleInput(BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT);//MenuSelectioninitiated 
-
-    //Serial2.println(robot.check_for_left_wall(ultrasonic));
+    // mux.selectChannel(0); // channel 0 is selected for OLED
+    // menu.handleInput(BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT);//MenuSelectioninitiated 
 }
 

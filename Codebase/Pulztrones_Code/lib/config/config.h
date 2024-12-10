@@ -170,7 +170,10 @@ const int BLUE_LINE_THRESHOLD = 100;
 #endif
 //***************************************************************************//
 
-
+// Define multiplexer channels for ToF sensors
+#define CHANNEL_BOTTOM  2
+#define CHANNEL_MIDDLE  3
+#define CHANNEL_TOP     4
 
 
 #endif
