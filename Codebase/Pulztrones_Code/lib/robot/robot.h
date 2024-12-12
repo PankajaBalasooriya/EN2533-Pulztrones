@@ -19,9 +19,12 @@
 
 class Robot;
 extern Robot robot;
+extern VL53L0X_Multiplexer tofSensors;
+extern I2CMUX mux;
 
 class Robot {
     public:
+        
         
 
         Robot();
@@ -52,7 +55,7 @@ class Robot {
 
         int check_for_left_wall(Ultrasonic &ultrasonic);
 
-        int get_front_distance_from_center_tof();
+        //int get_front_distance_from_center_tof();
 
         void turn_Right_90_after_moving_forward();
         void turn_Left_90_after_moving_forward();
@@ -60,9 +63,9 @@ class Robot {
         void turn_Right_90_after_moving_reverse();
         void turn_Left_90_after_moving_reverse();
 
-        int get_front_distance_from_middle_tof(VL53L0X_Multiplexer &tofSensors, I2CMUX &mux);
-        int get_front_distance_from_bottom_tof(VL53L0X_Multiplexer &tofSensors, I2CMUX &mux);
-        int get_front_distance_from_top_tof(VL53L0X_Multiplexer &tofSensors, I2CMUX &mux);
+        int get_front_distance_from_middle_tof();
+        int get_front_distance_from_bottom_tof();
+        int get_front_distance_from_top_tof();
         
     
     private:

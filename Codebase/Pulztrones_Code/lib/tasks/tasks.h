@@ -10,6 +10,8 @@
 #include "config.h"
 #include "controller.h"
 #include "robot.h"
+#include "I2CMUX.h"
+#include "ToF.h"
 
 
 
@@ -20,4 +22,8 @@ void execute_maze(int VB_POS);
 void blue_open();
 
 
+
+//other functions needed
+void box_in_lower_position();
+void box_upper_position();
 #endif // TASKS_H

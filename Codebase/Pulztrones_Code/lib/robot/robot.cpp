@@ -84,15 +84,15 @@ int Robot::check_for_left_wall(Ultrasonic &ultrasonic){
     return isBlocked;
 }
 
-int Robot::get_front_distance_from_middle_tof(VL53L0X_Multiplexer &tofSensors, I2CMUX &mux){
+int Robot::get_front_distance_from_middle_tof(){
     return tofSensors.getTofDistance(3, mux);
 }
 
-int Robot::get_front_distance_from_bottom_tof(VL53L0X_Multiplexer &tofSensors, I2CMUX &mux){
+int Robot::get_front_distance_from_bottom_tof(){
     return tofSensors.getTofDistance(2, mux);
 }
 
-int Robot::get_front_distance_from_top_tof(VL53L0X_Multiplexer &tofSensors, I2CMUX &mux){
+int Robot::get_front_distance_from_top_tof(){
     return tofSensors.getTofDistance(4, mux);
 }
 

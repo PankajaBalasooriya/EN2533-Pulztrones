@@ -58,11 +58,12 @@ void doTasks(){
                 robot.set_task(MovetoMaze);
                 break;
             case MovetoMaze:
-                VB_POS = 0;
+                
                 execute_MoveToMaze();
                 robot.set_task(MAZE);
                 break;
             case MAZE:
+                //VB_POS = 4;
                 execute_maze(VB_POS);
                 robot.set_task(STOP);
                 break;
@@ -72,6 +73,8 @@ void doTasks(){
         }
     }
 }
+
+
   
 
 void setup() {
@@ -92,14 +95,14 @@ void setup() {
 
     Buzzer_Toggle(100);
     delay(2000);
-    //calibrateIRSensors();
+    calibrateIRSensors();
     Buzzer_Toggle(100);
 
     robot.init();
-    coinDropper.init(COIN_DROPPER_SERVO_PIN);
-    armMechanism.init(ARM_LIFT_SERVO_PIN, GRIPPER_SERVO_PIN);
+    //coinDropper.init(COIN_DROPPER_SERVO_PIN);
+    //armMechanism.init(ARM_LIFT_SERVO_PIN, GRIPPER_SERVO_PIN);
 
-    robot.set_task(MovetoMaze);
+    robot.set_task(START_SQUARE);
     
 
     //menu.begin();
@@ -107,38 +110,24 @@ void setup() {
 
     
     
- 
-    //doTasks();  
-    
-    
+    delay(5000);
 
-    //robot.pick_box_and_lift(armMechanism);
-    delay(2000);
-    //robot.drop_box_and_release(armMechanism);
+    Buzzer_UniquePattern();
+    doTasks();  
+    
 
     
 }
 
 
 void loop() {
-    //FollowWhiteLineReverse();
+
     // mux.selectChannel(0); // channel 0 is selected for OLED
     // menu.handleInput(BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT);//MenuSelectioninitiated 
-    //FollowWhiteLineReverse();
-//     Serial2.print(">");
-//     Serial2.print("C:");
-//     Serial2.print(3500);
-//     Serial2.print(",E:");
-//    Serial2.println(readBlackLinePosition());
-    
-    //FollowBlackLine();
+    //Serial2.println(robot.get_front_distance_from_middle_tof());
 
     
-    Serial2.print(robot.get_front_distance_from_bottom_tof(tofSensors, mux));
-    Serial2.print(",");
-    Serial2.print(robot.get_front_distance_from_middle_tof(tofSensors, mux));
-    Serial2.print(",");
-    Serial2.println(robot.get_front_distance_from_top_tof(tofSensors, mux));
+  
 
 }
 

@@ -123,6 +123,7 @@ void execute_MoveToMaze() {
 }
 
 void execute_maze(int VB_POS) {
+    int Gate = 1;
     // Code to execute the maze task
     Serial2.println("Executing MAZE");
 
@@ -137,36 +138,187 @@ void execute_maze(int VB_POS) {
         MoveReverseUntillJunction();
         robot.turn_Right_90_after_moving_reverse();
         FollowWhiteLineUntilJunction();
+        robot.turn_Left_90_after_moving_forward();
+        FollowWhiteLineUntilJunction();
+
+        if(robot.get_front_distance_from_middle_tof() < 500){
+            // Closed
+            robot.turn_Left_90_after_moving_forward();
+            FollowWhiteLineUntilJunction();
+
+            robot.pick_virtual_box();
+            MoveDistanceReverse_and_not_stop(30);
+            MoveReverseUntillJunction();
+            MoveDistanceReverse_and_not_stop(30);
+            MoveReverseUntillJunction();
+            MoveDistanceReverse_and_not_stop(30);
+            MoveReverseUntillJunction();
+            MoveDistanceReverse_and_not_stop(30);
+            MoveReverseUntillJunction();
+            robot.drop_virtual_box();
+
+            box_in_lower_position();
+        }
+        else{
+            robot.turn_Left_90_after_moving_forward();
+            FollowWhiteLineUntilJunction();
+
+            robot.pick_virtual_box();
+            MoveDistanceReverse_and_not_stop(30);
+            MoveReverseUntillJunction();
+            robot.drop_virtual_box();
+
+            box_in_lower_position();
+            
+        }
+        //dsfsdf
+    }
+    else{
+        //checking the gate
+        MoveDistanceForward_and_not_stop(50);
+        FollowWhiteLineUntilJunction();
         robot.turn_Right_90_after_moving_forward();
+        FollowWhiteLineUntilJunction();
+        robot.turn_Left_90_after_moving_forward();
+
+        if(robot.get_front_distance_from_middle_tof() < 500){
+            // Gate 1 closed
+            Gate = 3;
+            Buzzer_Toggle(100);
+            delay(200);
+            Buzzer_Toggle(100);
+            delay(200);
+            Buzzer_Toggle(100);
+        }
+        else{
+            Gate = 1;
+            Buzzer_Toggle(100);
+        }
+
+        //move to zero position
+        robot.turn_left_90();
+        MoveDistanceForward_and_not_stop(40);
+        FollowWhiteLineUntilJunction();
+        robot.turn_Left_90_after_moving_forward();
         FollowWhiteLineUntilJunction();
         robot.turn_Left_90_after_moving_forward();
         FollowWhiteLineUntilJunction();
 
-        //dsfsdf
+        switch (Gate)
+        {
+        case 1:
+            FollowWhiteLineUntilJunction();
+            switch (VB_POS)
+            {
+            case 1:
+                break;
+            case 2:
+                MoveDistanceForward_and_not_stop(30);
+                FollowWhiteLineUntilJunction();
 
-        robot.pick_virtual_box();
-        MoveDistanceReverse_and_not_stop(30);
-        MoveReverseUntillJunction();
-        robot.drop_virtual_box();
+                robot.pick_virtual_box();
+                MoveDistanceReverse_and_not_stop(30);
+                MoveReverseUntillJunction();
+                robot.drop_virtual_box();
+                break;
+            case 3:
+                MoveDistanceForward_and_not_stop(30);
+                FollowWhiteLineUntilJunction();
+                MoveDistanceForward_and_not_stop(30);
+                FollowWhiteLineUntilJunction();
 
-        MoveDistanceReverse_and_not_stop(30);
-        MoveReverseUntillJunction();
-        robot.turn_Left_90_after_moving_reverse();
-        FollowWhiteLineUntilJunction();
-        robot.turn_Right_90_after_moving_forward();
-        FollowWhiteLineUntilJunction();
-        robot.turn_Right_90_after_moving_forward();
-        FollowWhiteLineUntilJunction();
+                robot.pick_virtual_box();
+                MoveDistanceReverse_and_not_stop(30);
+                MoveReverseUntillJunction();
+                MoveDistanceReverse_and_not_stop(30);
+                MoveReverseUntillJunction();
+                robot.drop_virtual_box();
+                break;
+            case 4:
+                MoveDistanceForward_and_not_stop(30);
+                FollowWhiteLineUntilJunction();
+                MoveDistanceForward_and_not_stop(30);
+                FollowWhiteLineUntilJunction();
+                MoveDistanceForward_and_not_stop(30);
+                FollowWhiteLineUntilJunction();
+                
+                robot.pick_virtual_box();
+                MoveDistanceReverse_and_not_stop(30);
+                MoveReverseUntillJunction();
+                MoveDistanceReverse_and_not_stop(30);
+                MoveReverseUntillJunction();
+                MoveDistanceReverse_and_not_stop(30);
+                MoveReverseUntillJunction();
+                robot.drop_virtual_box();
+                break;
 
-        robot.pick_virtual_box();
-        MoveDistanceForward(30);
-        //Todo: Change this to distance in the arena
-        FollowWhiteLine_GivenDistance(80);
-        MoveDistanceForward(100);
-        robot.drop_virtual_box();
-
+            
+            default:
+                break;
+            }
+            break;
+        case 3:
+            switch (VB_POS)
+            {
+                case 1:
+                    robot.pick_virtual_box();
+                    MoveDistanceForward_and_not_stop(30);
+                    FollowWhiteLineUntilJunction();
+                    MoveDistanceForward_and_not_stop(30);
+                    FollowWhiteLineUntilJunction();
+                    robot.drop_virtual_box();
+                    break;
+                case 2:
+                    MoveDistanceForward_and_not_stop(30);
+                    FollowWhiteLineUntilJunction();
+                    robot.pick_virtual_box();
+                    MoveDistanceForward_and_not_stop(30);
+                    FollowWhiteLineUntilJunction();
+                    robot.drop_virtual_box();
+                    break;
+                case 3:
+                    MoveDistanceForward_and_not_stop(30);
+                    FollowWhiteLineUntilJunction();
+                    MoveDistanceForward_and_not_stop(30);
+                    FollowWhiteLineUntilJunction();
+                    break;
+                case 4:
+                   MoveDistanceForward_and_not_stop(30);
+                    FollowWhiteLineUntilJunction();
+                    MoveDistanceForward_and_not_stop(30);
+                    FollowWhiteLineUntilJunction();
+                    MoveDistanceForward_and_not_stop(30);
+                    FollowWhiteLineUntilJunction();
+                    robot.pick_virtual_box();
+                    MoveDistanceReverse_and_not_stop(30);
+                    MoveReverseUntillJunction();
+                    robot.drop_virtual_box();
+                    break;
+            }
+        default:
+            break;
+        }
+        box_upper_position();
     }
     
+}
+
+void box_in_lower_position(){
+    MoveDistanceReverse_and_not_stop(50);
+    MoveReverseUntillJunction();
+    robot.turn_Left_90_after_moving_reverse();
+    FollowWhiteLineUntilJunction();
+    robot.turn_Right_90_after_moving_forward();
+    FollowWhiteLineUntilJunction();
+    robot.turn_Right_90_after_moving_forward();
+    FollowWhiteLineUntilJunction();
+
+    robot.pick_virtual_box();
+    MoveDistanceForward(30);
+    //Todo: Change this to distance in the arena
+    FollowWhiteLine_GivenDistance(80);
+    MoveDistanceForward(140);
+    robot.drop_virtual_box();
 }
 
 void blue_open(){
@@ -181,4 +333,23 @@ void blue_open(){
     robot.pick_virtual_box();
     MoveDistanceReverse_and_not_stop(30);
     MoveReverseUntillJunction();
+}
+
+void box_upper_position(){
+    MoveDistanceReverse_and_not_stop(30);
+    MoveReverseUntillJunction();
+    robot.turn_Left_90_after_moving_reverse();
+    FollowWhiteLineUntilJunction();
+    robot.turn_Right_90_after_moving_forward();
+    FollowWhiteLineUntilJunction();
+    robot.turn_Right_90_after_moving_forward();
+    FollowWhiteLineUntilJunction();
+    robot.pick_virtual_box();
+    MoveDistanceReverse_and_not_stop(30);
+    MoveReverseUntillJunction();
+    MoveDistanceReverse(180);
+    robot.drop_virtual_box();
+
+    robot.turn_left_180();
+    
 }

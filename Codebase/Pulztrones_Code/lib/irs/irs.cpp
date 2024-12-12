@@ -23,7 +23,7 @@ void initIRSensors() {
 void calibrateIRSensors() {
     Serial2.println("Starting calibration...");
 
-    for (uint8_t i = 0; i < 250; i++) {
+    for (uint8_t i = 0; i < 150; i++) {
         qtr.calibrate();
         qtrBack.calibrate();
         delay(20);
