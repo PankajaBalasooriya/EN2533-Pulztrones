@@ -8,6 +8,7 @@ enum Task{
             BARCODE,
             MovetoMaze,
             MAZE,
+            COLOR_LINE,
             STOP
         };
 

@@ -67,6 +67,11 @@ void doTasks(){
                 execute_maze(VB_POS);
                 robot.set_task(STOP);
                 break;
+            case COLOR_LINE:
+                //VB_POS = 4;
+                execute_maze(VB_POS);
+                robot.set_task(STOP);
+                break;
             default:
                 robot.set_task(STOP);
                 break;
@@ -85,17 +90,16 @@ void setup() {
     initIRSensors();
     initBuzzer();
     mux.begin();
-    
-
     //setting to channel 0 for OLED
     mux.selectChannel(0);
-
     tofSensors.begin(mux);
+
+    setupSensor(leftS0, leftS1, leftS2, leftS3, leftSensorOut);
 
 
     Buzzer_Toggle(100);
     delay(2000);
-    calibrateIRSensors();
+    //calibrateIRSensors();
     Buzzer_Toggle(100);
 
     robot.init();
@@ -110,17 +114,35 @@ void setup() {
 
     
     
-    delay(5000);
+    ///delay(5000);
 
-    Buzzer_UniquePattern();
-    doTasks();  
+    //Buzzer_UniquePattern();
+    //doTasks();  
     
+
 
     
 }
 
 
 void loop() {
+    int red,green,blue;
+    readRGB(leftS0, leftS1, leftS2, leftS3, leftSensorOut, red, green, blue);
+    String color = detectColor(red, green, blue);
+    if(color == "RED"){
+        robot.turn_on_led(RED_LED);
+        robot.turn_off_led(BLUE_LED);
+    }
+    else if(color == "BLUE"){
+        robot.turn_on_led(BLUE_LED);
+        robot.turn_off_led(RED_LED);
+    }
+    else{
+        robot.turn_off_led(BLUE_LED);
+        robot.turn_off_led(RED_LED);
+    }
+   
+    
 
     // mux.selectChannel(0); // channel 0 is selected for OLED
     // menu.handleInput(BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT);//MenuSelectioninitiated 
