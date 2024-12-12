@@ -142,13 +142,14 @@ void execute_maze(int VB_POS) {
         turnLeft90();
         FollowWhiteLineUntilJunction();
 
-        //check open
+        //dsfsdf
 
         robot.pick_virtual_box();
-        MoveDistanceReverse(30);
+       MoveDistanceReverse_and_not_stop(30);
         MoveReverseUntillJunction();
         robot.drop_virtual_box();
 
+        MoveDistanceReverse_and_not_stop(30);
         MoveReverseUntillJunction();
         turnLeft90();
         FollowWhiteLineUntilJunction();
@@ -158,7 +159,23 @@ void execute_maze(int VB_POS) {
         FollowWhiteLineUntilJunction();
 
         robot.pick_virtual_box();
-        MoveReverseUntillJunction();
+        MoveDistanceForward(30);
+        FollowWhiteLineUntilJunction();
 
     }
+    
+}
+
+void blue_open(){
+    MoveDistanceReverse_and_not_stop(30);
+    MoveReverseUntillJunction();
+    turnLeft90();
+    FollowWhiteLineUntilJunction();
+    turnRight90();
+    FollowWhiteLineUntilJunction();
+    turnRight90();
+    FollowWhiteLineUntilJunction();
+    robot.pick_virtual_box();
+    MoveDistanceReverse_and_not_stop(30);
+    MoveReverseUntillJunction();
 }

@@ -10,8 +10,8 @@ const float KpL = 0.04;//0.04// 0.062
 const float KdL = 3.5;//0.75
 
 
-const float KpR = 0.14;
-const float KdR = 0;
+const float KpR = 0.15;
+const float KdR = 11.5;
 
 const float KpEnc = 1;
 const float KdEnc = 0;

@@ -3,12 +3,17 @@
 
 // Define QTR instance and global variables
 QTRSensors qtr;
+QTRSensors qtrBack;
 uint16_t sensorValues[SensorCount];  // Define sensorValues with a fixed size
+uint16_t sensorValuesBack[SensorCountBack];
 
 // Initialize the IR sensors
 void initIRSensors() {
     qtr.setTypeAnalog();
     qtr.setSensorPins((const uint8_t[]){A0, A1, A2, A3, A4, A5, A6, A7}, SensorCount);
+
+    qtrBack.setTypeAnalog();
+    qtrBack.setSensorPins((const uint8_t[]){A10, A13, A11, A12, A15, A13}, SensorCountBack);
 }
 
 
@@ -20,6 +25,7 @@ void calibrateIRSensors() {
 
     for (uint8_t i = 0; i < 250; i++) {
         qtr.calibrate();
+        qtrBack.calibrate();
         delay(20);
 
         // Print the current calibration progress
@@ -73,4 +79,41 @@ Junction Detect_Junction_type(){
     else{
         return Straight;
     }
+}
+
+Junction Detect_Junction_type_on_black_line(){
+    //bool JunctionDetected = false;
+    int numberOfSensorsOnBlack = 0;
+
+    for(int i = 0; i < SensorCount; i++){
+        if(sensorValues[i] > WHITE_LINE_THRESHOLD){
+            numberOfSensorsOnBlack++;
+        }
+    }
+
+    if(numberOfSensorsOnBlack > SENSORS_ON_LINE_FOR_JUNCTION_CHECK){
+        //MotorBreak();
+        int leftSensorValue = analogRead(LEFT_MARKER_SENSOR);
+        int rightSensorValue = analogRead(RIGHT_MARKER_SENSOR);
+
+        if (leftSensorValue > WHITE_LINE_THRESHOLD && rightSensorValue > WHITE_LINE_THRESHOLD){
+            return T_Junction;
+        }
+        else if (leftSensorValue > WHITE_LINE_THRESHOLD){
+            return Left;
+        }
+        else if (rightSensorValue > WHITE_LINE_THRESHOLD){
+            return Right;
+        }
+        else{
+            return Straight;
+        }
+    }
+    else{
+        return Straight;
+    }
+}
+
+int readBackWhiteLinePosition(){
+    return qtrBack.readLineWhite(sensorValuesBack);
 }

@@ -49,6 +49,14 @@ class Robot {
         void drop_box_and_release(ArmMechanism &armMechanism);
 
         int check_for_left_wall(Ultrasonic &ultrasonic);
+
+        int get_front_distance_from_center_tof();
+
+        void turn_Right_90_after_moving_forward();
+        void turn_Left_90_after_moving_forward();
+
+        void turn_Right_90_after_moving_reverse();
+        void turn_Left_90_after_moving_reverse();
         
     
     private:

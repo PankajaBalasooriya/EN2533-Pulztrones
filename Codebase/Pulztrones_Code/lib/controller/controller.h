@@ -32,6 +32,8 @@ Junction MoveReverseUntillJunction();
 void MoveDistanceReverse_and_not_stop(float distance);
 void MoveDistanceForward_and_not_stop(float distance);
 
+Junction FollowBlackLineUntilJunction();
+
 void turn(int);
 
 void turnRight90();

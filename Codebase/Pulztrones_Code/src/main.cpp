@@ -88,7 +88,7 @@ void setup() {
 
     Buzzer_Toggle(100);
     delay(2000);
-    //calibrateIRSensors();
+    calibrateIRSensors();
     Buzzer_Toggle(100);
 
     robot.init();
@@ -96,9 +96,13 @@ void setup() {
     //armMechanism.init(ARM_LIFT_SERVO_PIN, GRIPPER_SERVO_PIN);
 
     robot.set_task(MovetoMaze);
-    //doTasks();  
+    
 
-    menu.begin();
+    //menu.begin();
+
+    //FollowBlackLine();
+
+    //MoveReverseUntillJunction();
 
     
 //      mux.selectChannel(2);
@@ -108,8 +112,11 @@ void setup() {
     
     
  
-
-
+    doTasks();  
+    
+    // MoveReverseUntillJunction();
+    // robot.turn_Left_90_after_moving_reverse();
+    // FollowWhiteLineUntilJunction();
 
 
     
@@ -120,5 +127,13 @@ void loop() {
     //FollowWhiteLineReverse();
     // mux.selectChannel(0); // channel 0 is selected for OLED
     // menu.handleInput(BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT);//MenuSelectioninitiated 
+    //FollowWhiteLineReverse();
+//     Serial2.print(">");
+//     Serial2.print("C:");
+//     Serial2.print(3500);
+//     Serial2.print(",E:");
+//    Serial2.println(readBlackLinePosition());
+    
+    //FollowBlackLine();
 }
 

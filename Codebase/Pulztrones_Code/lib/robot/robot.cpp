@@ -84,6 +84,36 @@ int Robot::check_for_left_wall(Ultrasonic &ultrasonic){
     return isBlocked;
 }
 
+int Robot::get_front_distance_from_center_tof(){
+    return 20;
+}
+
+void Robot::turn_Right_90_after_moving_forward(){
+    MoveDistanceForward(40);
+    turnRight90();
+}
+
+void Robot::turn_Left_90_after_moving_forward(){
+    MoveDistanceForward(53);
+    turnLeft90();
+}
+
+void Robot::turn_Right_90_after_moving_reverse(){
+    //MoveDistanceReverse(40);
+    MoveDistanceForward(30);
+    turnRight90();
+
+}
+
+void Robot::turn_Left_90_after_moving_reverse(){
+    //MoveDistanceReverse(40);
+    MoveDistanceForward(35);
+    turnLeft90();
+
+}
+
+
+
 
 //***** Feature Testing code *****************************************************//
 void Robot::turn_on_LEDS(){
