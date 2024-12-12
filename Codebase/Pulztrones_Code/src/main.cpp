@@ -48,7 +48,7 @@ void doTasks(){
     while (robot.get_task() != STOP) {
         switch (robot.get_task()) {
             case START_SQUARE:
-                start_square();
+                Tasks::start_square();
                 robot.set_task(BARCODE); 
                 break;
             case BARCODE:
@@ -57,11 +57,11 @@ void doTasks(){
                 break;
             case MovetoMaze:
                 VB_POS = 0;
-                execute_MoveToMaze();
+                Tasks::execute_MoveToMaze();
                 robot.set_task(MAZE);
                 break;
             case MAZE:
-                execute_maze(VB_POS);
+                Tasks::execute_maze(VB_POS);
                 robot.set_task(STOP);
                 break;
             default:
