@@ -1,4 +1,5 @@
 #include "MenuSystem.h"
+#include "tasks.h"
 
 MenuSystem::MenuSystem(uint8_t screenWidth, uint8_t screenHeight, uint8_t oledReset, uint8_t oledAddr) :
     display(screenWidth, screenHeight, &Wire, oledReset),
@@ -102,16 +103,16 @@ void MenuSystem::selectMenuItem() {
                 currentState = MAIN_MENU;
                 currentSelection = 0;
             } else if(currentSelection==0) {
-               start_square(); // Execute task from Page 1
+               Execute_start_square(); // Execute task from Page 1
             }
             else if(currentSelection==1) {
-               bar_code(); // Execute task from Page 1
+               Execute_bar_code(); // Execute task from Page 1
             }
              else if(currentSelection==2) {
-                execute_MoveToMaze();
+                Execute_Move_To_Maze();
              }
             else if(currentSelection==3) {
-               execute_maze();
+                Maze();
             }
             break;
 
@@ -120,19 +121,19 @@ void MenuSystem::selectMenuItem() {
                 currentState = TASKS_SUBMENU_PAGE_1;
                 currentSelection = 0;
             } else if (currentSelection == 0) { // "< Back" to MAIN_MENU
-               executeDashedLine();
+               DashedLine();
             } 
             else if (currentSelection==1){
-                executePortalNavigation();
+                PortalNavigation();
             }
             else if(currentSelection==2){
-                executeBoxArranging();
+                BoxArranging();
             }
             else if (currentSelection==3){
-                executeChamberInsertion();
+               ChamberInsertion();
             }
             else if (currentSelection==4){
-                executeHiddenTask();
+                HiddenTask();
             }
             break;
 
@@ -191,81 +192,93 @@ void MenuSystem::handleInput(int buttonUp, int buttonNext, int buttonSelect) {
     }
 }
 
-void MenuSystem::start_square() {
+void MenuSystem::Execute_start_square() {
     display.clearDisplay();
     display.setCursor(0, 0);
-    display.println("Start Square");
+    display.println("Execute_Start_Square");
     display.display();
     delay(2000); // Placeholder for task execution
+    Tasks::start_square();
+
 }
-void MenuSystem ::  bar_code(){
+void MenuSystem :: Execute_bar_code(){
     display.clearDisplay();
     display.setCursor(0,0);
     display.println("Barcode running");
     display.display();
     delay(2000); // Placeholder for task execution
+    Tasks::bar_code();
 }
 
-void MenuSystem :: execute_MoveToMaze(){
+void MenuSystem ::  Execute_Move_To_Maze(){
     display.clearDisplay();
     display.setCursor(0,0);
     display.println("Moving to Maze");
     display.display();
     delay(2000); // Placeholder for task execution
+    Tasks::execute_MoveToMaze();
 }
-void MenuSystem :: execute_maze(){
+void MenuSystem :: Maze(){
     display.clearDisplay();
     display.setCursor(0,0);
     display.println("Solving Maze");
     display.display();
     delay(2000); // Placeholder for task execution
+    Tasks::execute_maze(0);
 }
-void MenuSystem :: executeColorLine(){
+void MenuSystem ::ColorLine(){
     display.clearDisplay();
     display.setCursor(0,0);
     display.println("Color line");
     display.display();
     delay(2000); // Placeholder for task execution
+    Tasks::executeColorLine();
 }
-void MenuSystem :: executeDashedLine(){
+void MenuSystem ::DashedLine(){
     display.clearDisplay();
     display.setCursor(0,0);
     display.println("Dashed line");
     display.display();
     delay(2000); // Placeholder for task execution
+    Tasks::executeDashedLine();
 }
-void MenuSystem :: executePortalNavigation(){
+void MenuSystem ::PortalNavigation(){
     display.clearDisplay();
     display.setCursor(0,0);
     display.println("Portal Navigation");
     display.display();
     delay(2000); // Placeholder for task execution
+    Tasks::executePortalNavigation();
 }
-void MenuSystem :: executeBoxArranging(){
+void MenuSystem :: BoxArranging(){
     display.clearDisplay();
     display.setCursor(0,0);
     display.println("Box Arranging");
     display.display();
     delay(2000); // Placeholder for task execution
+    Tasks::executeBoxArranging();
 }
-void MenuSystem ::  executeChamberInsertion(){
+void MenuSystem ::  ChamberInsertion(){
     display.clearDisplay();
     display.setCursor(0,0);
     display.println("Chamber insertion");
     display.display();
     delay(2000); // Placeholder for task execution
+    Tasks::executeChamberInsertion();
 }
-void MenuSystem ::  executeHiddenTask(){
+void MenuSystem :: HiddenTask(){
     display.clearDisplay();
     display.setCursor(0,0);
     display.println("Hidden Task");
     display.display();
     delay(2000); // Placeholder for task execution
+    Tasks::executeHiddenTask();
 }
-void MenuSystem ::  executeUnevenTerrain(){
+void MenuSystem ::  UnevenTerrain(){
     display.clearDisplay();
     display.setCursor(0,0);
     display.println("Uneven Terrain");
     display.display();
     delay(2000); // Placeholder for task execution
+    Tasks::executeUnevenTerrain();
 }

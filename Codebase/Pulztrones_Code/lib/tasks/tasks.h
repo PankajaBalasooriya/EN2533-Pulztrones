@@ -13,15 +13,19 @@
 
 
 
-void start_square();
-int Counting_and_Line_Navigation();
-void bar_code();
-void execute_MoveToMaze();
-void execute_maze(int VB_POS);
-void executeDashedLine();
-void executePortalNavigation();
-void executeBoxArranging();
-void executeChamberInsertion();
-void executeHiddenTask();
-
+class Tasks {
+public:
+    static void start_square();
+    static int  Counting_and_Line_Navigation();
+    static void bar_code();
+    static void execute_MoveToMaze();
+    static void execute_maze(int VB_POS);
+    static void executeColorLine();
+    static void executeDashedLine();
+    static void executePortalNavigation();
+    static void executeBoxArranging();
+    static void executeChamberInsertion();
+    static void executeHiddenTask();
+    static void executeUnevenTerrain();
+};
 #endif // TASKS_H

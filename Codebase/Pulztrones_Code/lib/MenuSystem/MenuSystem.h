@@ -4,6 +4,8 @@
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
+#include "tasks.h"
+
 
 enum MenuState {
     MAIN_MENU,
@@ -73,17 +75,17 @@ private:
     };
 
     void renderMenu(const char** options, int optionCount);
-    void start_square();
-    void bar_code();
-    void execute_MoveToMaze();
-    void execute_maze();
-    void executeColorLine();
-    void executeDashedLine();
-    void executePortalNavigation();
-    void executeBoxArranging();
-    void executeChamberInsertion();
-    void executeHiddenTask();
-    void executeUnevenTerrain();
+    void Execute_start_square();
+    void Execute_bar_code();
+    void Execute_Move_To_Maze();
+    void Maze();
+    void ColorLine();
+    void DashedLine();
+    void PortalNavigation();
+    void BoxArranging();
+    void ChamberInsertion();
+    void HiddenTask();
+    void UnevenTerrain();
 
 public:
     MenuSystem(uint8_t screenWidth, uint8_t screenHeight, uint8_t oledReset, uint8_t oledAddr);
