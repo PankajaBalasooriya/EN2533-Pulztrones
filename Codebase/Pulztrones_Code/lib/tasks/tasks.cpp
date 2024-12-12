@@ -162,3 +162,21 @@ void execute_maze(int VB_POS) {
 
     }
 }
+void bar_code(){ //execute the task 
+
+}
+void executeDashedLine(){//execute the task 
+
+}
+void executePortalNavigation(){//execute the task 
+
+}
+void executeBoxArranging(){//execute the task 
+
+}
+void executeChamberInsertion(){//execute the task 
+
+}
+void executeHiddenTask(){//execute the task 
+
+}

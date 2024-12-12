@@ -73,10 +73,10 @@ private:
     };
 
     void renderMenu(const char** options, int optionCount);
-    void executeStartSquare();
-    void executeBarcode();
-    void executeMovetoMaze();
-    void executeMaze();
+    void start_square();
+    void bar_code();
+    void execute_MoveToMaze();
+    void execute_maze();
     void executeColorLine();
     void executeDashedLine();
     void executePortalNavigation();

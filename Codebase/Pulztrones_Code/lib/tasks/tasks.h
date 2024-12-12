@@ -15,9 +15,13 @@
 
 void start_square();
 int Counting_and_Line_Navigation();
+void bar_code();
 void execute_MoveToMaze();
 void execute_maze(int VB_POS);
-
-
+void executeDashedLine();
+void executePortalNavigation();
+void executeBoxArranging();
+void executeChamberInsertion();
+void executeHiddenTask();
 
 #endif // TASKS_H

@@ -76,7 +76,7 @@ void MenuSystem::navigateMenu(bool isUpButton) {
            break;
         case SENSOR_DIAGNOSTICS: menuSize = 3; break;
         case HARDWARE_TESTING: menuSize = 4; break;
-        case SYSTEM_SETTINGS: menuSize = 4; break; /////continue 
+        case SYSTEM_SETTINGS: menuSize = 4; break; //continue 
     }
 
     if (isUpButton) {
@@ -102,21 +102,17 @@ void MenuSystem::selectMenuItem() {
                 currentState = MAIN_MENU;
                 currentSelection = 0;
             } else if(currentSelection==0) {
-                executeStartSquare(); // Execute task from Page 1
+               start_square(); // Execute task from Page 1
             }
             else if(currentSelection==1) {
-                executeBarcode(); // Execute task from Page 1
+               bar_code(); // Execute task from Page 1
             }
              else if(currentSelection==2) {
-                executeMovetoMaze();
-            }
+                execute_MoveToMaze();
+             }
             else if(currentSelection==3) {
-               executeMaze();
+               execute_maze();
             }
-            else if(currentSelection==3) {
-               executeMaze();
-            }
-             
             break;
 
         case TASKS_SUBMENU_PAGE_2:
@@ -126,6 +122,18 @@ void MenuSystem::selectMenuItem() {
             } else if (currentSelection == 0) { // "< Back" to MAIN_MENU
                executeDashedLine();
             } 
+            else if (currentSelection==1){
+                executePortalNavigation();
+            }
+            else if(currentSelection==2){
+                executeBoxArranging();
+            }
+            else if (currentSelection==3){
+                executeChamberInsertion();
+            }
+            else if (currentSelection==4){
+                executeHiddenTask();
+            }
             break;
 
     //     case SENSOR_DIAGNOSTICS:
@@ -183,14 +191,14 @@ void MenuSystem::handleInput(int buttonUp, int buttonNext, int buttonSelect) {
     }
 }
 
-void MenuSystem::executeStartSquare() {
+void MenuSystem::start_square() {
     display.clearDisplay();
     display.setCursor(0, 0);
     display.println("Start Square");
     display.display();
     delay(2000); // Placeholder for task execution
 }
-void MenuSystem :: executeBarcode(){
+void MenuSystem ::  bar_code(){
     display.clearDisplay();
     display.setCursor(0,0);
     display.println("Barcode running");
@@ -198,14 +206,14 @@ void MenuSystem :: executeBarcode(){
     delay(2000); // Placeholder for task execution
 }
 
-void MenuSystem :: executeMovetoMaze(){
+void MenuSystem :: execute_MoveToMaze(){
     display.clearDisplay();
     display.setCursor(0,0);
     display.println("Moving to Maze");
     display.display();
     delay(2000); // Placeholder for task execution
 }
-void MenuSystem :: executeMaze(){
+void MenuSystem :: execute_maze(){
     display.clearDisplay();
     display.setCursor(0,0);
     display.println("Solving Maze");
