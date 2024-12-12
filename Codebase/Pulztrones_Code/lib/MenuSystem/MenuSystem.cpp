@@ -28,19 +28,28 @@ void MenuSystem::updateDisplay() {
             renderMenu(mainMenuOptions, 4);
             break;
         case TASKS_SUBMENU_PAGE_1:
-            renderMenu(tasksSubmenuPage1, 6);
+            renderMenu(tasksSubmenuPage1, 6); // 5 tasks + "Next >"
             break;
         case TASKS_SUBMENU_PAGE_2:
-            renderMenu(tasksSubmenuPage2, 6);
+            renderMenu( tasksSubmenuPage2, 6); // 5 tasks + "< Back"
             break;
-        case SENSOR_DIAGNOSTICS: renderMenu(sensorDiagnosticOptions, 3); break;
-        case HARDWARE_TESTING: renderMenu(hardwareTestingOptions, 4); break;
-        case SYSTEM_SETTINGS: renderMenu(systemSettingsOptions, 4); break;
-        default: display.println("Not Implemented"); break;
+        case SENSOR_DIAGNOSTICS:
+            renderMenu(sensorDiagnosticOptions, 3);
+            break;
+        case HARDWARE_TESTING:
+            renderMenu(hardwareTestingOptions, 4);
+            break;
+        case SYSTEM_SETTINGS:
+            renderMenu(systemSettingsOptions, 4);
+            break;
+        default:
+            display.println("Invalid State");
+            break;
     }
 
     display.display();
 }
+
 
 void MenuSystem::renderMenu(const char** options, int optionCount) {
     for (int i = 0; i < optionCount; i++) {
@@ -78,7 +87,82 @@ void MenuSystem::navigateMenu(bool isUpButton) {
 }
 
 void MenuSystem::selectMenuItem() {
+    switch (currentState) {
+        case MAIN_MENU:
+            if (currentSelection == 4) return; // "Back" option, do nothing
+            currentState = static_cast<MenuState>(currentSelection + 1); // Transition to selected submenu
+            currentSelection = 0;
+            break;
+
+        case TASKS_SUBMENU_PAGE_1:
+            if (currentSelection == 5) { // "Next >" option
+                currentState = TASKS_SUBMENU_PAGE_2;
+                currentSelection = 0;
+            } else if (currentSelection == 4) { // "< Back" option
+                currentState = MAIN_MENU;
+                currentSelection = 0;
+            } else if(currentSelection==0) {
+                executeStartSquare(); // Execute task from Page 1
+            }
+            else if(currentSelection==1) {
+                executeBarcode(); // Execute task from Page 1
+            }
+             else if(currentSelection==2) {
+                executeMovetoMaze();
+            }
+            else if(currentSelection==3) {
+               executeMaze();
+            }
+            else if(currentSelection==3) {
+               executeMaze();
+            }
+             
+            break;
+
+        case TASKS_SUBMENU_PAGE_2:
+            if (currentSelection == 5) { // "< Back" option
+                currentState = TASKS_SUBMENU_PAGE_1;
+                currentSelection = 0;
+            } else if (currentSelection == 0) { // "< Back" to MAIN_MENU
+               executeDashedLine();
+            } 
+            break;
+
+    //     case SENSOR_DIAGNOSTICS:
+    //         if (currentSelection == 2) { // "< Back"
+    //             currentState = MAIN_MENU;
+    //             currentSelection = 0;
+    //         } else {
+    //             executeDiagnostic(currentSelection); // Run diagnostics
+    //         }
+    //         break;
+
+    //     case HARDWARE_TESTING:
+    //         if (currentSelection == 3) { // "< Back"
+    //             currentState = MAIN_MENU;
+    //             currentSelection = 0;
+    //         } else {
+    //             executeHardwareTest(currentSelection); // Run hardware test
+    //         }
+    //         break;
+
+    //     case SYSTEM_SETTINGS:
+    //         if (currentSelection == 3) { // "< Back"
+    //             currentState = MAIN_MENU;
+    //             currentSelection = 0;
+    //         } else {
+    //             updateSetting(currentSelection); // Update system settings
+    //         }
+    //         break;
+
+        default:
+            currentState = MAIN_MENU;
+            currentSelection = 0;
+            break;
     
+    }
+    currentSelection=0;
+    //updateDisplay();
 }
 
 void MenuSystem::handleInput(int buttonUp, int buttonNext, int buttonSelect) {
