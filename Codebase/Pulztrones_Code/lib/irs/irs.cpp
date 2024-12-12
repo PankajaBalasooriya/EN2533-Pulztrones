@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include "irs.h"
 
+
 // Define QTR instance and global variables
 QTRSensors qtr;
 QTRSensors qtrBack;
@@ -116,4 +117,44 @@ Junction Detect_Junction_type_on_black_line(){
 
 int readBackWhiteLinePosition(){
     return qtrBack.readLineWhite(sensorValuesBack);
+}
+
+Junction Detect_Junction_type_on_Color_line(int number){
+    //bool JunctionDetected = false;
+    int numberOfSensorsOnWhite = 0;
+
+    for(int i = 0; i < SensorCount; i++){
+        if(sensorValues[i] < 200){
+            numberOfSensorsOnWhite++;
+        }
+    }
+
+    if(numberOfSensorsOnWhite > number){
+        MotorBreak();
+        int leftSensorValue = analogRead(LEFT_MARKER_SENSOR);
+        int rightSensorValue = analogRead(RIGHT_MARKER_SENSOR);
+
+        // int leftSensorValue = sensorValues[0];
+        // int rightSensorValue = sensorValues[7];
+
+
+        if (leftSensorValue < COLOR_LINE_THRESHOLD && rightSensorValue < COLOR_LINE_THRESHOLD){
+            return T_Junction;
+        }
+        else if (leftSensorValue < COLOR_LINE_THRESHOLD){
+            return Left;
+        }
+        else if (rightSensorValue < COLOR_LINE_THRESHOLD){
+            return Right;
+        }
+        else{
+            return Straight;
+            
+            
+        }
+    }
+    else{
+        return Straight;
+        
+    }
 }

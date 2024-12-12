@@ -14,6 +14,7 @@
 #include "Ultrasonic.h"
 #include "ToF.h"
 #include "I2CMUX.h"
+#include "color.h"
 
 
 
@@ -39,7 +40,7 @@ class Robot {
         void turn_on_led(int PIN);
         void turn_off_led(int PIN);
 
-
+        String detect_Color();
         
         Task get_task();
 
@@ -60,6 +61,9 @@ class Robot {
         void turn_Right_90_after_moving_forward();
         void turn_Left_90_after_moving_forward();
 
+        void Color_turn_Right_90_after_moving_forward();
+        void Color_turn_Left_90_after_moving_forward();
+
         void turn_Right_90_after_moving_reverse();
         void turn_Left_90_after_moving_reverse();
 
@@ -70,6 +74,7 @@ class Robot {
     
     private:
         Task task = START_SQUARE;
+        int red, green, blue; 
 };
 
 

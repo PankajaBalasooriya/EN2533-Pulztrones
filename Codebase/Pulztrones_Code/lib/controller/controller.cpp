@@ -605,6 +605,39 @@ float distance_from_counts(int left_counts, int right_counts){
 }
 
 
+Junction FollowColorLineUntilJunction(int number){
+    while (true)
+    {
+        int position = readWhiteLinePosition();
+        Junction junction = Detect_Junction_type_on_Color_line(number);
+        if(junction != Junction::Straight){
+            //MotorBreak();
+            setMotorLPWM(0);
+            setMotorRPWM(150);
+            delay(33);
+            setMotorRPWM(0);
+            return junction;
+        }
+        
+
+        // Normal line following code continues...
+        int error = position - 3500;
+        float pidOutput = PIDLine(error);
+        
+        int leftSpeed = BASE_SPEED + pidOutput;
+        int rightSpeed = BASE_SPEED - pidOutput;
+        
+        leftSpeed = constrain(leftSpeed, MIN_SPEED, MAX_SPEED);
+        rightSpeed = constrain(rightSpeed, MIN_SPEED, MAX_SPEED);
+        
+        moveForward(leftSpeed - 20, rightSpeed);//l -20
+    }
+    
+
+    
+
+
+}
 
 
 

@@ -16,6 +16,8 @@ class VL53L0X_Multiplexer {
     // Function to get distance from the specific sensor
     uint16_t getTofDistance(uint8_t sensorChannel, I2CMUX &mux);
 
+    float getAverageTofDistance(uint8_t sensorChannel, I2CMUX &mux);
+
   private:
     // Multiplexer address
     uint8_t tcaAddr;

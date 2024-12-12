@@ -181,7 +181,7 @@ void execute_maze(int VB_POS) {
         FollowWhiteLineUntilJunction();
         robot.turn_Left_90_after_moving_forward();
 
-        if(robot.get_front_distance_from_middle_tof() < 500){
+        if(robot.get_front_distance_from_middle_tof() < 250){
             // Gate 1 closed
             Gate = 3;
             Buzzer_Toggle(100);
@@ -355,7 +355,51 @@ void box_upper_position(){
 }
 
 
+int number = 4;
+String exectute_colorLineFollowing(){
+    String color = robot.detect_Color();
+    if(color == "RED"){
+        robot.turn_on_led(RED_LED);
+        robot.turn_off_led(BLUE_LED);
+        //SENSORS_ON_LINE_FOR_JUNCTION_CHECK_COLOUR = 5;
+        number = 5;
+    }
+    else if(color == "BLUE"){
+        robot.turn_on_led(BLUE_LED);
+        robot.turn_off_led(RED_LED);
+        number = 3;
+        //SENSORS_ON_LINE_FOR_JUNCTION_CHECK_COLOUR = 4;
+    }
+    else{
+        robot.turn_off_led(BLUE_LED);
+        robot.turn_off_led(RED_LED);
+    }
+    delay(1000);
+    robot.turn_off_led(BLUE_LED);
+    robot.turn_off_led(RED_LED);
 
-void exectute_colorLineFollowing(){
-    
+   //do color line following here
+    MoveDistanceForward(50);
+
+    while(true){
+        Junction junction = FollowColorLineUntilJunction(number);
+        Serial2.println(junction);
+
+        if(junction == T_Junction){
+            MoveDistanceForward(50);
+        }
+        else if(junction == Left){
+            robot.turn_Left_90_after_moving_forward();
+        }
+        else if(junction == Right){
+            robot.turn_Right_90_after_moving_forward();
+        
+        }
+        else if(junction == Straight){
+            MoveDistanceForward(15);
+        }
+    }
+
+
+    return color;
 }

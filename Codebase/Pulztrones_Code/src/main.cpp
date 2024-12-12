@@ -47,6 +47,7 @@ VL53L0X_Multiplexer tofSensors;
 
 void doTasks(){
   int VB_POS = 0;
+  String color = "";
     while (robot.get_task() != STOP) {
         switch (robot.get_task()) {
             case START_SQUARE:
@@ -65,11 +66,13 @@ void doTasks(){
             case MAZE:
                 //VB_POS = 4;
                 execute_maze(VB_POS);
-                robot.set_task(STOP);
+                robot.set_task(COLOR_LINE);
                 break;
             case COLOR_LINE:
-                //VB_POS = 4;
-                execute_maze(VB_POS);
+                color = exectute_colorLineFollowing();
+                robot.set_task(STOP);
+                break;
+            case STOP:
                 robot.set_task(STOP);
                 break;
             default:
@@ -94,19 +97,19 @@ void setup() {
     mux.selectChannel(0);
     tofSensors.begin(mux);
 
-    setupSensor(leftS0, leftS1, leftS2, leftS3, leftSensorOut);
+    
 
 
     Buzzer_Toggle(100);
     delay(2000);
-    //calibrateIRSensors();
+    calibrateIRSensors();
     Buzzer_Toggle(100);
 
     robot.init();
     //coinDropper.init(COIN_DROPPER_SERVO_PIN);
     //armMechanism.init(ARM_LIFT_SERVO_PIN, GRIPPER_SERVO_PIN);
 
-    robot.set_task(START_SQUARE);
+    robot.set_task(COLOR_LINE);
     
 
     //menu.begin();
@@ -114,42 +117,33 @@ void setup() {
 
     
     
-    ///delay(5000);
+    delay(5000);
 
-    //Buzzer_UniquePattern();
+    Buzzer_UniquePattern();
     //doTasks();  
     
-
+    //FollowColorLineUntilJunction();
+    //exectute_colorLineFollowing();
 
     
 }
 
 
 void loop() {
-    int red,green,blue;
-    readRGB(leftS0, leftS1, leftS2, leftS3, leftSensorOut, red, green, blue);
-    String color = detectColor(red, green, blue);
-    if(color == "RED"){
-        robot.turn_on_led(RED_LED);
-        robot.turn_off_led(BLUE_LED);
-    }
-    else if(color == "BLUE"){
-        robot.turn_on_led(BLUE_LED);
-        robot.turn_off_led(RED_LED);
-    }
-    else{
-        robot.turn_off_led(BLUE_LED);
-        robot.turn_off_led(RED_LED);
-    }
-   
     
+    // Serial2.print(analogRead(LEFT_MARKER_SENSOR));
+    // Serial2.print(",");
+    // Serial2.println(analogRead(RIGHT_MARKER_SENSOR));
+    
+    //printIRData();
 
     // mux.selectChannel(0); // channel 0 is selected for OLED
     // menu.handleInput(BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT);//MenuSelectioninitiated 
     //Serial2.println(robot.get_front_distance_from_middle_tof());
-
+    //Junction junction = Detect_Junction_type_on_Color_line();
     
-  
+    //Serial2.println(junction);
+    FollowBlackLine();
 
 }
 

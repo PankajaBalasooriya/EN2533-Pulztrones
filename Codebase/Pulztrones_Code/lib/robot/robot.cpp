@@ -18,6 +18,9 @@ void Robot::init(){
 
     pinMode(COIN_DROPPER_ON_PIN, OUTPUT);
     pinMode(ARM_GRIPPER_ON_PIN, OUTPUT);
+
+    setupSensor(leftS0, leftS1, leftS2, leftS3, leftSensorOut);
+    
 };
 
 void Robot::set_task(Task newtask) {
@@ -106,6 +109,14 @@ void Robot::turn_Left_90_after_moving_forward(){
     turnLeft90();
 }
 
+void Robot::Color_turn_Right_90_after_moving_forward(){
+    turnRight90();
+}
+
+void Robot::Color_turn_Left_90_after_moving_forward(){
+    turnLeft90();
+}
+
 void Robot::turn_Right_90_after_moving_reverse(){
     //MoveDistanceReverse(40);
     MoveDistanceForward(30);
@@ -121,7 +132,11 @@ void Robot::turn_Left_90_after_moving_reverse(){
 }
 
 
-
+String Robot::detect_Color(){
+    readRGB(leftS0, leftS1, leftS2, leftS3, leftSensorOut, red, green, blue);
+    String color = detectColor(red, green, blue);
+    return color;
+}
 
 
 

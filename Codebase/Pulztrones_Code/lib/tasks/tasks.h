@@ -19,11 +19,12 @@ void start_square();
 int Counting_and_Line_Navigation();
 void execute_MoveToMaze();
 void execute_maze(int VB_POS);
-void blue_open();
+String exectute_colorLineFollowing();
 
 
 
 //other functions needed
 void box_in_lower_position();
 void box_upper_position();
+void blue_open();
 #endif // TASKS_H

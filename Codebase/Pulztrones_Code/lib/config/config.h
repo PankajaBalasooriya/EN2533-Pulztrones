@@ -24,6 +24,8 @@ enum Junction{
     Left,
     Right,
     Straight,
+    Turn,
+    Go_Straight,
     None
 };
 
@@ -126,7 +128,7 @@ const int MOTOR_MAX_PWM = 255;
 
 
 //***** PERFORMANCE CONSTANTS************************************************//
-const int BASE_SPEED = 70;//80
+const int BASE_SPEED = 70;//70
 const int MAX_SPEED = 120;
 const int MIN_SPEED = 50;
 
@@ -134,6 +136,9 @@ const int LINE_THRESHOLD = 100;
 
 const int WHITE_LINE_THRESHOLD = 100;
 const int SENSORS_ON_LINE_FOR_JUNCTION_CHECK = 4;
+
+const int COLOR_LINE_THRESHOLD = 400;
+const int SENSORS_ON_LINE_FOR_JUNCTION_CHECK_COLOUR = 4;
 
 //Todo: calibrate these values
 const int RED_LINE_THRESHOLD = 100;

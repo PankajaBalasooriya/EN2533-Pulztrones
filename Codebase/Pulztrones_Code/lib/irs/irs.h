@@ -25,5 +25,8 @@ int readBlackLinePosition();
 int readWhiteLinePosition();
 int readBackWhiteLinePosition();
 Junction Detect_Junction_type_on_black_line();
+Junction Detect_Junction_type_on_Color_line(int number);
+Junction Detect_jun_condition();
+
 
 #endif
