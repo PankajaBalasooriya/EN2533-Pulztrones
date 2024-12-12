@@ -118,7 +118,7 @@ void setup() {
 
 void loop() {
     //FollowWhiteLineReverse();
-    // mux.selectChannel(0); // channel 0 is selected for OLED
-    // menu.handleInput(BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT);//MenuSelectioninitiated 
+     mux.selectChannel(0); // channel 0 is selected for OLED
+    menu.handleInput(BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT);//MenuSelectioninitiated 
 }
 

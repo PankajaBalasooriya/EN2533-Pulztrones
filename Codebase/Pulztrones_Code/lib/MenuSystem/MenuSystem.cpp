@@ -19,14 +19,20 @@ void MenuSystem::begin() {
     navigateMenu(true);
     updateDisplay();
 }
-
 void MenuSystem::updateDisplay() {
     display.clearDisplay();
     display.setCursor(0, 0);
 
     switch (currentState) {
-        case MAIN_MENU: renderMenu(mainMenuOptions, 5); break;
-        case TASKS_SUBMENU: renderMenu(tasksSubmenuOptions, 5); break;
+        case MAIN_MENU:
+            renderMenu(mainMenuOptions, 4);
+            break;
+        case TASKS_SUBMENU_PAGE_1:
+            renderMenu(tasksSubmenuPage1, 6);
+            break;
+        case TASKS_SUBMENU_PAGE_2:
+            renderMenu(tasksSubmenuPage2, 6);
+            break;
         case SENSOR_DIAGNOSTICS: renderMenu(sensorDiagnosticOptions, 3); break;
         case HARDWARE_TESTING: renderMenu(hardwareTestingOptions, 4); break;
         case SYSTEM_SETTINGS: renderMenu(systemSettingsOptions, 4); break;
@@ -55,10 +61,13 @@ void MenuSystem::navigateMenu(bool isUpButton) {
     int menuSize = 5;  // Default to main menu size
     switch (currentState) {
         case MAIN_MENU: menuSize = 5; break;
-        case TASKS_SUBMENU: menuSize = 5; break;
+        case TASKS_SUBMENU_PAGE_1: 
+        case TASKS_SUBMENU_PAGE_2:
+           menuSize = 6; 
+           break;
         case SENSOR_DIAGNOSTICS: menuSize = 3; break;
         case HARDWARE_TESTING: menuSize = 4; break;
-        case SYSTEM_SETTINGS: menuSize = 4; break;
+        case SYSTEM_SETTINGS: menuSize = 4; break; /////continue 
     }
 
     if (isUpButton) {
@@ -69,20 +78,7 @@ void MenuSystem::navigateMenu(bool isUpButton) {
 }
 
 void MenuSystem::selectMenuItem() {
-    if (currentState == MAIN_MENU && currentSelection == 4) return; // Handle Back
-
-    switch (currentState) {
-        case MAIN_MENU:
-            currentState = static_cast<MenuState>(currentSelection + 1);
-            currentSelection = 0;
-            break;
-        case TASKS_SUBMENU:
-            if (currentSelection == 4) currentState = MAIN_MENU;
-            else if (currentSelection == 0) executeLineFollowing();
-            break;
-        default: currentState = MAIN_MENU; break;
-    }
-    currentSelection = 0;
+    
 }
 
 void MenuSystem::handleInput(int buttonUp, int buttonNext, int buttonSelect) {
@@ -103,10 +99,81 @@ void MenuSystem::handleInput(int buttonUp, int buttonNext, int buttonSelect) {
     }
 }
 
-void MenuSystem::executeLineFollowing() {
+void MenuSystem::executeStartSquare() {
     display.clearDisplay();
     display.setCursor(0, 0);
-    display.println("Line Following Task");
+    display.println("Start Square");
+    display.display();
+    delay(2000); // Placeholder for task execution
+}
+void MenuSystem :: executeBarcode(){
+    display.clearDisplay();
+    display.setCursor(0,0);
+    display.println("Barcode running");
+    display.display();
+    delay(2000); // Placeholder for task execution
+}
+
+void MenuSystem :: executeMovetoMaze(){
+    display.clearDisplay();
+    display.setCursor(0,0);
+    display.println("Moving to Maze");
+    display.display();
+    delay(2000); // Placeholder for task execution
+}
+void MenuSystem :: executeMaze(){
+    display.clearDisplay();
+    display.setCursor(0,0);
+    display.println("Solving Maze");
+    display.display();
+    delay(2000); // Placeholder for task execution
+}
+void MenuSystem :: executeColorLine(){
+    display.clearDisplay();
+    display.setCursor(0,0);
+    display.println("Color line");
+    display.display();
+    delay(2000); // Placeholder for task execution
+}
+void MenuSystem :: executeDashedLine(){
+    display.clearDisplay();
+    display.setCursor(0,0);
+    display.println("Dashed line");
+    display.display();
+    delay(2000); // Placeholder for task execution
+}
+void MenuSystem :: executePortalNavigation(){
+    display.clearDisplay();
+    display.setCursor(0,0);
+    display.println("Portal Navigation");
+    display.display();
+    delay(2000); // Placeholder for task execution
+}
+void MenuSystem :: executeBoxArranging(){
+    display.clearDisplay();
+    display.setCursor(0,0);
+    display.println("Box Arranging");
+    display.display();
+    delay(2000); // Placeholder for task execution
+}
+void MenuSystem ::  executeChamberInsertion(){
+    display.clearDisplay();
+    display.setCursor(0,0);
+    display.println("Chamber insertion");
+    display.display();
+    delay(2000); // Placeholder for task execution
+}
+void MenuSystem ::  executeHiddenTask(){
+    display.clearDisplay();
+    display.setCursor(0,0);
+    display.println("Hidden Task");
+    display.display();
+    delay(2000); // Placeholder for task execution
+}
+void MenuSystem ::  executeUnevenTerrain(){
+    display.clearDisplay();
+    display.setCursor(0,0);
+    display.println("Uneven Terrain");
     display.display();
     delay(2000); // Placeholder for task execution
 }
