@@ -117,7 +117,7 @@ void execute_MoveToMaze() {
     Serial2.println("Executing WHITE_LINE_FOLLOW");
     //MoveDistanceForward(40)
     FollowWhiteLineUntilJunction();
-    turnRight90();
+    robot.turn_Right_90_after_moving_forward();
     FollowWhiteLineUntilJunction();
 
 }
@@ -135,32 +135,35 @@ void execute_maze(int VB_POS) {
 
         MoveDistanceReverse_and_not_stop(30);
         MoveReverseUntillJunction();
-        turnRight90();
+        robot.turn_Right_90_after_moving_reverse();
         FollowWhiteLineUntilJunction();
-        turnLeft90();
+        robot.turn_Right_90_after_moving_forward();
         FollowWhiteLineUntilJunction();
-        turnLeft90();
+        robot.turn_Left_90_after_moving_forward();
         FollowWhiteLineUntilJunction();
 
         //dsfsdf
 
         robot.pick_virtual_box();
-       MoveDistanceReverse_and_not_stop(30);
+        MoveDistanceReverse_and_not_stop(30);
         MoveReverseUntillJunction();
         robot.drop_virtual_box();
 
         MoveDistanceReverse_and_not_stop(30);
         MoveReverseUntillJunction();
-        turnLeft90();
+        robot.turn_Left_90_after_moving_reverse();
         FollowWhiteLineUntilJunction();
-        turnRight90();
+        robot.turn_Right_90_after_moving_forward();
         FollowWhiteLineUntilJunction();
-        turnRight90();
+        robot.turn_Right_90_after_moving_forward();
         FollowWhiteLineUntilJunction();
 
         robot.pick_virtual_box();
         MoveDistanceForward(30);
-        FollowWhiteLineUntilJunction();
+        //Todo: Change this to distance in the arena
+        FollowWhiteLine_GivenDistance(80);
+        MoveDistanceForward(100);
+        robot.drop_virtual_box();
 
     }
     

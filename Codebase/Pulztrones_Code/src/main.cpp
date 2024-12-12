@@ -4,9 +4,9 @@
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
-#include <adafruit_vl53l0x.h>
 #include <Adafruit_MPU6050.h>
 #include <Adafruit_Sensor.h>
+#include <VL53L0X.h>    
 
 
 
@@ -25,6 +25,7 @@
 #include "CoinDropper.h"
 #include "ArmMechanism.h"
 #include "Ultrasonic.h"
+#include "ToF.h"
 
 
 
@@ -35,6 +36,7 @@ MenuSystem menu(128, 64, -1, 0x3C);
 CoinDropper coinDropper;
 ArmMechanism armMechanism;
 Ultrasonic ultrasonic(TRIG_PIN, ECHO_PIN);
+VL53L0X_Multiplexer tofSensors;
 
 
 
@@ -85,39 +87,34 @@ void setup() {
     //setting to channel 0 for OLED
     mux.selectChannel(0);
 
+    tofSensors.begin(mux);
+
 
     Buzzer_Toggle(100);
     delay(2000);
-    calibrateIRSensors();
+    //calibrateIRSensors();
     Buzzer_Toggle(100);
 
     robot.init();
-    //coinDropper.init(COIN_DROPPER_SERVO_PIN);
-    //armMechanism.init(ARM_LIFT_SERVO_PIN, GRIPPER_SERVO_PIN);
+    coinDropper.init(COIN_DROPPER_SERVO_PIN);
+    armMechanism.init(ARM_LIFT_SERVO_PIN, GRIPPER_SERVO_PIN);
 
     robot.set_task(MovetoMaze);
     
 
     //menu.begin();
 
-    //FollowBlackLine();
 
-    //MoveReverseUntillJunction();
-
-    
-//      mux.selectChannel(2);
-// // channel 2 -bottom
-// // channel 3 - middle
-// // channel 4 - top
     
     
  
-    doTasks();  
+    //doTasks();  
     
-    // MoveReverseUntillJunction();
-    // robot.turn_Left_90_after_moving_reverse();
-    // FollowWhiteLineUntilJunction();
+    
 
+    //robot.pick_box_and_lift(armMechanism);
+    delay(2000);
+    //robot.drop_box_and_release(armMechanism);
 
     
 }
@@ -135,5 +132,13 @@ void loop() {
 //    Serial2.println(readBlackLinePosition());
     
     //FollowBlackLine();
+
+    
+    Serial2.print(robot.get_front_distance_from_bottom_tof(tofSensors, mux));
+    Serial2.print(",");
+    Serial2.print(robot.get_front_distance_from_middle_tof(tofSensors, mux));
+    Serial2.print(",");
+    Serial2.println(robot.get_front_distance_from_top_tof(tofSensors, mux));
+
 }
 

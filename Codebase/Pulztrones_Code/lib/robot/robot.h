@@ -12,6 +12,8 @@
 #include "ArmMechanism.h"
 #include "CoinDropper.h"
 #include "Ultrasonic.h"
+#include "ToF.h"
+#include "I2CMUX.h"
 
 
 
@@ -57,6 +59,10 @@ class Robot {
 
         void turn_Right_90_after_moving_reverse();
         void turn_Left_90_after_moving_reverse();
+
+        int get_front_distance_from_middle_tof(VL53L0X_Multiplexer &tofSensors, I2CMUX &mux);
+        int get_front_distance_from_bottom_tof(VL53L0X_Multiplexer &tofSensors, I2CMUX &mux);
+        int get_front_distance_from_top_tof(VL53L0X_Multiplexer &tofSensors, I2CMUX &mux);
         
     
     private:
