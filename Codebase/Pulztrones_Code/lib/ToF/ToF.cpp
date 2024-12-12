@@ -75,3 +75,31 @@ uint16_t VL53L0X_Multiplexer::getTofDistance(uint8_t sensorChannel, I2CMUX &mux)
 
   return distance;
 }
+
+
+float VL53L0X_Multiplexer::getAverageTofDistance(uint8_t sensorChannel, I2CMUX &mux) {
+  uint32_t totalDistance = 0; 
+  uint8_t validReadings = 0;
+
+  for (int i = 0; i < 10; i++) {
+    uint16_t distance = getTofDistance(sensorChannel, mux);
+
+    if (distance > 0) 
+    { 
+      totalDistance += distance;
+      validReadings++;
+    } 
+    else 
+    {
+      Serial.println("Timeout");
+    }
+
+    
+  }
+  return totalDistance / validReadings ; 
+  
+  }
+  
+
+  
+
