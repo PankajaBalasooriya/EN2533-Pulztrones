@@ -65,7 +65,7 @@ void doTasks(){
                 robot.set_task(MAZE);
                 break;
             case MAZE:
-                //VB_POS = 4;
+                VB_POS = 2;
                 execute_maze(VB_POS);
                 robot.set_task(COLOR_LINE);
                 break;
@@ -107,30 +107,48 @@ void setup() {
 
     Buzzer_Toggle(100);
     delay(2000);
-    calibrateIRSensors();
+    //calibrateIRSensors();
+    Buzzer_Toggle(100);
+
+    //delay(5000);
+    Buzzer_Toggle(100);
+    calibrateIRSensorsForBlack();
     Buzzer_Toggle(100);
 
     robot.init();
     //coinDropper.init(COIN_DROPPER_SERVO_PIN);
     //armMechanism.init(ARM_LIFT_SERVO_PIN, GRIPPER_SERVO_PIN);
 
+
     robot.set_task(BOX_MANUPILATION);
+
     
 
     //menu.begin();
 
 
+    delay(5000);
     
     
+
     delay(1000);
 
+
     Buzzer_UniquePattern();
-    doTasks();  
+    //doTasks();  
     
     //FollowColorLineUntilJunction();
     //exectute_colorLineFollowing();
+    
+    //FollowBlackLineUntilJunction();
+    
 
 
+    
+
+    //MoveDistanceForward(100);
+
+    FollowBlackLine_GivenDistance(300);
     
 }
 
@@ -138,7 +156,7 @@ void setup() {
 void loop() {
     
     // Serial2.print(getAverageSensorReading(LEFT_MARKER_SENSOR, 5));
-    // Serial2.print(",");
+    // Serial2.print(", ");
     // Serial2.println(getAverageSensorReading(RIGHT_MARKER_SENSOR, 5));
     
     //printIRData();
@@ -146,10 +164,31 @@ void loop() {
     // mux.selectChannel(0); // channel 0 is selected for OLED
     // menu.handleInput(BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT);//MenuSelectioninitiated 
     //Serial2.println(robot.get_front_distance_from_middle_tof());
-    //Junction junction = Detect_Junction_type_on_Color_line();
     
-    //Serial2.println(junction);
+    
+    // readBlackLinePosition();
+    // Junction junction = Detect_Junction_type_on_black_line();
+    
+    // Serial2.println(junction);
+
+
     //FollowBlackLine();
+
+    // Junction junction = FollowBlackLineUntilJunction();
+    // Serial2.println(junction);
+    // delay(100);
+    // if(junction == Left){
+    //     robot.turn_Left_90_after_moving_forward();
+    // }
+    // else if(junction == Right){
+    //     robot.turn_Right_90_after_moving_forward();
+    // }
+    // else if(junction == T_Junction){
+    //     MoveDistanceForward(30);
+    // }
+    // delay(100);
+
+    
 
 }
 

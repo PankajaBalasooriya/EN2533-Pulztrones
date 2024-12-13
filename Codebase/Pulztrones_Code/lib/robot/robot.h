@@ -71,6 +71,9 @@ class Robot {
         int get_front_distance_from_bottom_tof();
         int get_front_distance_from_top_tof();
         
+
+        void Black_turn_Left_90_after_moving_forward();
+        void Black_turn_Right_90_after_moving_forward();
     
     private:
         Task task = START_SQUARE;

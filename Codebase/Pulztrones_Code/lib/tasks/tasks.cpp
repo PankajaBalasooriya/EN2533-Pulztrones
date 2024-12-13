@@ -348,12 +348,27 @@ void box_upper_position(){
     MoveDistanceReverse(180);
     robot.drop_virtual_box();
 
-    robot.turn_left_180();
+    //robot.turn_left_180();
+    robot.turn_right_90();
+    //MoveDistanceForward(15);
+    robot.turn_right_90();
     
 }
 
 
 int number = 4;
+int x_pos = 0;
+int y_pos = 0;
+
+
+bool matrix[3][4] = {
+  {false, false, false, false},   // First row
+  {false, false, false, false},   // Second row
+  {false, false, false, false}    // Third row
+};
+
+
+
 String exectute_colorLineFollowing(){
     String color = robot.detect_Color();
     if(color == "RED"){
@@ -361,11 +376,13 @@ String exectute_colorLineFollowing(){
         robot.turn_off_led(BLUE_LED);
         //SENSORS_ON_LINE_FOR_JUNCTION_CHECK_COLOUR = 5;
         number = 5;
+        
     }
     else if(color == "BLUE"){
         robot.turn_on_led(BLUE_LED);
         robot.turn_off_led(RED_LED);
-        number = 3;
+        number = 4;
+        
         //SENSORS_ON_LINE_FOR_JUNCTION_CHECK_COLOUR = 4;
     }
     else{
@@ -377,7 +394,7 @@ String exectute_colorLineFollowing(){
     robot.turn_off_led(RED_LED);
 
    //do color line following here
-    MoveDistanceForward(50);
+    MoveDistanceForward(100);
 
     while(true){
         Junction junction = FollowColorLineUntilJunction(number, color);
