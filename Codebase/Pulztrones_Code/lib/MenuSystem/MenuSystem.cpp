@@ -9,6 +9,7 @@ MenuSystem::MenuSystem(uint8_t screenWidth, uint8_t screenHeight, uint8_t oledRe
     debounceDelay(50) {}
 
 void MenuSystem::begin() {
+    mux.selectChannel(0);
     if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
         while (1); // Handle OLED initialization failure
     }
@@ -75,7 +76,7 @@ void MenuSystem::updateDisplay() {
             display.println("Invalid State");
             break;
     }
-
+    mux.selectChannel(0);
     display.display();
 }
 

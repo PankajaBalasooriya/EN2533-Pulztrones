@@ -5,7 +5,9 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 #include "tasks.h"
+#include "I2CMUX.h"
 
+extern I2CMUX mux;
 
 enum MenuState {
     MAIN_MENU,

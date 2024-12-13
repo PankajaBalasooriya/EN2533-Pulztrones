@@ -115,8 +115,8 @@ void setup() {
     Buzzer_Toggle(100);
 
     robot.init();
-    //coinDropper.init(COIN_DROPPER_SERVO_PIN);
-    //armMechanism.init(ARM_LIFT_SERVO_PIN, GRIPPER_SERVO_PIN);
+    coinDropper.init(COIN_DROPPER_SERVO_PIN);
+    armMechanism.init(ARM_LIFT_SERVO_PIN, GRIPPER_SERVO_PIN);
 
 
     robot.set_task(BOX_MANUPILATION);
@@ -148,6 +148,8 @@ void setup() {
     //MoveDistanceForward(100);
 
     //FollowBlackLine_GivenDistance(300);
+    //armMechanism.holdBox();
+    //robot.pick_box_and_lift(armMechanism);
     
 }
 
@@ -156,6 +158,7 @@ void loop() {
     //FollowWhiteLineReverse();
     mux.selectChannel(0); // channel 0 is selected for OLED
     menu.handleInput(BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT);//MenuSelectioninitiated 
+    //moveForward(100, 100);
     
 
     
