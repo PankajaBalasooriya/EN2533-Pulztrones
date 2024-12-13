@@ -60,7 +60,6 @@ void doTasks(){
                 robot.set_task(MovetoMaze);
                 break;
             case MovetoMaze:
-                
                 execute_MoveToMaze();
                 robot.set_task(MAZE);
                 break;
@@ -112,7 +111,7 @@ void setup() {
 
     //delay(5000);
     Buzzer_Toggle(100);
-    calibrateIRSensorsForBlack();
+    //calibrateIRSensorsForBlack();
     Buzzer_Toggle(100);
 
     robot.init();
@@ -124,10 +123,16 @@ void setup() {
 
     
 
-    //menu.begin();
+    menu.begin();
 
 
-    delay(5000);
+
+    //delay(5000);
+    
+    
+
+    delay(1000);
+
 
 
     Buzzer_UniquePattern();
@@ -141,13 +146,18 @@ void setup() {
     //MoveDistanceForward(100);
     //FollowBlackLine_GivenDistance(300);
 
-    //robot.pick_box_and_lift(armMechanism);
-        
+
     
 }
 
 
 void loop() {
+    //FollowWhiteLineReverse();
+    mux.selectChannel(0); // channel 0 is selected for OLED
+    menu.handleInput(BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT);//MenuSelectioninitiated 
+    //moveForward(100, 100);
+    
+
     
     // Serial2.print(getAverageSensorReading(LEFT_MARKER_SENSOR, 5));
     // Serial2.print(", ");
@@ -183,6 +193,7 @@ void loop() {
     // delay(100);
 
     
+
 
 }
 

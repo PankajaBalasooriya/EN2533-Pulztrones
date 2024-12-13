@@ -1,7 +1,9 @@
 #include "tasks.h"
 
 
+
 void start_square() {
+
     // Code to execute the start square task
     Serial2.println("Starting.......");
 }
@@ -119,6 +121,7 @@ void execute_MoveToMaze() {
     FollowWhiteLineUntilJunction();
 
 }
+
 
 void execute_maze(int VB_POS) {
     int Gate = 1;
@@ -419,7 +422,28 @@ String exectute_colorLineFollowing(){
     return color;
 }
 
-void execute_box_manup(int assending){
+
+void executeDashedLine(){//execute the task 
+
+}
+void executePortalNavigation(){//execute the task 
+
+}
+void executeBoxArranging(){//execute the task 
+
+}
+void executeChamberInsertion(){//execute the task 
+
+}
+void executeHiddenTask(){//execute the task 
+
+}
+void executeUnevenTerrain(){
+}
+
+
+void execute_box_manup(bool assending){
+
     int box_height;
     int current_box_dest;
     int bottom_tof_dist;

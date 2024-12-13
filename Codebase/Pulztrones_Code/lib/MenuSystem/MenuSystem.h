@@ -4,18 +4,32 @@
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
+#include "tasks.h"
+#include "I2CMUX.h"
+
+extern I2CMUX mux;
 
 enum MenuState {
     MAIN_MENU,
-    TASKS_SUBMENU,
+    TASKS_SUBMENU_PAGE_1,
+    TASKS_SUBMENU_PAGE_2,
     SENSOR_DIAGNOSTICS,
     HARDWARE_TESTING,
     SYSTEM_SETTINGS,
     
-    TASK_LINE_FOLLOWING,
-    TASK_OBSTACLE_AVOIDANCE,
-    TASK_PAYLOAD_PICKUP,
-    TASK_FREE_EXPLORATION,
+    TASK_START_SQUARE,
+    TASK_BARCODE,
+    TASK_MOVE_TO_MAZE,
+    TASK_MAZE,
+    TASK_COLOR_LINE,
+    TASK_DASHED_LINE,
+    TASK_PORTAL_NAVIGATION,
+    TASK_BOX_ARRANG,
+    TASK_CHAMBER_INSERT,
+    TASK_HIDDEN_TASK,
+    TASK_UNEVEN_TERRAIN,
+    TASK_COIN_DROP,
+    
     
     DIAG_MPU6050,
     DIAG_TOF_SENSORS,
@@ -33,14 +47,20 @@ private:
     unsigned long lastDebounceTime;
     const unsigned long debounceDelay;
 
-    const char* mainMenuOptions[5] = {
+    const char* mainMenuOptions[4] = {
         "Tasks", "Sensor Diagnostics", "Hardware Testing", 
-        "System Settings", "< Back"
+        "System Settings"
     };
 
-    const char* tasksSubmenuOptions[5] = {
-        "Line Following", "Obstacle Avoidance", 
-        "Payload Pickup", "Free Exploration", "< Back"
+ 
+    const char* tasksSubmenuPage1[7] = {
+        "Start Square", "Barcode", "Move to Maze", "Maze",
+        "Color Line", "Next >","<Back"
+    };
+
+    const char* tasksSubmenuPage2[7] = {
+        "Dashed Line", "Portal Navigation", "Box Arranging",
+        "Chamber Insertion", "Hidden Task", "Uneven Terrain","<Back"
     };
 
     const char* sensorDiagnosticOptions[3] = {
@@ -57,10 +77,20 @@ private:
     };
 
     void renderMenu(const char** options, int optionCount);
-    void executeLineFollowing();
-    void executeObstacleAvoidance();
-    void executePayloadPickup();
-    void executeFreeExploration();
+    void Execute_start_square();
+    void Execute_bar_code();
+    void Execute_Move_To_Maze();
+    void Maze();
+    void Ex_ColorLine();
+    void Ex_DashedLine();
+    void Ex_PortalNavigation();
+    void Ex_BoxArranging();
+    void ChamberInsertion();
+    void Ex_HiddenTask();
+    void Ex_UnevenTerrain();
+    void executeDiagnostic();
+    void executeHardwareTest();
+    void updateSetting();
 
 public:
     MenuSystem(uint8_t screenWidth, uint8_t screenHeight, uint8_t oledReset, uint8_t oledAddr);
@@ -69,6 +99,7 @@ public:
     void navigateMenu(bool isUpButton);
     void selectMenuItem();
     void handleInput(int buttonUp, int buttonNext, int buttonSelect);
+    void do_tasks();
 };
 
 #endif // MENUSYSTEM_H
