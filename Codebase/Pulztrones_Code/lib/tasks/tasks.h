@@ -15,12 +15,24 @@
 #include "box_manupilation.h"
 
 
+
+
 void start_square();
-int Counting_and_Line_Navigation();
+int  Counting_and_Line_Navigation();
 void execute_MoveToMaze();
 void execute_maze(int VB_POS);
 String exectute_colorLineFollowing();
+void executeDashedLine();
+void executePortalNavigation();
 void execute_box_manup(bool assending);
+void executeChamberInsertion();
+void executeHiddenTask();
+void executeUnevenTerrain();
+
+
+    
+
+    
 
 
 
@@ -28,4 +40,5 @@ void execute_box_manup(bool assending);
 void box_in_lower_position();
 void box_upper_position();
 void blue_open();
+
 #endif // TASKS_H

@@ -4,8 +4,10 @@
 const int leftS0 = 38, leftS1 = 42, leftS2 = 41, leftS3 = 40, leftSensorOut = 39;
 
 // Adjustable thresholds for red and blue detection
+
 int redThreshold[3][2] = {{25, 200}, {200, 500}, {50, 195}};  // {Rmin, Rmax}, {Gmin, Gmax}, {Bmin, Bmax}
 int blueThreshold[3][2] = {{200, 600}, {80, 600}, {30, 130}}; // {Rmin, Rmax}, {Gmin, Gmax}, {Bmin, Bmax}
+
 
 // Initialize the sensor
 void setupSensor(int S0, int S1, int S2, int S3, int sensorOut) {
@@ -55,5 +57,7 @@ String detectColor(int red, int green, int blue) {
              blue >= blueThreshold[2][0] && blue <= blueThreshold[2][1]) {
         return "BLUE";
     }
+
     return "UNKNOWN";
+
 }

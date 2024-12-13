@@ -1,7 +1,9 @@
 #include "tasks.h"
 
 
+
 void start_square() {
+
     // Code to execute the start square task
     Serial2.println("Starting.......");
 }
@@ -15,7 +17,7 @@ int barcode[12];
 int barcode_index = 0;
 int stripCounter = 0;
 int consecutiveEdges = 0;
-int Counting_and_Line_Navigation(){
+Tasks:: Counting_and_Line_Navigation(){
     int distance = 2000;
     const int target_encoder_count = distance / MM_PER_COUNT;
     int encoder_count_left = 0;
@@ -110,7 +112,7 @@ int Counting_and_Line_Navigation(){
 
 
 
-void execute_MoveToMaze() {
+void Tasks:: execute_MoveToMaze() {
     // Code to execute the white line following task
     Serial2.println("Executing WHITE_LINE_FOLLOW");
     //MoveDistanceForward(40)
@@ -119,6 +121,7 @@ void execute_MoveToMaze() {
     FollowWhiteLineUntilJunction();
 
 }
+
 
 void execute_maze(int VB_POS) {
     int Gate = 1;
@@ -418,6 +421,31 @@ String exectute_colorLineFollowing(){
 
     return color;
 }
+
+void bar_code(){ //execute the task 
+
+}
+void executeColorLine(){
+
+}
+void executeDashedLine(){//execute the task 
+
+}
+void executePortalNavigation(){//execute the task 
+
+}
+void executeBoxArranging(){//execute the task 
+
+}
+void executeChamberInsertion(){//execute the task 
+
+}
+void executeHiddenTask(){//execute the task 
+
+}
+void executeUnevenTerrain(){
+}
+
 
 void execute_box_manup(bool assending){
     int box_height;

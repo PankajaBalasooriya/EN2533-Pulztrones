@@ -52,7 +52,7 @@ void doTasks(){
     while (robot.get_task() != STOP) {
         switch (robot.get_task()) {
             case START_SQUARE:
-                start_square();
+                Tasks::start_square();
                 robot.set_task(BARCODE); 
                 break;
             case BARCODE:
@@ -60,7 +60,6 @@ void doTasks(){
                 robot.set_task(MovetoMaze);
                 break;
             case MovetoMaze:
-                
                 execute_MoveToMaze();
                 robot.set_task(MAZE);
                 break;
@@ -154,6 +153,11 @@ void setup() {
 
 
 void loop() {
+    //FollowWhiteLineReverse();
+    mux.selectChannel(0); // channel 0 is selected for OLED
+    menu.handleInput(BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT);//MenuSelectioninitiated 
+    
+
     
     // Serial2.print(getAverageSensorReading(LEFT_MARKER_SENSOR, 5));
     // Serial2.print(", ");
@@ -189,6 +193,7 @@ void loop() {
     // delay(100);
 
     
+
 
 }
 
