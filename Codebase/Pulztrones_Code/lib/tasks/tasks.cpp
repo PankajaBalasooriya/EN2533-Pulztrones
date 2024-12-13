@@ -445,7 +445,7 @@ void execute_box_manup(bool assending){
     
     robot.pick_box_and_lift(armMechanism);
     goto_box_destination(current_box_dest);
-    robot.drop_box_and_release(armMechanism);
+    // robot.drop_box_and_release(armMechanism);
 
     ///////////////////////////////////
     box_height = meassure_box_height();
@@ -457,7 +457,7 @@ void execute_box_manup(bool assending){
     
     robot.pick_box_and_lift(armMechanism);
     goto_box_destination(current_box_dest);
-    robot.drop_box_and_release(armMechanism);
+    // robot.drop_box_and_release(armMechanism);
 
     //////////////////////////////////
     box_height = meassure_box_height();
@@ -469,5 +469,5 @@ void execute_box_manup(bool assending){
     
     robot.pick_box_and_lift(armMechanism);
     goto_box_destination(current_box_dest);
-    robot.drop_box_and_release(armMechanism);
+    // robot.drop_box_and_release(armMechanism);
 }

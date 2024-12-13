@@ -74,6 +74,8 @@ class Robot {
 
         void Black_turn_Left_90_after_moving_forward();
         void Black_turn_Right_90_after_moving_forward();
+
+        void turn_left_180_after_Dropping();
     
     private:
         Task task = START_SQUARE;

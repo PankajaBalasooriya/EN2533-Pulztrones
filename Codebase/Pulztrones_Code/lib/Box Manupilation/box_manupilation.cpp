@@ -1,6 +1,8 @@
 #include <Arduino.h>
 #include <controller.h>
 #include <robot.h>
+#include "box_manupilation.h"
+
 
 int find_destination(int current_location, int box_height, bool ascending) {
     // Define destination mappings for ascending and descending orders
@@ -133,8 +135,8 @@ void goto_box_destination(int dest){
       //grab_box();
       robot.turn_left_180();
       FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10); FollowBlackLine_GivenDistance(220);
-      /*drop_box();*/ robot.turn_left_180();
-      FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLine_GivenDistance(220);
+      robot.drop_box_and_release(armMechanism); robot.turn_left_180_after_Dropping();
+      FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLine_GivenDistance(240);
       // bottom_tof_dist = robot.get_front_distance_from_bottom_tof();
       // Serial2.println(bottom_tof_dist);
       // if (bottom_tof_dist < 200){
@@ -143,13 +145,14 @@ void goto_box_destination(int dest){
       // else { 
       //   Serial2.println("No box detected"); 
       //   break;}
+      robot.drop_box_and_release(armMechanism);
       break;
     case 2 : //_|-
       //grab_box();
       robot.turn_left_180();
       FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLine_GivenDistance(220);
-      /* drop_box();*/ robot.turn_left_180();
-      FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10); FollowBlackLine_GivenDistance(220);
+      robot.drop_box_and_release(armMechanism); robot.turn_left_180_after_Dropping();
+      FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10); FollowBlackLine_GivenDistance(240);
       //  bottom_tof_dist = robot.get_front_distance_from_bottom_tof();
       // if (bottom_tof_dist < 200){
       //   FollowBlackLine_GivenDistance(bottom_tof_dist-70);
@@ -162,8 +165,8 @@ void goto_box_destination(int dest){
       //grab_box();
       robot.turn_left_180();
       FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10);  FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLine_GivenDistance(220);
-      /*drop_box();*/ robot.turn_left_180();
-      FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLine_GivenDistance(220);
+      robot.drop_box_and_release(armMechanism); robot.turn_left_180_after_Dropping();
+      FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLine_GivenDistance(240);
       //  bottom_tof_dist = robot.get_front_distance_from_bottom_tof();
       // if (bottom_tof_dist < 200){
       //   FollowBlackLine_GivenDistance(bottom_tof_dist-70);
@@ -171,6 +174,7 @@ void goto_box_destination(int dest){
       // else { 
       //   Serial2.println("No box detected"); 
       //   break;}
+      robot.drop_box_and_release(armMechanism);
       break;
 
     case 4 : //-|_
@@ -178,8 +182,8 @@ void goto_box_destination(int dest){
       robot.turn_left_180();
       Buzzer_Toggle(100);
       FollowBlackLineUntilJunction(); robot.turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLine_GivenDistance(220);
-      /*drop_box();*/ robot.turn_left_180();
-      FollowBlackLineUntilJunction(); robot.turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10); FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLine_GivenDistance(220);
+      robot.drop_box_and_release(armMechanism); robot.turn_left_180_after_Dropping();
+      FollowBlackLineUntilJunction(); robot.turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10); FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLine_GivenDistance(260);
       //  bottom_tof_dist = robot.get_front_distance_from_bottom_tof();
       //  Serial2.println(bottom_tof_dist);
       // if (bottom_tof_dist < 200){
@@ -188,13 +192,14 @@ void goto_box_destination(int dest){
       // else { 
       //   Serial2.println("No box detected"); 
       //   break;}
+      robot.drop_box_and_release(armMechanism);
       break;
     case 5 ://--
       //grab_box();
       robot.turn_left_180();
       FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10); FollowBlackLine_GivenDistance(220);
-      /*drop_box();*/ robot.turn_left_180();
-      FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLine_GivenDistance(220);
+      robot.drop_box_and_release(armMechanism); robot.turn_left_180_after_Dropping();
+      FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLine_GivenDistance(260);
       //  bottom_tof_dist = robot.get_front_distance_from_bottom_tof();
       // if (bottom_tof_dist < 200){
       //   FollowBlackLine_GivenDistance(bottom_tof_dist-70);
@@ -207,8 +212,8 @@ void goto_box_destination(int dest){
       //grab_box();
       robot.turn_left_180();
       FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLine_GivenDistance(220);
-      /*drop_box();*/ robot.turn_left_180();
-      FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(220);
+      robot.drop_box_and_release(armMechanism); robot.turn_left_180_after_Dropping();
+      FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(260);
       //  bottom_tof_dist = robot.get_front_distance_from_bottom_tof();
       // if (bottom_tof_dist < 200){
       //   FollowBlackLine_GivenDistance(bottom_tof_dist-70);
@@ -216,28 +221,32 @@ void goto_box_destination(int dest){
       // else { 
       //   Serial2.println("No box detected"); 
       //   break;}
+      robot.drop_box_and_release(armMechanism);
       break;
 
     case 7 ://-||_ 
       //grab_box();
       robot.turn_left_180();
       FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10); FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLine_GivenDistance(220);
-      /*drop_box();*/ robot.turn_left_180();
+      robot.drop_box_and_release(armMechanism); robot.turn_left_180_after_Dropping();
       FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10); FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10); FollowBlackLineUntilJunction();
+      robot.drop_box_and_release(armMechanism);
       break;
     case 8 ://-|_
       //grab_box();
       robot.turn_left_180();
       FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLine_GivenDistance(220);
-      /*drop_box();*/ robot.turn_left_180();
+      robot.drop_box_and_release(armMechanism); robot.turn_left_180_after_Dropping();
       FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10); FollowBlackLineUntilJunction();
+      robot.drop_box_and_release(armMechanism);
       break;
     case 9 :
       //grab_box();
       robot.turn_left_180();
       FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(220);
-      /*drop_box();*/ robot.turn_left_180();
+      robot.drop_box_and_release(armMechanism); robot.turn_left_180_after_Dropping();
       FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction();
+      robot.drop_box_and_release(armMechanism);
       break;
     default:
       Serial.println("Invalid position");

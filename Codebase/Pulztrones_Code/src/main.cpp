@@ -116,8 +116,8 @@ void setup() {
     Buzzer_Toggle(100);
 
     robot.init();
-    //coinDropper.init(COIN_DROPPER_SERVO_PIN);
-    //armMechanism.init(ARM_LIFT_SERVO_PIN, GRIPPER_SERVO_PIN);
+    coinDropper.init(COIN_DROPPER_SERVO_PIN);
+    armMechanism.init(ARM_LIFT_SERVO_PIN, GRIPPER_SERVO_PIN);
 
 
     robot.set_task(BOX_MANUPILATION);

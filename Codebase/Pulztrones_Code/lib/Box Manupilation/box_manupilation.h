@@ -3,6 +3,9 @@
 
 #include <Arduino.h>
 #include "config.h"
+#include "ArmMechanism.h"
+
+extern ArmMechanism armMechanism;
 
 int find_destination(int current_location, int box_height, bool ascending);
 int meassure_box_height();

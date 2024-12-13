@@ -38,6 +38,12 @@ void Robot::turn_left_90(){
 void Robot::turn_left_180(){
     turnLeft180();
 }
+
+void Robot::turn_left_180_after_Dropping(){
+    MoveDistanceReverse(40);
+    turnLeft180();
+}
+
 //TODO: BLUE LED Not turning on
 void Robot::turn_on_led(int PIN) {
     digitalWrite(PIN, HIGH);
