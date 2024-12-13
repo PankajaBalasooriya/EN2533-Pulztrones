@@ -79,7 +79,7 @@ void doTasks(){
                 }
                 robot.set_task(DASHEDLINE);
                 break;
-            case DASHEDLIN:
+            case DASHEDLINE:
                 executeDashedLine();
                 robot.set_task(PORTALNAVIGATION);
                 break;
@@ -134,7 +134,7 @@ void setup() {
 
     Buzzer_Toggle(100);
     delay(2000);
-    //calibrateIRSensors();
+    calibrateIRSensors();
     Buzzer_Toggle(100);
 
     //delay(5000);
@@ -147,7 +147,7 @@ void setup() {
     armMechanism.init(ARM_LIFT_SERVO_PIN, GRIPPER_SERVO_PIN);
 
 
-    robot.set_task(UNEVEN);
+    robot.set_task(PORTALNAVIGATION);
 
     
 
