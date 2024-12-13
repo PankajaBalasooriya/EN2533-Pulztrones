@@ -38,50 +38,50 @@ int find_destination(int current_location, int box_height, bool ascending) {
 //       grab_box();
 //       FollowBlackLineUntilJunction(); FollowBlackLineUntilJunction(); 
 //       drop_box(); robot.turn_left_180();
-//       FollowBlackLineUntilJunction(); robot.turn_right_90(); FollowBlackLineUntilJunction(); robot.turn_left_90(); FollowBlackLineUntilJunction();
+//       FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLineUntilJunction();
 //     case 2 : //_|-
 
-//       FollowBlackLineUntilJunction(); robot.turn_left_90(); FollowBlackLineUntilJunction(); robot.turn_right_90(); FollowBlackLineUntilJunction();
+//       FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction();
 //       drop_box(); robot.turn_left_180();
 //       FollowBlackLineUntilJunction(); FollowBlackLineUntilJunction();
 //     case 3 :  // _||-
 //       grab_box();
-//       FollowBlackLineUntilJunction(); robot.turn_left_90(); FollowBlackLineUntilJunction(); FollowBlackLineUntilJunction(); robot.turn_right_90(); FollowBlackLineUntilJunction();
+//       FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLineUntilJunction(); FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction();
 //       drop_box(); robot.turn_left_180();
-//       FollowBlackLineUntilJunction(); robot.turn_left_90(); FollowBlackLineUntilJunction(); robot.turn_right_90(); FollowBlackLineUntilJunction();
+//       FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction();
     
 //     case 4 : //-|_
 //       grab_box();
-//       FollowBlackLineUntilJunction(); robot.turn_right_90(); FollowBlackLineUntilJunction(); robot.turn_left_90(); FollowBlackLineUntilJunction();
+//       FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLineUntilJunction();
 //       drop_box(); robot.turn_left_180();
-//       FollowBlackLineUntilJunction(); robot.turn_right_90(); FollowBlackLineUntilJunction(); FollowBlackLineUntilJunction(); robot.turn_left_90(); FollowBlackLineUntilJunction();
+//       FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLineUntilJunction();
 //     case 5 ://--
 //       grab_box();
 //       FollowBlackLineUntilJunction(); FollowBlackLineUntilJunction();
 //       drop_box(); robot.turn_left_180();
-//       FollowBlackLineUntilJunction(); robot.turn_right_90(); FollowBlackLineUntilJunction(); robot.turn_left_90(); FollowBlackLineUntilJunction();
+//       FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLineUntilJunction();
 //     case 6 ://_|-
 //       grab_box();
-//       FollowBlackLineUntilJunction(); robot.turn_left_90(); FollowBlackLineUntilJunction(); robot.turn_right_90(); FollowBlackLineUntilJunction();
+//       FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction();
 //       drop_box(); robot.turn_left_180();
 //       FollowBlackLineUntilJunction(); FollowBlackLineUntilJunction();
 
 //     case 7 ://-||_ 
 //       grab_box();
-//       FollowBlackLineUntilJunction(); robot.turn_right_90(); FollowBlackLineUntilJunction(); FollowBlackLineUntilJunction(); robot.turn_left_90(); FollowBlackLineUntilJunction();
+//       FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLineUntilJunction();
 //       drop_box(); robot.turn_left_180();
-//       FollowBlackLineUntilJunction(); robot.turn_right_90(); FollowBlackLineUntilJunction(); FollowBlackLineUntilJunction();
+//       FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); FollowBlackLineUntilJunction();
 
 //     case 8 ://-|_
 //       grab_box();
-//       FollowBlackLineUntilJunction(); robot.turn_right_90(); FollowBlackLineUntilJunction(); robot.turn_left_90(); FollowBlackLineUntilJunction();
+//       FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLineUntilJunction();
 //       drop_box(); robot.turn_left_180();
-//       FollowBlackLineUntilJunction(); robot.turn_right_90(); FollowBlackLineUntilJunction();
+//       FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction();
 //     case 9 :
 //       grab_box();
 //       FollowBlackLineUntilJunction(); FollowBlackLineUntilJunction();  
 //       drop_box(); robot.turn_left_180();
-//       FollowBlackLineUntilJunction(); robot.turn_right_90();
+//       FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward();
 //     default:
 //       Serial.println("Invalid position");
 //   }
@@ -113,50 +113,50 @@ void goto_box_destination(int dest){
       //grab_box();
       FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10); FollowBlackLine_GivenDistance(330);
       /*drop_box();*/ robot.turn_left_180();
-      FollowBlackLineUntilJunction(); robot.turn_right_90();/*robot.Black_turn_Right_90_after_moving_forward();*/ FollowBlackLineUntilJunction(); robot.turn_left_90(); FollowBlackLine_GivenDistance(330);
+      FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLine_GivenDistance(330);
     case 2 : //_|-
       //grab_box();
-      FollowBlackLineUntilJunction(); robot.turn_left_90(); FollowBlackLineUntilJunction(); robot.turn_right_90(); FollowBlackLine_GivenDistance(330);
+      FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLine_GivenDistance(330);
       /* drop_box();*/ robot.turn_left_180();
       FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10); FollowBlackLine_GivenDistance(330);
     case 3 :  // _||-
       //grab_box();
-      FollowBlackLineUntilJunction(); robot.turn_left_90(); FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10);  FollowBlackLineUntilJunction(); robot.turn_right_90(); FollowBlackLine_GivenDistance(330);
+      FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10);  FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLine_GivenDistance(330);
       /*drop_box();*/ robot.turn_left_180();
-      FollowBlackLineUntilJunction(); robot.turn_left_90(); FollowBlackLineUntilJunction(); robot.turn_right_90(); FollowBlackLine_GivenDistance(330);
+      FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLine_GivenDistance(330);
     
     case 4 : //-|_
       //grab_box();
-      FollowBlackLineUntilJunction(); robot.turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.turn_left_90(); FollowBlackLine_GivenDistance(330);
+      FollowBlackLineUntilJunction(); robot.turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLine_GivenDistance(330);
       /*drop_box();*/ robot.turn_left_180();
-      FollowBlackLineUntilJunction(); robot.turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10); FollowBlackLineUntilJunction(); robot.turn_left_90(); FollowBlackLine_GivenDistance(330);
+      FollowBlackLineUntilJunction(); robot.turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10); FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLine_GivenDistance(330);
     case 5 ://--
       //grab_box();
       FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10); FollowBlackLine_GivenDistance(330);
       /*drop_box();*/ robot.turn_left_180();
-      FollowBlackLineUntilJunction(); robot.turn_right_90(); FollowBlackLineUntilJunction(); robot.turn_left_90(); FollowBlackLine_GivenDistance(330);
+      FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLine_GivenDistance(330);
     case 6 ://_|-
       //grab_box();
-      FollowBlackLineUntilJunction(); robot.turn_left_90(); FollowBlackLineUntilJunction(); robot.turn_right_90(); FollowBlackLine_GivenDistance(330);
+      FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLine_GivenDistance(330);
       /*drop_box();*/ robot.turn_left_180();
       FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(330);
 
     case 7 ://-||_ 
       //grab_box();
-      FollowBlackLineUntilJunction(); robot.turn_right_90(); FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10); FollowBlackLineUntilJunction(); robot.turn_left_90(); FollowBlackLine_GivenDistance(330);
+      FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10); FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLine_GivenDistance(330);
       /*drop_box();*/ robot.turn_left_180();
-      FollowBlackLineUntilJunction(); robot.turn_right_90(); FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10); FollowBlackLine_GivenDistance(330);
+      FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10); FollowBlackLine_GivenDistance(330);
 
     case 8 ://-|_
       //grab_box();
-      FollowBlackLineUntilJunction(); robot.turn_right_90(); FollowBlackLineUntilJunction(); robot.turn_left_90(); FollowBlackLine_GivenDistance(330);
+      FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLine_GivenDistance(330);
       /*drop_box();*/ robot.turn_left_180();
-      FollowBlackLineUntilJunction(); robot.turn_right_90(); FollowBlackLineUntilJunction();
+      FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction();
     case 9 :
       //grab_box();
       FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(330);
       /*drop_box();*/ robot.turn_left_180();
-      FollowBlackLineUntilJunction(); robot.turn_right_90();
+      FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward();
     default:
       Serial.println("Invalid position");
   }
