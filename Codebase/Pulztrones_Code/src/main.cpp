@@ -135,20 +135,17 @@ void setup() {
 
 
     Buzzer_UniquePattern();
-    //doTasks();  
+    doTasks();  
     
     //FollowColorLineUntilJunction();
     //exectute_colorLineFollowing();
     
     //FollowBlackLineUntilJunction();
-    
-
-
-    
 
     //MoveDistanceForward(100);
+    //FollowBlackLine_GivenDistance(300);
 
-    FollowBlackLine_GivenDistance(300);
+    //robot.pick_box_and_lift(armMechanism);
     
 }
 

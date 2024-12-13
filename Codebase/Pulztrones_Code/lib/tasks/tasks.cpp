@@ -420,16 +420,26 @@ String exectute_colorLineFollowing(){
 }
 
 void execute_box_manup(bool assending){
-    int box_height;
+    uint8_t box_height;
     int current_box_dest;
-    Junction FollowBlackLineUntilJunction();
+    int bottom_tof_dist;
+
+    FollowBlackLineUntilJunction();
     robot.Black_turn_Left_90_after_moving_forward();
-    FollowBlackLine_GivenDistance(330);
-    //box_height = robot.get_front_distance_from_bottom_tof();
-    //current_box_dest = find_destination(0, box_height, true);
+    FollowBlackLine_GivenDistance(210);
+     bottom_tof_dist = robot.get_front_distance_from_bottom_tof();
+      if (bottom_tof_dist < 200){
+        FollowBlackLine_GivenDistance(bottom_tof_dist);
+      }
+      else{
+       Serial2.println("No box detected"); 
+      }
+    
+    find_destination(0, meassure_box_height() , assending);
+    
     goto_box_destination(1);
     //find_destination(1, 4, true);
-    //goto_box_destination(4);
+    goto_box_destination(6);
     //find_destination(2, 4, true);
-    //goto_box_destination(7);
+    goto_box_destination(9);
 }
