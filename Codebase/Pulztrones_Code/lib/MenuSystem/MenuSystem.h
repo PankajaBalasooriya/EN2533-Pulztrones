@@ -79,13 +79,13 @@ private:
     void Execute_bar_code();
     void Execute_Move_To_Maze();
     void Maze();
-    void ColorLine();
-    void DashedLine();
-    void PortalNavigation();
-    void BoxArranging();
+    void Ex_ColorLine();
+    void Ex_DashedLine();
+    void Ex_PortalNavigation();
+    void Ex_BoxArranging();
     void ChamberInsertion();
-    void HiddenTask();
-    void UnevenTerrain();
+    void Ex_HiddenTask();
+    void Ex_UnevenTerrain();
 
 public:
     MenuSystem(uint8_t screenWidth, uint8_t screenHeight, uint8_t oledReset, uint8_t oledAddr);
@@ -94,6 +94,7 @@ public:
     void navigateMenu(bool isUpButton);
     void selectMenuItem();
     void handleInput(int buttonUp, int buttonNext, int buttonSelect);
+    void do_tasks();
 };
 
 #endif // MENUSYSTEM_H

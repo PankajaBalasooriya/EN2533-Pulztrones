@@ -55,5 +55,7 @@ String detectColor(int red, int green, int blue) {
              blue >= blueThreshold[2][0] && blue <= blueThreshold[2][1]) {
         return "BLUE";
     }
-    return "UNKNOWN";
+    else {
+        return;
+    }
 }

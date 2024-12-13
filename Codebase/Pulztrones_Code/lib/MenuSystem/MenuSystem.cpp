@@ -20,6 +20,34 @@ void MenuSystem::begin() {
     navigateMenu(true);
     updateDisplay();
 }
+void MenuSystem::do_tasks() {
+    int VB_POS = 0;
+    while (robot.get_task() != STOP) {
+        switch (robot.get_task()) {
+            case START_SQUARE:
+                Tasks::start_square();
+                robot.set_task(BARCODE);
+                break;
+            case BARCODE:
+                VB_POS = Tasks::Counting_and_Line_Navigation();
+                robot.set_task(MovetoMaze);
+                break;
+            case MovetoMaze:
+                VB_POS = 0;
+                Tasks::execute_MoveToMaze();
+                robot.set_task(MAZE);
+                break;
+            case MAZE:
+                Tasks::execute_maze(VB_POS);
+                robot.set_task(STOP);
+                break;
+            default:
+                robot.set_task(STOP);
+                break;
+        }
+    }
+}
+
 void MenuSystem::updateDisplay() {
     display.clearDisplay();
     display.setCursor(0, 0);
@@ -114,6 +142,7 @@ void MenuSystem::selectMenuItem() {
             else if(currentSelection==3) {
                 Maze();
             }
+            do_tasks();
             break;
 
         case TASKS_SUBMENU_PAGE_2:
@@ -121,20 +150,21 @@ void MenuSystem::selectMenuItem() {
                 currentState = TASKS_SUBMENU_PAGE_1;
                 currentSelection = 0;
             } else if (currentSelection == 0) { // "< Back" to MAIN_MENU
-               DashedLine();
+               Ex_DashedLine();
             } 
             else if (currentSelection==1){
-                PortalNavigation();
+                Ex_PortalNavigation();
             }
             else if(currentSelection==2){
-                BoxArranging();
+                Ex_BoxArranging();
             }
             else if (currentSelection==3){
-               ChamberInsertion();
+                ChamberInsertion();
             }
             else if (currentSelection==4){
-                HiddenTask();
+                Ex_HiddenTask();
             }
+            do_tasks();
             break;
 
     //     case SENSOR_DIAGNOSTICS:
@@ -198,7 +228,8 @@ void MenuSystem::Execute_start_square() {
     display.println("Execute_Start_Square");
     display.display();
     delay(2000); // Placeholder for task execution
-    Tasks::start_square();
+    robot.set_task(START_SQUARE);
+
 
 }
 void MenuSystem :: Execute_bar_code(){
@@ -207,7 +238,7 @@ void MenuSystem :: Execute_bar_code(){
     display.println("Barcode running");
     display.display();
     delay(2000); // Placeholder for task execution
-    Tasks::bar_code();
+     robot.set_task(BARCODE);
 }
 
 void MenuSystem ::  Execute_Move_To_Maze(){
@@ -216,47 +247,49 @@ void MenuSystem ::  Execute_Move_To_Maze(){
     display.println("Moving to Maze");
     display.display();
     delay(2000); // Placeholder for task execution
-    Tasks::execute_MoveToMaze();
-}
-void MenuSystem :: Maze(){
+    robot.set_task(MovetoMaze);
+
+    }
+    void MenuSystem :: Maze(){
     display.clearDisplay();
     display.setCursor(0,0);
     display.println("Solving Maze");
     display.display();
     delay(2000); // Placeholder for task execution
-    Tasks::execute_maze(0);
+    robot.set_task(MAZE);
+
 }
-void MenuSystem ::ColorLine(){
+void MenuSystem ::Ex_ColorLine(){
     display.clearDisplay();
     display.setCursor(0,0);
     display.println("Color line");
     display.display();
     delay(2000); // Placeholder for task execution
-    Tasks::executeColorLine();
+    robot.set_task(COLORLINE);
 }
-void MenuSystem ::DashedLine(){
+void MenuSystem ::Ex_DashedLine(){
     display.clearDisplay();
     display.setCursor(0,0);
     display.println("Dashed line");
     display.display();
     delay(2000); // Placeholder for task execution
-    Tasks::executeDashedLine();
+    robot.set_task(DASHEDLINE);
 }
-void MenuSystem ::PortalNavigation(){
+void MenuSystem ::Ex_PortalNavigation(){
     display.clearDisplay();
     display.setCursor(0,0);
     display.println("Portal Navigation");
     display.display();
     delay(2000); // Placeholder for task execution
-    Tasks::executePortalNavigation();
+    robot.set_task(PORTALNAVIGATION);
 }
-void MenuSystem :: BoxArranging(){
+void MenuSystem :: Ex_BoxArranging(){
     display.clearDisplay();
     display.setCursor(0,0);
     display.println("Box Arranging");
     display.display();
     delay(2000); // Placeholder for task execution
-    Tasks::executeBoxArranging();
+    robot.set_task(BOXARRANGING);
 }
 void MenuSystem ::  ChamberInsertion(){
     display.clearDisplay();
@@ -264,21 +297,21 @@ void MenuSystem ::  ChamberInsertion(){
     display.println("Chamber insertion");
     display.display();
     delay(2000); // Placeholder for task execution
-    Tasks::executeChamberInsertion();
+   robot.set_task(CHAMBER);
 }
-void MenuSystem :: HiddenTask(){
+void MenuSystem :: Ex_HiddenTask(){
     display.clearDisplay();
     display.setCursor(0,0);
     display.println("Hidden Task");
     display.display();
     delay(2000); // Placeholder for task execution
-    Tasks::executeHiddenTask();
+    robot.set_task(HIDDENTASK);
 }
-void MenuSystem ::  UnevenTerrain(){
+void MenuSystem ::  Ex_UnevenTerrain(){
     display.clearDisplay();
     display.setCursor(0,0);
     display.println("Uneven Terrain");
     display.display();
     delay(2000); // Placeholder for task execution
-    Tasks::executeUnevenTerrain();
+   robot.set_task(UNEVEN);
 }
