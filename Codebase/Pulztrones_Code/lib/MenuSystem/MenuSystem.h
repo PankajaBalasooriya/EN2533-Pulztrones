@@ -51,14 +51,14 @@ private:
     };
 
  
-    const char* tasksSubmenuPage1[6] = {
+    const char* tasksSubmenuPage1[7] = {
         "Start Square", "Barcode", "Move to Maze", "Maze",
-        "Color Line", "Next >"
+        "Color Line", "Next >","<Back"
     };
 
-    const char* tasksSubmenuPage2[6] = {
+    const char* tasksSubmenuPage2[7] = {
         "Dashed Line", "Portal Navigation", "Box Arranging",
-        "Chamber Insertion", "Hidden Task", "Uneven Terrain"
+        "Chamber Insertion", "Hidden Task", "Uneven Terrain","<Back"
     };
 
     const char* sensorDiagnosticOptions[3] = {
@@ -86,6 +86,9 @@ private:
     void ChamberInsertion();
     void Ex_HiddenTask();
     void Ex_UnevenTerrain();
+    void executeDiagnostic();
+    void executeHardwareTest();
+    void updateSetting();
 
 public:
     MenuSystem(uint8_t screenWidth, uint8_t screenHeight, uint8_t oledReset, uint8_t oledAddr);
