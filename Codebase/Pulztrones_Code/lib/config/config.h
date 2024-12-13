@@ -9,6 +9,7 @@ enum Task{
             MovetoMaze,
             MAZE,
             COLOR_LINE,
+            BOX_MANUPILATION,
             STOP
         };
 
