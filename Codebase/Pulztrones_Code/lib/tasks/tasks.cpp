@@ -428,18 +428,23 @@ void execute_box_manup(bool assending){
     robot.Black_turn_Left_90_after_moving_forward();
     FollowBlackLine_GivenDistance(210);
      bottom_tof_dist = robot.get_front_distance_from_bottom_tof();
+     Serial2.println(bottom_tof_dist);
       if (bottom_tof_dist < 200){
-        FollowBlackLine_GivenDistance(bottom_tof_dist);
+        FollowBlackLine_GivenDistance(bottom_tof_dist-70);
       }
       else{
        Serial2.println("No box detected"); 
       }
     
-    find_destination(0, meassure_box_height() , assending);
-    
+    //box_height = meassure_box_height();
+    //current_box_dest = find_destination(0, box_height, true);
     goto_box_destination(1);
-    //find_destination(1, 4, true);
-    goto_box_destination(6);
-    //find_destination(2, 4, true);
-    goto_box_destination(9);
+
+    //box_height = meassure_box_height();
+    //current_box_dest = find_destination(0, box_height, true);
+    goto_box_destination(4);
+
+    //box_height = meassure_box_height();
+    //current_box_dest = find_destination(0, box_height, true);
+    goto_box_destination(7);
 }

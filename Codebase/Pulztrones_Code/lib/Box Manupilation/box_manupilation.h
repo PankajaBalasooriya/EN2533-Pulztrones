@@ -4,7 +4,7 @@
 #include <Arduino.h>
 #include "config.h"
 
-int find_destination();
+int find_destination(int current_location, int box_height, bool ascending);
 int meassure_box_height();
 void goto_box_destination(int dest);
 
