@@ -52,7 +52,7 @@ void doTasks(){
     while (robot.get_task() != STOP) {
         switch (robot.get_task()) {
             case START_SQUARE:
-                Tasks::start_square();
+                start_square();
                 robot.set_task(BARCODE); 
                 break;
             case BARCODE:
@@ -111,7 +111,7 @@ void setup() {
 
     //delay(5000);
     Buzzer_Toggle(100);
-    calibrateIRSensorsForBlack();
+    //calibrateIRSensorsForBlack();
     Buzzer_Toggle(100);
 
     robot.init();
@@ -123,10 +123,10 @@ void setup() {
 
     
 
-    //menu.begin();
+    menu.begin();
 
 
-    delay(5000);
+    //delay(5000);
     
     
 
@@ -147,7 +147,7 @@ void setup() {
 
     //MoveDistanceForward(100);
 
-    FollowBlackLine_GivenDistance(300);
+    //FollowBlackLine_GivenDistance(300);
     
 }
 

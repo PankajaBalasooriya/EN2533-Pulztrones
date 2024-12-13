@@ -25,20 +25,20 @@ void MenuSystem::do_tasks() {
     while (robot.get_task() != STOP) {
         switch (robot.get_task()) {
             case START_SQUARE:
-                Tasks::start_square();
+                start_square();
                 robot.set_task(BARCODE);
                 break;
             case BARCODE:
-                VB_POS = Tasks::Counting_and_Line_Navigation();
+                VB_POS = Counting_and_Line_Navigation();
                 robot.set_task(MovetoMaze);
                 break;
             case MovetoMaze:
-                VB_POS = 0;
-                Tasks::execute_MoveToMaze();
+                //VB_POS = 0;
+                execute_MoveToMaze();
                 robot.set_task(MAZE);
                 break;
             case MAZE:
-                Tasks::execute_maze(VB_POS);
+                execute_maze(VB_POS);
                 robot.set_task(STOP);
                 break;
             default:
@@ -287,7 +287,7 @@ void MenuSystem ::Ex_ColorLine(){
     display.println("Color line");
     display.display();
     delay(1000); // Placeholder for task execution
-    robot.set_task(COLORLINE);
+    robot.set_task(COLOR_LINE);
     digitalWrite(BLUE_LED,HIGH);
     delay(500);
     digitalWrite(BLUE_LED,LOW);
@@ -323,7 +323,7 @@ void MenuSystem :: Ex_BoxArranging(){
     display.println("Box Arranging");
     display.display();
     delay(1000); // Placeholder for task execution
-    robot.set_task(BOXARRANGING);
+    robot.set_task(BOX_MANUPILATION);
     digitalWrite(BLUE_LED,HIGH);
     delay(500);
     digitalWrite(BLUE_LED,LOW);

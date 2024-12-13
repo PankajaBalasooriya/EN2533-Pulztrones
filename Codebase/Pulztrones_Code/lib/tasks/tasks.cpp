@@ -17,7 +17,7 @@ int barcode[12];
 int barcode_index = 0;
 int stripCounter = 0;
 int consecutiveEdges = 0;
-Tasks:: Counting_and_Line_Navigation(){
+int Counting_and_Line_Navigation(){
     int distance = 2000;
     const int target_encoder_count = distance / MM_PER_COUNT;
     int encoder_count_left = 0;
@@ -112,7 +112,7 @@ Tasks:: Counting_and_Line_Navigation(){
 
 
 
-void Tasks:: execute_MoveToMaze() {
+void execute_MoveToMaze() {
     // Code to execute the white line following task
     Serial2.println("Executing WHITE_LINE_FOLLOW");
     //MoveDistanceForward(40)
@@ -422,12 +422,7 @@ String exectute_colorLineFollowing(){
     return color;
 }
 
-void bar_code(){ //execute the task 
 
-}
-void executeColorLine(){
-
-}
 void executeDashedLine(){//execute the task 
 
 }
