@@ -26,6 +26,7 @@
 #include "ArmMechanism.h"
 #include "Ultrasonic.h"
 #include "ToF.h"
+#include <box_manupilation.h>
 
 
 
@@ -72,6 +73,10 @@ void doTasks(){
                 color = exectute_colorLineFollowing();
                 robot.set_task(STOP);
                 break;
+            case BOX_MANUPILATION:
+                execute_box_manup(true);
+                robot.set_task(BOX_MANUPILATION);
+                break;
             case STOP:
                 robot.set_task(STOP);
                 break;
@@ -114,7 +119,9 @@ void setup() {
     //coinDropper.init(COIN_DROPPER_SERVO_PIN);
     //armMechanism.init(ARM_LIFT_SERVO_PIN, GRIPPER_SERVO_PIN);
 
-    robot.set_task(MovetoMaze);
+
+    robot.set_task(BOX_MANUPILATION);
+
     
 
     //menu.begin();
@@ -124,6 +131,9 @@ void setup() {
     
     
 
+    delay(1000);
+
+
     Buzzer_UniquePattern();
     //doTasks();  
     
@@ -132,6 +142,7 @@ void setup() {
     
     //FollowBlackLineUntilJunction();
     
+
 
     
 

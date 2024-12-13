@@ -89,10 +89,10 @@ float VL53L0X_Multiplexer::getAverageTofDistance(uint8_t sensorChannel, I2CMUX &
       totalDistance += distance;
       validReadings++;
     } 
-    else 
-    {
-      Serial.println("Timeout");
-    }
+    // else 
+    // {
+    //   Serial.println("Timeout");
+    // }
 
     
   }
