@@ -382,7 +382,7 @@ String exectute_colorLineFollowing(){
     MoveDistanceForward(50);
 
     while(true){
-        Junction junction = FollowColorLineUntilJunction(number);
+        Junction junction = FollowColorLineUntilJunction(number, color);
         Serial2.println(junction);
 
         if(junction == T_Junction){

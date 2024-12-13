@@ -28,5 +28,7 @@ Junction Detect_Junction_type_on_black_line();
 Junction Detect_Junction_type_on_Color_line(int number);
 Junction Detect_jun_condition();
 
+int getAverageSensorReading(int sensorPin, int numReadings);
+
 
 #endif

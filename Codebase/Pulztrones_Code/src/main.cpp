@@ -120,7 +120,7 @@ void setup() {
     delay(5000);
 
     Buzzer_UniquePattern();
-    //doTasks();  
+    doTasks();  
     
     //FollowColorLineUntilJunction();
     //exectute_colorLineFollowing();
@@ -131,9 +131,9 @@ void setup() {
 
 void loop() {
     
-    // Serial2.print(analogRead(LEFT_MARKER_SENSOR));
+    // Serial2.print(getAverageSensorReading(LEFT_MARKER_SENSOR, 5));
     // Serial2.print(",");
-    // Serial2.println(analogRead(RIGHT_MARKER_SENSOR));
+    // Serial2.println(getAverageSensorReading(RIGHT_MARKER_SENSOR, 5));
     
     //printIRData();
 
@@ -143,7 +143,7 @@ void loop() {
     //Junction junction = Detect_Junction_type_on_Color_line();
     
     //Serial2.println(junction);
-    FollowBlackLine();
+    //FollowBlackLine();
 
 }
 

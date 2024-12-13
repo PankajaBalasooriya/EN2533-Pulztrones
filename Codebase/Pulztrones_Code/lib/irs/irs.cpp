@@ -131,30 +131,39 @@ Junction Detect_Junction_type_on_Color_line(int number){
 
     if(numberOfSensorsOnWhite > number){
         MotorBreak();
-        int leftSensorValue = analogRead(LEFT_MARKER_SENSOR);
-        int rightSensorValue = analogRead(RIGHT_MARKER_SENSOR);
+        int leftSensorValue = getAverageSensorReading(LEFT_MARKER_SENSOR, 8);
+        int rightSensorValue = getAverageSensorReading(RIGHT_MARKER_SENSOR, 8);
 
         // int leftSensorValue = sensorValues[0];
         // int rightSensorValue = sensorValues[7];
 
 
-        if (leftSensorValue < COLOR_LINE_THRESHOLD && rightSensorValue < COLOR_LINE_THRESHOLD){
+        if (leftSensorValue < COLOR_LINE_THRESHOLD_LEFT && rightSensorValue < COLOR_LINE_THRESHOLD_RIGHT){
             return T_Junction;
         }
-        else if (leftSensorValue < COLOR_LINE_THRESHOLD){
+        else if (leftSensorValue < COLOR_LINE_THRESHOLD_LEFT){
             return Left;
         }
-        else if (rightSensorValue < COLOR_LINE_THRESHOLD){
+        else if (rightSensorValue < COLOR_LINE_THRESHOLD_RIGHT){
             return Right;
         }
         else{
-            return Straight;
-            
-            
+            return Straight;    
         }
     }
     else{
         return Straight;
         
     }
+}
+
+int getAverageSensorReading(int sensorPin, int numReadings) {
+    int total = 0;
+
+    for (int i = 0; i < numReadings; i++) {
+        total += analogRead(sensorPin);
+        delay(5); // Small delay between readings to stabilize sensor values
+    }
+
+    return total / numReadings;
 }

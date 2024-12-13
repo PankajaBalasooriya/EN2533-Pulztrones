@@ -605,7 +605,7 @@ float distance_from_counts(int left_counts, int right_counts){
 }
 
 
-Junction FollowColorLineUntilJunction(int number){
+Junction FollowColorLineUntilJunction(int number, String color){
     while (true)
     {
         int position = readWhiteLinePosition();

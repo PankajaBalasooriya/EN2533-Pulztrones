@@ -42,7 +42,7 @@ void turnLeft180();
 
 int Counting_and_Line_Navigation();
 
-Junction FollowColorLineUntilJunction(int number);
+Junction FollowColorLineUntilJunction(int number, String color);
 
 
 #endif
