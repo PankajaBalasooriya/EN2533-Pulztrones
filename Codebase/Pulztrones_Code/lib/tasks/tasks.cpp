@@ -1,7 +1,4 @@
 #include "tasks.h"
-#include <box_manupilation.h>
-
-
 
 
 void start_square() {
@@ -409,5 +406,11 @@ void execute_box_manup(bool assending){
     Junction FollowBlackLineUntilJunction();
     robot.turn_Left_90_after_moving_forward();
     FollowBlackLine_GivenDistance(33);
+    //getAverageTofDistance(4, 0);
+    //find_destination(0, 4, true);
     goto_box_destination(1);
+    //find_destination(0, 4, true);
+    //goto_box_destination(4);
+    //find_destination(0, 4, true);
+    //goto_box_destination(7);
 }
