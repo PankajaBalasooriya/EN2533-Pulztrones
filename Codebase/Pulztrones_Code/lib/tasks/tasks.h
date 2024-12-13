@@ -13,6 +13,10 @@
 #include "I2CMUX.h"
 #include "ToF.h"
 #include "box_manupilation.h"
+#include "ArmMechanism.h"
+#include "CoinDropper.h"
+
+extern ArmMechanism armMechanism;
 
 
 void start_square();

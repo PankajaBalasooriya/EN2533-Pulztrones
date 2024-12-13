@@ -128,10 +128,6 @@ void setup() {
 
 
     delay(5000);
-    
-    
-
-    delay(1000);
 
 
     Buzzer_UniquePattern();
@@ -146,6 +142,7 @@ void setup() {
     //FollowBlackLine_GivenDistance(300);
 
     //robot.pick_box_and_lift(armMechanism);
+        
     
 }
 

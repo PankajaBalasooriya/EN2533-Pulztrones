@@ -420,31 +420,54 @@ String exectute_colorLineFollowing(){
 }
 
 void execute_box_manup(bool assending){
-    uint8_t box_height;
+    int box_height;
     int current_box_dest;
     int bottom_tof_dist;
 
     FollowBlackLineUntilJunction();
     robot.Black_turn_Left_90_after_moving_forward();
-    FollowBlackLine_GivenDistance(210);
-     bottom_tof_dist = robot.get_front_distance_from_bottom_tof();
-     Serial2.println(bottom_tof_dist);
-      if (bottom_tof_dist < 200){
-        FollowBlackLine_GivenDistance(bottom_tof_dist-70);
-      }
-      else{
-       Serial2.println("No box detected"); 
-      }
+    FollowBlackLine_GivenDistance(220);
+    //  bottom_tof_dist = robot.get_front_distance_from_bottom_tof();
+    //  Serial2.println(bottom_tof_dist);
+    //   if (bottom_tof_dist < 200){
+    //     FollowBlackLine_GivenDistance(bottom_tof_dist-70);
+    //   }
+    //   else{
+    //    Serial2.println("No box detected"); 
+    //   }
     
-    //box_height = meassure_box_height();
-    //current_box_dest = find_destination(0, box_height, true);
-    goto_box_destination(1);
+    box_height = meassure_box_height();
+    Serial2.println("box height- ");
+    Serial2.println(box_height);
+    current_box_dest = find_destination(0, box_height, true);
+    Serial2.println("next_box_path- ");
+    Serial2.println(current_box_dest);
+    
+    robot.pick_box_and_lift(armMechanism);
+    goto_box_destination(current_box_dest);
+    robot.drop_box_and_release(armMechanism);
 
-    //box_height = meassure_box_height();
-    //current_box_dest = find_destination(0, box_height, true);
-    goto_box_destination(4);
+    ///////////////////////////////////
+    box_height = meassure_box_height();
+    Serial2.println("box height- ");
+    Serial2.println(box_height);
+    current_box_dest = find_destination(1, box_height, true);
+    Serial2.println("next_box_path- ");
+    Serial2.println(current_box_dest);
+    
+    robot.pick_box_and_lift(armMechanism);
+    goto_box_destination(current_box_dest);
+    robot.drop_box_and_release(armMechanism);
 
-    //box_height = meassure_box_height();
-    //current_box_dest = find_destination(0, box_height, true);
-    goto_box_destination(7);
+    //////////////////////////////////
+    box_height = meassure_box_height();
+    Serial2.println("box height- ");
+    Serial2.println(box_height);
+    current_box_dest = find_destination(2, box_height, true);
+    Serial2.println("next_box_path- ");
+    Serial2.println(current_box_dest);
+    
+    robot.pick_box_and_lift(armMechanism);
+    goto_box_destination(current_box_dest);
+    robot.drop_box_and_release(armMechanism);
 }

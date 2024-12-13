@@ -21,7 +21,7 @@ int find_destination(int current_location, int box_height, bool ascending) {
     };
 
     // Determine the height index based on the box height
-    int height_index = (box_height = 5) ? 0 : (box_height = 10) ? 1 : 2;
+    int height_index = (box_height == 5) ? 0 : (box_height == 10) ? 1 : 2;
 
     // Select the appropriate destination table based on the ordering
     if (ascending) {
@@ -32,17 +32,17 @@ int find_destination(int current_location, int box_height, bool ascending) {
 }
 
 int meassure_box_height(){
-  int top_tof_dist = robot.get_front_distance_from_bottom_tof();
-  int mid_tof_dist = robot.get_front_distance_from_bottom_tof();
+  int top_tof_dist = robot.get_front_distance_from_top_tof();
+  int mid_tof_dist = robot.get_front_distance_from_middle_tof();
   int bottom_tof_dist = robot.get_front_distance_from_bottom_tof();
   
-  if (top_tof_dist <= 10 && mid_tof_dist <= 10 && bottom_tof_dist <= 10){
+  if (top_tof_dist <= 150 && mid_tof_dist <= 150 && bottom_tof_dist <= 150){
       return 15;
   }
-  else if (top_tof_dist > 10 && mid_tof_dist <= 10 && bottom_tof_dist <= 10) {
+  else if (top_tof_dist > 150 && mid_tof_dist <= 150 && bottom_tof_dist <= 150) {
     return 10;
   }
-  else if (top_tof_dist > 10 && mid_tof_dist > 10 && bottom_tof_dist <= 10){
+  else if (top_tof_dist > 150 && mid_tof_dist > 150 && bottom_tof_dist <= 150){
     return 5;
   }
   else{
@@ -132,110 +132,110 @@ void goto_box_destination(int dest){
     case 1 : //--
       //grab_box();
       robot.turn_left_180();
-      FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10); FollowBlackLine_GivenDistance(330);
+      FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10); FollowBlackLine_GivenDistance(220);
       /*drop_box();*/ robot.turn_left_180();
-      FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLine_GivenDistance(210);
-      bottom_tof_dist = robot.get_front_distance_from_bottom_tof();
-      Serial2.println(bottom_tof_dist);
-      if (bottom_tof_dist < 200){
-        FollowBlackLine_GivenDistance(bottom_tof_dist-70);
-      }
-      else { 
-        Serial2.println("No box detected"); 
-        break;}
+      FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLine_GivenDistance(220);
+      // bottom_tof_dist = robot.get_front_distance_from_bottom_tof();
+      // Serial2.println(bottom_tof_dist);
+      // if (bottom_tof_dist < 200){
+      //   FollowBlackLine_GivenDistance(bottom_tof_dist-70);
+      // }
+      // else { 
+      //   Serial2.println("No box detected"); 
+      //   break;}
       break;
     case 2 : //_|-
       //grab_box();
       robot.turn_left_180();
-      FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLine_GivenDistance(330);
+      FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLine_GivenDistance(220);
       /* drop_box();*/ robot.turn_left_180();
-      FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10); FollowBlackLine_GivenDistance(210);
-       bottom_tof_dist = robot.get_front_distance_from_bottom_tof();
-      if (bottom_tof_dist < 200){
-        FollowBlackLine_GivenDistance(bottom_tof_dist-70);
-      }
-      else { 
-        Serial2.println("No box detected"); 
-        break;}
+      FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10); FollowBlackLine_GivenDistance(220);
+      //  bottom_tof_dist = robot.get_front_distance_from_bottom_tof();
+      // if (bottom_tof_dist < 200){
+      //   FollowBlackLine_GivenDistance(bottom_tof_dist-70);
+      // }
+      // else { 
+      //   Serial2.println("No box detected"); 
+      //   break;}
       break;
     case 3 :  // _||-
       //grab_box();
       robot.turn_left_180();
-      FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10);  FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLine_GivenDistance(330);
+      FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10);  FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLine_GivenDistance(220);
       /*drop_box();*/ robot.turn_left_180();
-      FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLine_GivenDistance(210);
-       bottom_tof_dist = robot.get_front_distance_from_bottom_tof();
-      if (bottom_tof_dist < 200){
-        FollowBlackLine_GivenDistance(bottom_tof_dist-70);
-      }
-      else { 
-        Serial2.println("No box detected"); 
-        break;}
+      FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLine_GivenDistance(220);
+      //  bottom_tof_dist = robot.get_front_distance_from_bottom_tof();
+      // if (bottom_tof_dist < 200){
+      //   FollowBlackLine_GivenDistance(bottom_tof_dist-70);
+      // }
+      // else { 
+      //   Serial2.println("No box detected"); 
+      //   break;}
       break;
 
     case 4 : //-|_
       //grab_box();
       robot.turn_left_180();
       Buzzer_Toggle(100);
-      FollowBlackLineUntilJunction(); robot.turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLine_GivenDistance(330);
+      FollowBlackLineUntilJunction(); robot.turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLine_GivenDistance(220);
       /*drop_box();*/ robot.turn_left_180();
-      FollowBlackLineUntilJunction(); robot.turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10); FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLine_GivenDistance(210);
-       bottom_tof_dist = robot.get_front_distance_from_bottom_tof();
-       Serial2.println(bottom_tof_dist);
-      if (bottom_tof_dist < 200){
-        FollowBlackLine_GivenDistance(bottom_tof_dist-70);
-      }
-      else { 
-        Serial2.println("No box detected"); 
-        break;}
+      FollowBlackLineUntilJunction(); robot.turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10); FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLine_GivenDistance(220);
+      //  bottom_tof_dist = robot.get_front_distance_from_bottom_tof();
+      //  Serial2.println(bottom_tof_dist);
+      // if (bottom_tof_dist < 200){
+      //   FollowBlackLine_GivenDistance(bottom_tof_dist-70);
+      // }
+      // else { 
+      //   Serial2.println("No box detected"); 
+      //   break;}
       break;
     case 5 ://--
       //grab_box();
       robot.turn_left_180();
-      FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10); FollowBlackLine_GivenDistance(330);
+      FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10); FollowBlackLine_GivenDistance(220);
       /*drop_box();*/ robot.turn_left_180();
-      FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLine_GivenDistance(210);
-       bottom_tof_dist = robot.get_front_distance_from_bottom_tof();
-      if (bottom_tof_dist < 200){
-        FollowBlackLine_GivenDistance(bottom_tof_dist-70);
-      }
-      else { 
-        Serial2.println("No box detected"); 
-        break;}
+      FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLine_GivenDistance(220);
+      //  bottom_tof_dist = robot.get_front_distance_from_bottom_tof();
+      // if (bottom_tof_dist < 200){
+      //   FollowBlackLine_GivenDistance(bottom_tof_dist-70);
+      // }
+      // else { 
+      //   Serial2.println("No box detected"); 
+      //   break;}
       break;
     case 6 ://_|-
       //grab_box();
       robot.turn_left_180();
-      FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLine_GivenDistance(330);
+      FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLine_GivenDistance(220);
       /*drop_box();*/ robot.turn_left_180();
-      FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(210);
-       bottom_tof_dist = robot.get_front_distance_from_bottom_tof();
-      if (bottom_tof_dist < 200){
-        FollowBlackLine_GivenDistance(bottom_tof_dist-70);
-      }
-      else { 
-        Serial2.println("No box detected"); 
-        break;}
+      FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(220);
+      //  bottom_tof_dist = robot.get_front_distance_from_bottom_tof();
+      // if (bottom_tof_dist < 200){
+      //   FollowBlackLine_GivenDistance(bottom_tof_dist-70);
+      // }
+      // else { 
+      //   Serial2.println("No box detected"); 
+      //   break;}
       break;
 
     case 7 ://-||_ 
       //grab_box();
       robot.turn_left_180();
-      FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10); FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLine_GivenDistance(330);
+      FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10); FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLine_GivenDistance(220);
       /*drop_box();*/ robot.turn_left_180();
       FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10); FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10); FollowBlackLineUntilJunction();
       break;
     case 8 ://-|_
       //grab_box();
       robot.turn_left_180();
-      FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLine_GivenDistance(330);
+      FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); robot.Black_turn_Left_90_after_moving_forward(); FollowBlackLine_GivenDistance(220);
       /*drop_box();*/ robot.turn_left_180();
       FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10); FollowBlackLineUntilJunction();
       break;
     case 9 :
       //grab_box();
       robot.turn_left_180();
-      FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(330);
+      FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(220);
       /*drop_box();*/ robot.turn_left_180();
       FollowBlackLineUntilJunction(); robot.Black_turn_Right_90_after_moving_forward(); FollowBlackLineUntilJunction();
       break;
