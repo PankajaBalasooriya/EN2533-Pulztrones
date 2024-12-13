@@ -67,6 +67,7 @@ void ArmMechanism::moveToPickupPosition() {
     // Ensure we end exactly at the target angle
     moveArmLiftServo(targetAngle);
 }
+
 void ArmMechanism::moveToRestPosition() {
     digitalWrite(ARM_GRIPPER_ON_PIN, HIGH);
     delay(200);
@@ -197,4 +198,37 @@ void ArmMechanism::holdBox() {
         }
     }
     moveGripperServo(targetAngle);
+}
+
+
+void ArmMechanism::moveto_TOF_Reading_Position() {
+    digitalWrite(ARM_GRIPPER_ON_PIN, HIGH);
+    delay(200);
+
+    // Gradually move from current position to pickup position
+    int currentAngle = armLiftServo.read();
+    int targetAngle = ARM_GATE_DETECTION_ANGLE;
+    
+    // Determine increment direction and magnitude
+    int increment = (currentAngle < targetAngle) ? 1 : -1;
+    
+    // Continuous movement
+    while (currentAngle != targetAngle) {
+        // Move servo without additional delay
+        armLiftServo.write(currentAngle);
+        
+        // Small micros delay for smooth movement
+        delayMicroseconds(12000); // Adjust this value for speed control
+        
+        // Update angle
+        currentAngle += increment;
+        
+        // Ensure we stop exactly at target
+        if ((increment > 0 && currentAngle >= targetAngle) || 
+            (increment < 0 && currentAngle <= targetAngle)) {
+            currentAngle = targetAngle;
+        }
+    }
+    // Ensure we end exactly at the target angle
+    moveArmLiftServo(targetAngle);
 }

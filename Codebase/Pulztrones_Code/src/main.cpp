@@ -173,8 +173,9 @@ void setup() {
 
     //MoveDistanceForward(100);
     //FollowBlackLine_GivenDistance(300);
+    //executePortalNavigation();
 
-
+    
     
 }
 
@@ -185,7 +186,7 @@ void loop() {
     menu.handleInput(BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT);//MenuSelectioninitiated 
     //moveForward(100, 100);
     
-
+    //
     
     // Serial2.print(getAverageSensorReading(LEFT_MARKER_SENSOR, 5));
     // Serial2.print(", ");

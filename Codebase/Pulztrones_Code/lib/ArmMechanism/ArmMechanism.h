@@ -20,6 +20,8 @@ public:
     void closeGripper();
     void holdBox();
 
+    void moveto_TOF_Reading_Position();
+
 
 private:
     Servo armLiftServo;
@@ -30,6 +32,7 @@ private:
     static const int ARM_LIFT_MAX_ANGLE = 111;
     static const int ARM_REST_ANGLE = 111;
     static const int ARM_PICKUP_ANGLE = 75;
+    static const int ARM_GATE_DETECTION_ANGLE = 105;
 
     // Gripper Servo Positions
     static const int GRIPPER_MIN_ANGLE = 0;

@@ -477,9 +477,51 @@ void execute_box_manup(int assending){
 void executeDashedLine(){//execute the task 
 
 }
-void executePortalNavigation(){//execute the task 
+void executePortalNavigation(){
 
+armMechanism.moveto_TOF_Reading_Position();
+// Constants for gate detection
+const int GATE_DISTANCE_THRESHOLD = 300; // Distance threshold in mm
+const int DELAY_AFTER_GATE = 500;        // Delay in ms
+int n=0;
+
+while(n == 0){
+
+ 
+    // Read distance from the middle ToF sensor
+    int middleDistance = robot.get_front_distance_from_bottom_tof();
+    Serial2.print("Bottom ToF Distance: ");
+
+    if ( middleDistance <= GATE_DISTANCE_THRESHOLD) {
+        // Gate detected
+        Serial2.print(middleDistance);
+        Serial2.println(" mm (Gate detected)");
+
+        // Wait until the gate is no longer detected
+        while (true) {
+            middleDistance = robot.get_front_distance_from_bottom_tof();
+            if (middleDistance > GATE_DISTANCE_THRESHOLD ) {
+                // Gate no longer detected
+                Serial2.println("Gate no longer detected");
+                delay(DELAY_AFTER_GATE); 
+                MoveDistanceForward_in_uneven(350);
+                //MoveDistanceForward(350.0); 
+                n=1  ;   
+                break;                   
+            }
+        }
+    }  
+    else {
+        // No gate detected
+        Serial2.print(middleDistance);
+        Serial2.println(" mm (No gate detected)");
+    }
 }
+armMechanism.moveToRestPosition();
+}
+//execute the task 
+
+
 void executeBoxArranging(){//execute the task 
 
 }
