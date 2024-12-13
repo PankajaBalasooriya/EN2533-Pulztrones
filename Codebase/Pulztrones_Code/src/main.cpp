@@ -4,9 +4,9 @@
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
-#include <adafruit_vl53l0x.h>
 #include <Adafruit_MPU6050.h>
 #include <Adafruit_Sensor.h>
+#include <VL53L0X.h>    
 
 
 
@@ -25,6 +25,8 @@
 #include "CoinDropper.h"
 #include "ArmMechanism.h"
 #include "Ultrasonic.h"
+#include "ToF.h"
+#include <box_manupilation.h>
 
 
 
@@ -35,6 +37,7 @@ MenuSystem menu(128, 64, -1, 0x3C);
 CoinDropper coinDropper;
 ArmMechanism armMechanism;
 Ultrasonic ultrasonic(TRIG_PIN, ECHO_PIN);
+VL53L0X_Multiplexer tofSensors;
 
 
 
@@ -45,6 +48,7 @@ Ultrasonic ultrasonic(TRIG_PIN, ECHO_PIN);
 
 void doTasks(){
   int VB_POS = 0;
+  String color = "";
     while (robot.get_task() != STOP) {
         switch (robot.get_task()) {
             case START_SQUARE:
@@ -56,12 +60,23 @@ void doTasks(){
                 robot.set_task(MovetoMaze);
                 break;
             case MovetoMaze:
-                VB_POS = 0;
-                Tasks::execute_MoveToMaze();
+                execute_MoveToMaze();
                 robot.set_task(MAZE);
                 break;
             case MAZE:
-                Tasks::execute_maze(VB_POS);
+                VB_POS = 2;
+                execute_maze(VB_POS);
+                robot.set_task(COLOR_LINE);
+                break;
+            case COLOR_LINE:
+                color = exectute_colorLineFollowing();
+                robot.set_task(STOP);
+                break;
+            case BOX_MANUPILATION:
+                execute_box_manup(true);
+                robot.set_task(BOX_MANUPILATION);
+                break;
+            case STOP:
                 robot.set_task(STOP);
                 break;
             default:
@@ -70,6 +85,8 @@ void doTasks(){
         }
     }
 }
+
+
   
 
 void setup() {
@@ -80,10 +97,11 @@ void setup() {
     initIRSensors();
     initBuzzer();
     mux.begin();
-    
-
     //setting to channel 0 for OLED
     mux.selectChannel(0);
+    tofSensors.begin(mux);
+
+    
 
 
     Buzzer_Toggle(100);
@@ -91,27 +109,45 @@ void setup() {
     //calibrateIRSensors();
     Buzzer_Toggle(100);
 
+    //delay(5000);
+    Buzzer_Toggle(100);
+    calibrateIRSensorsForBlack();
+    Buzzer_Toggle(100);
+
     robot.init();
     //coinDropper.init(COIN_DROPPER_SERVO_PIN);
     //armMechanism.init(ARM_LIFT_SERVO_PIN, GRIPPER_SERVO_PIN);
 
-    robot.set_task(MovetoMaze);
+
+    robot.set_task(BOX_MANUPILATION);
+
+    
+
+    //menu.begin();
+
+
+    delay(5000);
+    
+    
+
+    delay(1000);
+
+
+    Buzzer_UniquePattern();
     //doTasks();  
+    
+    //FollowColorLineUntilJunction();
+    //exectute_colorLineFollowing();
+    
+    //FollowBlackLineUntilJunction();
+    
 
-    menu.begin();
 
     
-//      mux.selectChannel(2);
-// // channel 2 -bottom
-// // channel 3 - middle
-// // channel 4 - top
-    
-    
- 
 
+    //MoveDistanceForward(100);
 
-
-
+    FollowBlackLine_GivenDistance(300);
     
 }
 
@@ -121,5 +157,43 @@ void loop() {
     mux.selectChannel(0); // channel 0 is selected for OLED
     menu.handleInput(BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT);//MenuSelectioninitiated 
     
+
+    
+    // Serial2.print(getAverageSensorReading(LEFT_MARKER_SENSOR, 5));
+    // Serial2.print(", ");
+    // Serial2.println(getAverageSensorReading(RIGHT_MARKER_SENSOR, 5));
+    
+    //printIRData();
+
+    // mux.selectChannel(0); // channel 0 is selected for OLED
+    // menu.handleInput(BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT);//MenuSelectioninitiated 
+    //Serial2.println(robot.get_front_distance_from_middle_tof());
+    
+    
+    // readBlackLinePosition();
+    // Junction junction = Detect_Junction_type_on_black_line();
+    
+    // Serial2.println(junction);
+
+
+    //FollowBlackLine();
+
+    // Junction junction = FollowBlackLineUntilJunction();
+    // Serial2.println(junction);
+    // delay(100);
+    // if(junction == Left){
+    //     robot.turn_Left_90_after_moving_forward();
+    // }
+    // else if(junction == Right){
+    //     robot.turn_Right_90_after_moving_forward();
+    // }
+    // else if(junction == T_Junction){
+    //     MoveDistanceForward(30);
+    // }
+    // delay(100);
+
+    
+
+
 }
 

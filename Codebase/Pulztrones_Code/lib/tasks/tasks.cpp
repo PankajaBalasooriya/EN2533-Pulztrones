@@ -2,8 +2,8 @@
 
 
 
+void start_square() {
 
-void Tasks:: start_square() {
     // Code to execute the start square task
     Serial2.println("Starting.......");
 }
@@ -117,12 +117,14 @@ void Tasks:: execute_MoveToMaze() {
     Serial2.println("Executing WHITE_LINE_FOLLOW");
     //MoveDistanceForward(40)
     FollowWhiteLineUntilJunction();
-    turnRight90();
+    robot.turn_Right_90_after_moving_forward();
     FollowWhiteLineUntilJunction();
 
 }
 
-void Tasks:: execute_maze(int VB_POS) {
+
+void execute_maze(int VB_POS) {
+    int Gate = 1;
     // Code to execute the maze task
     Serial2.println("Executing MAZE");
 
@@ -135,54 +137,327 @@ void Tasks:: execute_maze(int VB_POS) {
 
         MoveDistanceReverse_and_not_stop(30);
         MoveReverseUntillJunction();
-        turnRight90();
+        robot.turn_Right_90_after_moving_reverse();
         FollowWhiteLineUntilJunction();
-        turnLeft90();
-        FollowWhiteLineUntilJunction();
-        turnLeft90();
+        robot.turn_Left_90_after_moving_forward();
         FollowWhiteLineUntilJunction();
 
-        //check open
+        if(robot.get_front_distance_from_middle_tof() < 500){
+            // Closed
+            robot.turn_Left_90_after_moving_forward();
+            FollowWhiteLineUntilJunction();
 
-        robot.pick_virtual_box();
-        MoveDistanceReverse(30);
-        MoveReverseUntillJunction();
-        robot.drop_virtual_box();
+            robot.pick_virtual_box();
+            MoveDistanceReverse_and_not_stop(30);
+            MoveReverseUntillJunction();
+            MoveDistanceReverse_and_not_stop(30);
+            MoveReverseUntillJunction();
+            MoveDistanceReverse_and_not_stop(30);
+            MoveReverseUntillJunction();
+            MoveDistanceReverse_and_not_stop(30);
+            MoveReverseUntillJunction();
+            robot.drop_virtual_box();
 
-        MoveReverseUntillJunction();
-        turnLeft90();
-        FollowWhiteLineUntilJunction();
-        turnRight90();
-        FollowWhiteLineUntilJunction();
-        turnRight90();
-        FollowWhiteLineUntilJunction();
+            box_in_lower_position();
+        }
+        else{
+            robot.turn_Left_90_after_moving_forward();
+            FollowWhiteLineUntilJunction();
 
-        robot.pick_virtual_box();
-        MoveReverseUntillJunction();
+            robot.pick_virtual_box();
+            MoveDistanceReverse_and_not_stop(30);
+            MoveReverseUntillJunction();
+            robot.drop_virtual_box();
 
+            box_in_lower_position();
+            
+        }
+        //dsfsdf
     }
-}
-void Tasks:: bar_code(){ //execute the task 
+    else{
+        //checking the gate
+        MoveDistanceForward_and_not_stop(50);
+        FollowWhiteLineUntilJunction();
+        robot.turn_Right_90_after_moving_forward();
+        FollowWhiteLineUntilJunction();
+        robot.turn_Left_90_after_moving_forward();
 
-}
-void Tasks:: executeColorLine(){
+        if(robot.get_front_distance_from_middle_tof() < 250){
+            // Gate 1 closed
+            Gate = 3;
+            Buzzer_Toggle(100);
+            delay(200);
+            Buzzer_Toggle(100);
+            delay(200);
+            Buzzer_Toggle(100);
+        }
+        else{
+            Gate = 1;
+            Buzzer_Toggle(100);
+        }
 
-}
-void Tasks:: executeDashedLine(){//execute the task 
+        //move to zero position
+        robot.turn_left_90();
+        MoveDistanceForward_and_not_stop(40);
+        FollowWhiteLineUntilJunction();
+        robot.turn_Left_90_after_moving_forward();
+        FollowWhiteLineUntilJunction();
+        robot.turn_Left_90_after_moving_forward();
+        FollowWhiteLineUntilJunction();
 
-}
-void Tasks::executePortalNavigation(){//execute the task 
+        switch (Gate)
+        {
+        case 1:
+            FollowWhiteLineUntilJunction();
+            switch (VB_POS)
+            {
+            case 1:
+                break;
+            case 2:
+                MoveDistanceForward_and_not_stop(30);
+                FollowWhiteLineUntilJunction();
 
-}
-void Tasks:: executeBoxArranging(){//execute the task 
+                robot.pick_virtual_box();
+                MoveDistanceReverse_and_not_stop(30);
+                MoveReverseUntillJunction();
+                robot.drop_virtual_box();
+                break;
+            case 3:
+                MoveDistanceForward_and_not_stop(30);
+                FollowWhiteLineUntilJunction();
+                MoveDistanceForward_and_not_stop(30);
+                FollowWhiteLineUntilJunction();
 
-}
-void Tasks:: executeChamberInsertion(){//execute the task 
+                robot.pick_virtual_box();
+                MoveDistanceReverse_and_not_stop(30);
+                MoveReverseUntillJunction();
+                MoveDistanceReverse_and_not_stop(30);
+                MoveReverseUntillJunction();
+                robot.drop_virtual_box();
+                break;
+            case 4:
+                MoveDistanceForward_and_not_stop(30);
+                FollowWhiteLineUntilJunction();
+                MoveDistanceForward_and_not_stop(30);
+                FollowWhiteLineUntilJunction();
+                MoveDistanceForward_and_not_stop(30);
+                FollowWhiteLineUntilJunction();
+                
+                robot.pick_virtual_box();
+                MoveDistanceReverse_and_not_stop(30);
+                MoveReverseUntillJunction();
+                MoveDistanceReverse_and_not_stop(30);
+                MoveReverseUntillJunction();
+                MoveDistanceReverse_and_not_stop(30);
+                MoveReverseUntillJunction();
+                robot.drop_virtual_box();
+                break;
 
-}
-void Tasks:: executeHiddenTask(){//execute the task 
-
-}
-void Tasks::executeUnevenTerrain(){
+            
+            default:
+                break;
+            }
+            break;
+        case 3:
+            switch (VB_POS)
+            {
+                case 1:
+                    robot.pick_virtual_box();
+                    MoveDistanceForward_and_not_stop(30);
+                    FollowWhiteLineUntilJunction();
+                    MoveDistanceForward_and_not_stop(30);
+                    FollowWhiteLineUntilJunction();
+                    robot.drop_virtual_box();
+                    break;
+                case 2:
+                    MoveDistanceForward_and_not_stop(30);
+                    FollowWhiteLineUntilJunction();
+                    robot.pick_virtual_box();
+                    MoveDistanceForward_and_not_stop(30);
+                    FollowWhiteLineUntilJunction();
+                    robot.drop_virtual_box();
+                    break;
+                case 3:
+                    MoveDistanceForward_and_not_stop(30);
+                    FollowWhiteLineUntilJunction();
+                    MoveDistanceForward_and_not_stop(30);
+                    FollowWhiteLineUntilJunction();
+                    break;
+                case 4:
+                   MoveDistanceForward_and_not_stop(30);
+                    FollowWhiteLineUntilJunction();
+                    MoveDistanceForward_and_not_stop(30);
+                    FollowWhiteLineUntilJunction();
+                    MoveDistanceForward_and_not_stop(30);
+                    FollowWhiteLineUntilJunction();
+                    robot.pick_virtual_box();
+                    MoveDistanceReverse_and_not_stop(30);
+                    MoveReverseUntillJunction();
+                    robot.drop_virtual_box();
+                    break;
+            }
+        default:
+            break;
+        }
+        box_upper_position();
+    }
     
+}
+
+void box_in_lower_position(){
+    MoveDistanceReverse_and_not_stop(50);
+    MoveReverseUntillJunction();
+    robot.turn_Left_90_after_moving_reverse();
+    FollowWhiteLineUntilJunction();
+    robot.turn_Right_90_after_moving_forward();
+    FollowWhiteLineUntilJunction();
+    robot.turn_Right_90_after_moving_forward();
+    FollowWhiteLineUntilJunction();
+
+    robot.pick_virtual_box();
+    MoveDistanceForward(30);
+    //Todo: Change this to distance in the arena
+    FollowWhiteLine_GivenDistance(80);
+    MoveDistanceForward(140);
+    robot.drop_virtual_box();
+}
+
+void blue_open(){
+    MoveDistanceReverse_and_not_stop(30);
+    MoveReverseUntillJunction();
+    turnLeft90();
+    FollowWhiteLineUntilJunction();
+    turnRight90();
+    FollowWhiteLineUntilJunction();
+    turnRight90();
+    FollowWhiteLineUntilJunction();
+    robot.pick_virtual_box();
+    MoveDistanceReverse_and_not_stop(30);
+    MoveReverseUntillJunction();
+}
+
+void box_upper_position(){
+    MoveDistanceReverse_and_not_stop(30);
+    MoveReverseUntillJunction();
+    robot.turn_Left_90_after_moving_reverse();
+    FollowWhiteLineUntilJunction();
+    robot.turn_Right_90_after_moving_forward();
+    FollowWhiteLineUntilJunction();
+    robot.turn_Right_90_after_moving_forward();
+    FollowWhiteLineUntilJunction();
+    robot.pick_virtual_box();
+    MoveDistanceReverse_and_not_stop(30);
+    MoveReverseUntillJunction();
+    MoveDistanceReverse(180);
+    robot.drop_virtual_box();
+
+    //robot.turn_left_180();
+    robot.turn_right_90();
+    //MoveDistanceForward(15);
+    robot.turn_right_90();
+    
+}
+
+
+int number = 4;
+int x_pos = 0;
+int y_pos = 0;
+
+
+bool matrix[3][4] = {
+  {false, false, false, false},   // First row
+  {false, false, false, false},   // Second row
+  {false, false, false, false}    // Third row
+};
+
+
+
+String exectute_colorLineFollowing(){
+    String color = robot.detect_Color();
+    if(color == "RED"){
+        robot.turn_on_led(RED_LED);
+        robot.turn_off_led(BLUE_LED);
+        //SENSORS_ON_LINE_FOR_JUNCTION_CHECK_COLOUR = 5;
+        number = 5;
+        
+    }
+    else if(color == "BLUE"){
+        robot.turn_on_led(BLUE_LED);
+        robot.turn_off_led(RED_LED);
+        number = 4;
+        
+        //SENSORS_ON_LINE_FOR_JUNCTION_CHECK_COLOUR = 4;
+    }
+    else{
+        robot.turn_off_led(BLUE_LED);
+        robot.turn_off_led(RED_LED);
+    }
+    delay(1000);
+    robot.turn_off_led(BLUE_LED);
+    robot.turn_off_led(RED_LED);
+
+   //do color line following here
+    MoveDistanceForward(100);
+
+    while(true){
+        Junction junction = FollowColorLineUntilJunction(number, color);
+        Serial2.println(junction);
+
+        if(junction == T_Junction){
+            MoveDistanceForward(50);
+        }
+        else if(junction == Left){
+            robot.turn_Left_90_after_moving_forward();
+        }
+        else if(junction == Right){
+            robot.turn_Right_90_after_moving_forward();
+        
+        }
+        else if(junction == Straight){
+            MoveDistanceForward(15);
+        }
+    }
+
+
+    return color;
+}
+
+void bar_code(){ //execute the task 
+
+}
+void executeColorLine(){
+
+}
+void executeDashedLine(){//execute the task 
+
+}
+void executePortalNavigation(){//execute the task 
+
+}
+void executeBoxArranging(){//execute the task 
+
+}
+void executeChamberInsertion(){//execute the task 
+
+}
+void executeHiddenTask(){//execute the task 
+
+}
+void executeUnevenTerrain(){
+}
+
+
+void execute_box_manup(bool assending){
+    int box_height;
+    int current_box_dest;
+    Junction FollowBlackLineUntilJunction();
+    robot.turn_Left_90_after_moving_forward();
+    FollowBlackLine_GivenDistance(33);
+    //box_height = robot.get_front_distance_from_bottom_tof();
+    //current_box_dest = find_destination(0, box_height, true);
+    goto_box_destination(1);
+    //find_destination(1, 4, true);
+    //goto_box_destination(4);
+    //find_destination(2, 4, true);
+    //goto_box_destination(7);
 }

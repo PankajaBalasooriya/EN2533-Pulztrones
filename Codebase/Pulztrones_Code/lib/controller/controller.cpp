@@ -50,10 +50,10 @@ void FollowWhiteLine() {
 
 void FollowWhiteLineReverse() {
     // Read the position of the line (0 to 7000)
-    int position = readWhiteLinePosition();
+    int position = readBackWhiteLinePosition();
 
     // Reverse line following code
-    int error = position - 3500;
+    int error = position - 2500;
     float pidOutput = PIDLineReverse(error);
     
     // Invert the PID output for reverse movement
@@ -294,38 +294,43 @@ void MoveDistanceReverse_and_not_stop(float distance) {
 
 Junction MoveReverseUntillJunction() {
    
-    int encoder_count_left = 0;
-    int encoder_count_right = 0;
-
-    resetEncoders();
-
-    while(true) {
+    
+    while (true)
+    {
         int position = readWhiteLinePosition();
         Junction junction = Detect_Junction_type();
         if(junction != Junction::Straight){
-            MotorBreak();
+            //MotorBreak();
             setMotorLPWM(0);
+            setMotorRPWM(150);
+            delay(33);
             setMotorRPWM(0);
             return junction;
         }
 
-        encoder_count_left = getLeftEncoderCounts();
-        encoder_count_right = getRightEncoderCounts();
+        // Read the position of the line (0 to 7000)
+        position = readBackWhiteLinePosition();
 
-        // Calculate encoder-based PID
-        error_enc = encoder_count_right - encoder_count_left;
-        correction_enc = PIDEnc(error_enc);
+        // Reverse line following code
+        int error = position - 2500;
+        float pidOutput = PIDLineReverse(error);
 
-        // Combine encoder corrections
-        float total_correction = correction_enc;
+        // Invert the PID output for reverse movement
+        int leftSpeed = -BASE_SPEED + 10  - pidOutput;
+        int rightSpeed = -BASE_SPEED + 10 + pidOutput;
 
-        // Calculate motor speeds - note the negative sign to move in reverse
-        float left_speed = -(BASE_SPEED - 20 - total_correction);
-        float right_speed = -(BASE_SPEED - 20  + total_correction);
+        leftSpeed = constrain(leftSpeed, -MAX_SPEED, -MIN_SPEED);
+        rightSpeed = constrain(rightSpeed, -MAX_SPEED, -MIN_SPEED);
 
-        setMotorLPWM(left_speed);
-        setMotorRPWM(right_speed);
+        // Use negative speeds to move backward
+        moveForward(leftSpeed + 20, rightSpeed - 20);
     }
+    
+
+    
+
+
+
 }
 
 
@@ -389,9 +394,54 @@ void turn(int direction) {
     resetEncoders();
 }
 
+Junction FollowBlackLineUntilJunction(){
+    while (true)
+    {
+        int position = readBlackLinePosition();
+        Junction junction = Detect_Junction_type_on_black_line();
+        if(junction != Junction::Straight){
+            //MotorBreak();
+            if(junction == Junction::Right){
+                setMotorLPWM(0);
+                setMotorRPWM(150);
+                delay(33);
+                setMotorRPWM(0);
+                return junction;
+            }
+            else if(junction == Junction::Left){
+                setMotorLPWM(100);
+                setMotorRPWM(0);
+                delay(33);
+                setMotorLPWM(0);
+                return junction;
+            }
+            else{
+                setMotorLPWM(0);
+                setMotorRPWM(100);
+                delay(33);
+                setMotorLPWM(0);
+                return junction;
+            }
+            return junction;
+        }
+
+        // Normal line following code continues...
+        int error = position - 3500;
+        float pidOutput = PIDLine(error);
+        
+        int leftSpeed = BASE_SPEED + pidOutput;
+        int rightSpeed = BASE_SPEED - pidOutput;
+        
+        leftSpeed = constrain(leftSpeed, MIN_SPEED, MAX_SPEED);
+        rightSpeed = constrain(rightSpeed, MIN_SPEED, MAX_SPEED);
+        
+        moveForward(leftSpeed - 20, rightSpeed);//l -20
+    }
+    
+}
+
 
 void turnRight90() {
-    MoveDistanceForward(22);
     // Variables
     int target_encoder_diff = COUNTS_PER_90_DEGREE_RIGHT;
     int encoder_diff = 0;
@@ -451,7 +501,6 @@ void turnRight90() {
 
 
 void turnLeft90() {
-    MoveDistanceForward(45);
     // Variables
     int target_encoder_diff = COUNTS_PER_90_DEGREE_LEFT;
     int encoder_diff = 0;
@@ -574,6 +623,49 @@ float distance_from_counts(int left_counts, int right_counts){
 }
 
 
+Junction FollowColorLineUntilJunction(int number, String color){
+    int COLOR_LINE_THRESHOLD_LEFT = 450;
+    int COLOR_LINE_THRESHOLD_RIGHT = 450; 
+    if(color == "RED"){
+        COLOR_LINE_THRESHOLD_LEFT = 300;
+        COLOR_LINE_THRESHOLD_RIGHT = 200;
+    }
+    else if(color == "BLUE"){
+        COLOR_LINE_THRESHOLD_LEFT = 450;
+        COLOR_LINE_THRESHOLD_RIGHT = 370;
+    }
+    while (true)
+    {
+        int position = readWhiteLinePosition();
+        Junction junction = Detect_Junction_type_on_Color_line(number, COLOR_LINE_THRESHOLD_LEFT, COLOR_LINE_THRESHOLD_RIGHT);
+        if(junction != Junction::Straight){
+            //MotorBreak();
+            setMotorLPWM(0);
+            setMotorRPWM(150);
+            delay(33);
+            setMotorRPWM(0);
+            return junction;
+        }
+        
+
+        // Normal line following code continues...
+        int error = position - 3500;
+        float pidOutput = PIDLine(error);
+        
+        int leftSpeed = BASE_SPEED + pidOutput;
+        int rightSpeed = BASE_SPEED - pidOutput;
+        
+        leftSpeed = constrain(leftSpeed, MIN_SPEED, MAX_SPEED);
+        rightSpeed = constrain(rightSpeed, MIN_SPEED, MAX_SPEED);
+        
+        moveForward(leftSpeed - 20, rightSpeed);//l -20
+    }
+    
+
+    
+
+
+}
 
 
 

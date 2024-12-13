@@ -32,6 +32,8 @@ Junction MoveReverseUntillJunction();
 void MoveDistanceReverse_and_not_stop(float distance);
 void MoveDistanceForward_and_not_stop(float distance);
 
+Junction FollowBlackLineUntilJunction();
+
 void turn(int);
 
 void turnRight90();
@@ -39,6 +41,8 @@ void turnLeft90();
 void turnLeft180();
 
 int Counting_and_Line_Navigation();
+
+Junction FollowColorLineUntilJunction(int number, String color);
 
 
 #endif

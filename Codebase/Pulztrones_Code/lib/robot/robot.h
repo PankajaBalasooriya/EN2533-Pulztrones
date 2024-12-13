@@ -12,14 +12,20 @@
 #include "ArmMechanism.h"
 #include "CoinDropper.h"
 #include "Ultrasonic.h"
+#include "ToF.h"
+#include "I2CMUX.h"
+#include "color.h"
 
 
 
 class Robot;
 extern Robot robot;
+extern VL53L0X_Multiplexer tofSensors;
+extern I2CMUX mux;
 
 class Robot {
     public:
+        
         
 
         Robot();
@@ -34,7 +40,7 @@ class Robot {
         void turn_on_led(int PIN);
         void turn_off_led(int PIN);
 
-
+        String detect_Color();
         
         Task get_task();
 
@@ -49,10 +55,29 @@ class Robot {
         void drop_box_and_release(ArmMechanism &armMechanism);
 
         int check_for_left_wall(Ultrasonic &ultrasonic);
+
+        //int get_front_distance_from_center_tof();
+
+        void turn_Right_90_after_moving_forward();
+        void turn_Left_90_after_moving_forward();
+
+        void Color_turn_Right_90_after_moving_forward();
+        void Color_turn_Left_90_after_moving_forward();
+
+        void turn_Right_90_after_moving_reverse();
+        void turn_Left_90_after_moving_reverse();
+
+        int get_front_distance_from_middle_tof();
+        int get_front_distance_from_bottom_tof();
+        int get_front_distance_from_top_tof();
         
+
+        void Black_turn_Left_90_after_moving_forward();
+        void Black_turn_Right_90_after_moving_forward();
     
     private:
         Task task = START_SQUARE;
+        int red, green, blue; 
 };
 
 
