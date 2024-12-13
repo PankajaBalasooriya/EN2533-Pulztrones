@@ -100,6 +100,10 @@ public:
     void selectMenuItem();
     void handleInput(int buttonUp, int buttonNext, int buttonSelect);
     void do_tasks();
+
+    int VB_POS = 0;
+    int order = 0;
+    String color = "";
 };
 
 #endif // MENUSYSTEM_H

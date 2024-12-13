@@ -46,73 +46,73 @@ VL53L0X_Multiplexer tofSensors;
 
 
 
-void doTasks(){
-  int VB_POS = 0;
-  int order = 0;
-  String color = "";
-    while (robot.get_task() != STOP) {
-        switch (robot.get_task()) {
-            case START_SQUARE:
-                start_square();
-                robot.set_task(BARCODE); 
-                break;
-            case BARCODE:
-                VB_POS = Counting_and_Line_Navigation();
-                robot.set_task(MovetoMaze);
-                break;
-            case MovetoMaze:
-                execute_MoveToMaze();
-                robot.set_task(MAZE);
-                break;
-            case MAZE:
-                VB_POS = 2;
-                execute_maze(VB_POS);
-                robot.set_task(COLOR_LINE);
-                break;
-            case COLOR_LINE:
-                color = exectute_colorLineFollowing();
-                if(color == "BLUE"){
-                    order = 1;
-                }
-                else{
-                    order = 0;
-                }
-                robot.set_task(DASHEDLINE);
-                break;
-            case DASHEDLINE:
-                executeDashedLine();
-                robot.set_task(PORTALNAVIGATION);
-                break;
-            case PORTALNAVIGATION:
-                executePortalNavigation();
-                robot.set_task(BOX_MANUPILATION);
-                break;
-            case BOX_MANUPILATION:
-                execute_box_manup(order);
-                robot.set_task(CHAMBER);
-                break;
-            case CHAMBER:
-                executeChamberInsertion();
-                robot.set_task(HIDDENTASK);
-                break;
-            case HIDDENTASK:
-                executeHiddenTask();
-                robot.set_task(UNEVEN);
-                break;
-            case UNEVEN:
-                executeUnevenTerrain();
-                robot.set_task(STOP);
-                break;
+// void doTasks(){
+//   int VB_POS = 0;
+//   int order = 0;
+//   String color = "";
+//     while (robot.get_task() != STOP) {
+//         switch (robot.get_task()) {
+//             case START_SQUARE:
+//                 start_square();
+//                 robot.set_task(BARCODE); 
+//                 break;
+//             case BARCODE:
+//                 VB_POS = Counting_and_Line_Navigation();
+//                 robot.set_task(MovetoMaze);
+//                 break;
+//             case MovetoMaze:
+//                 execute_MoveToMaze();
+//                 robot.set_task(MAZE);
+//                 break;
+//             case MAZE:
+//                 VB_POS = 2;
+//                 execute_maze(VB_POS);
+//                 robot.set_task(COLOR_LINE);
+//                 break;
+//             case COLOR_LINE:
+//                 color = exectute_colorLineFollowing();
+//                 if(color == "BLUE"){
+//                     order = 1;
+//                 }
+//                 else{
+//                     order = 0;
+//                 }
+//                 robot.set_task(DASHEDLINE);
+//                 break;
+//             case DASHEDLINE:
+//                 executeDashedLine();
+//                 robot.set_task(PORTALNAVIGATION);
+//                 break;
+//             case PORTALNAVIGATION:
+//                 executePortalNavigation();
+//                 robot.set_task(BOX_MANUPILATION);
+//                 break;
+//             case BOX_MANUPILATION:
+//                 execute_box_manup(order);
+//                 robot.set_task(CHAMBER);
+//                 break;
+//             case CHAMBER:
+//                 executeChamberInsertion();
+//                 robot.set_task(HIDDENTASK);
+//                 break;
+//             case HIDDENTASK:
+//                 executeHiddenTask();
+//                 robot.set_task(UNEVEN);
+//                 break;
+//             case UNEVEN:
+//                 executeUnevenTerrain();
+//                 robot.set_task(STOP);
+//                 break;
 
-            case STOP:
-                robot.set_task(STOP);
-                break;
-            default:
-                robot.set_task(STOP);
-                break;
-        }
-    }
-}
+//             case STOP:
+//                 robot.set_task(STOP);
+//                 break;
+//             default:
+//                 robot.set_task(STOP);
+//                 break;
+//         }
+//     }
+// }
 
 
   
@@ -129,29 +129,33 @@ void setup() {
     mux.selectChannel(0);
     tofSensors.begin(mux);
 
-    
-
-
     Buzzer_Toggle(100);
-    delay(2000);
-    calibrateIRSensors();
-    Buzzer_Toggle(100);
+    menu.begin();
 
-    //delay(5000);
-    Buzzer_Toggle(100);
-    calibrateIRSensorsForBlack();
-    Buzzer_Toggle(100);
-
-    robot.init();
     coinDropper.init(COIN_DROPPER_SERVO_PIN);
     armMechanism.init(ARM_LIFT_SERVO_PIN, GRIPPER_SERVO_PIN);
 
 
-    robot.set_task(PORTALNAVIGATION);
+    Buzzer_Toggle(100);
+    delay(5000);
+    Buzzer_Toggle(200);
+    calibrateIRSensors(); // In Blue line
+    Buzzer_Toggle(100);
+
+    delay(5000);
+    Buzzer_Toggle(200);
+    calibrateIRSensorsForBlack();
+    Buzzer_Toggle(100);
+
+    robot.init();
+    
+
+
+    //robot.set_task(BOX_MANUPILATION);
 
     
 
-    menu.begin();
+    
 
 
 
@@ -164,7 +168,7 @@ void setup() {
 
 
     Buzzer_UniquePattern();
-    doTasks();  
+    //doTasks();  
     
     //FollowColorLineUntilJunction();
     //exectute_colorLineFollowing();
@@ -225,4 +229,3 @@ void loop() {
 
 
 }
-

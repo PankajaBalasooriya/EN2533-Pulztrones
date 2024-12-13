@@ -78,7 +78,7 @@ class Robot {
         void turn_left_180_after_Dropping();
     
     private:
-        Task task = START_SQUARE;
+        Task task = STOP;
         int red, green, blue; 
 };
 

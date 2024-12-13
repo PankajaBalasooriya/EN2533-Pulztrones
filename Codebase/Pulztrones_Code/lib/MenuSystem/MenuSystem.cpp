@@ -22,24 +22,61 @@ void MenuSystem::begin() {
     updateDisplay();
 }
 void MenuSystem::do_tasks() {
-    int VB_POS = 0;
     while (robot.get_task() != STOP) {
         switch (robot.get_task()) {
             case START_SQUARE:
                 start_square();
-                robot.set_task(BARCODE);
+                robot.set_task(BARCODE); 
                 break;
             case BARCODE:
                 VB_POS = Counting_and_Line_Navigation();
                 robot.set_task(MovetoMaze);
                 break;
             case MovetoMaze:
-                //VB_POS = 0;
                 execute_MoveToMaze();
                 robot.set_task(MAZE);
                 break;
             case MAZE:
+                //VB_POS = 2;
                 execute_maze(VB_POS);
+                robot.set_task(COLOR_LINE);
+                break;
+            case COLOR_LINE:
+                color = exectute_colorLineFollowing();
+                if(color == "BLUE"){
+                    order = 1;
+                }
+                else{
+                    order = 0;
+                }
+                robot.set_task(DASHEDLINE);
+                break;
+            case DASHEDLINE:
+                executeDashedLine();
+                robot.set_task(PORTALNAVIGATION);
+                break;
+            case PORTALNAVIGATION:
+                executePortalNavigation();
+                robot.set_task(BOX_MANUPILATION);
+                break;
+            case BOX_MANUPILATION:
+                execute_box_manup(order);
+                robot.set_task(CHAMBER);
+                break;
+            case CHAMBER:
+                executeChamberInsertion();
+                robot.set_task(HIDDENTASK);
+                break;
+            case HIDDENTASK:
+                executeHiddenTask();
+                robot.set_task(UNEVEN);
+                break;
+            case UNEVEN:
+                executeUnevenTerrain();
+                robot.set_task(STOP);
+                break;
+
+            case STOP:
                 robot.set_task(STOP);
                 break;
             default:

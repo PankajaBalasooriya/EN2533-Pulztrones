@@ -102,7 +102,7 @@ const int COUNTS_PER_90_DEGREE = 1060; // Experimentally determined
 const int COUNTS_PER_90_DEGREE_RIGHT = 1100; // Experimentally determined
 const int COUNTS_PER_90_DEGREE_LEFT = 1080; // Experimentally determined
 
-const int COUNTS_PER_180_DEGREE_LEFT = 2200;
+const int COUNTS_PER_180_DEGREE_LEFT = 2250;
 
 
 const float MAX_TURN_SPEED = 100; // Maximum turn speed

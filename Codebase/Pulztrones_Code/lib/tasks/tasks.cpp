@@ -528,7 +528,7 @@ void executeBoxArranging(){//execute the task
 
 void executeChamberInsertion(){//execute the task 
     robot.Black_turn_Left_90_after_moving_forward();
-    MoveDistanceForward(100);
+    MoveDistanceForward(150);
     FollowBlackLineUntilJunction();
     robot.turn_Left_90_after_moving_forward();
     FollowBlackLineUntilJunction();
@@ -551,7 +551,17 @@ void executeHiddenTask(){//execute the task
     //Todo: adjust this
     FollowBlackLine_GivenDistance(250);
     robot.drop_box_and_release(armMechanism);
+
+    //Marisiya
+    MoveDistanceReverse(70);
+    armMechanism.closeGripper();
+    FollowBlackLine_GivenDistance(70);
+
+
+
+
     robot.turn_left_180_after_Dropping();
+    armMechanism.moveToRestPosition();
     FollowBlackLineUntilJunction();
     robot.turn_Right_90_after_moving_forward();
 }
