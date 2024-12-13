@@ -77,7 +77,15 @@ void doTasks(){
                 else{
                     order = 0;
                 }
-                robot.set_task(STOP);
+                robot.set_task(DASHEDLINE);
+                break;
+            case DASHEDLIN:
+                executeDashedLine();
+                robot.set_task(PORTALNAVIGATION);
+                break;
+            case PORTALNAVIGATION:
+                executePortalNavigation();
+                robot.set_task(BOX_MANUPILATION);
                 break;
             case BOX_MANUPILATION:
                 execute_box_manup(order);
