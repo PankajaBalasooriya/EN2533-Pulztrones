@@ -38,6 +38,12 @@ void Robot::turn_left_90(){
 void Robot::turn_left_180(){
     turnLeft180();
 }
+
+void Robot::turn_left_180_after_Dropping(){
+    MoveDistanceReverse(40);
+    turnLeft180();
+}
+
 //TODO: BLUE LED Not turning on
 void Robot::turn_on_led(int PIN) {
     digitalWrite(PIN, HIGH);
@@ -88,15 +94,15 @@ int Robot::check_for_left_wall(Ultrasonic &ultrasonic){
 }
 
 int Robot::get_front_distance_from_middle_tof(){
-    return tofSensors.getAverageTofDistance(3, mux);
+    return tofSensors.getTofDistance(3, mux);
 }
 
 int Robot::get_front_distance_from_bottom_tof(){
-    return tofSensors.getAverageTofDistance(2, mux);
+    return tofSensors.getTofDistance(2, mux);
 }
 
 int Robot::get_front_distance_from_top_tof(){
-    return tofSensors.getAverageTofDistance(4, mux);
+    return tofSensors.getTofDistance(4, mux);
 }
 
 void Robot::turn_Right_90_after_moving_forward(){

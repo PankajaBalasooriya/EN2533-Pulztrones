@@ -3,8 +3,12 @@
 
 #include <Arduino.h>
 #include "config.h"
+#include "ArmMechanism.h"
 
-int find_destination();
+extern ArmMechanism armMechanism;
+
+int find_destination(int current_location, int box_height, int ascending);
+int meassure_box_height();
 void goto_box_destination(int dest);
 
 #endif

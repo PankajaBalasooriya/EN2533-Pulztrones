@@ -13,6 +13,10 @@
 #include "I2CMUX.h"
 #include "ToF.h"
 #include "box_manupilation.h"
+#include "ArmMechanism.h"
+#include "CoinDropper.h"
+
+extern ArmMechanism armMechanism;
 
 
 
@@ -22,6 +26,9 @@ int  Counting_and_Line_Navigation();
 void execute_MoveToMaze();
 void execute_maze(int VB_POS);
 String exectute_colorLineFollowing();
+
+void execute_box_manup(int assending);
+
 void executeDashedLine();
 void executePortalNavigation();
 void execute_box_manup(bool assending);
@@ -33,6 +40,7 @@ void executeUnevenTerrain();
     
 
     
+
 
 
 

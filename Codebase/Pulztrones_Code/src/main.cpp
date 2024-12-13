@@ -73,8 +73,8 @@ void doTasks(){
                 robot.set_task(STOP);
                 break;
             case BOX_MANUPILATION:
-                execute_box_manup(true);
-                robot.set_task(BOX_MANUPILATION);
+                execute_box_manup(0);
+                robot.set_task(STOP);
                 break;
             case STOP:
                 robot.set_task(STOP);
@@ -126,6 +126,7 @@ void setup() {
     menu.begin();
 
 
+
     //delay(5000);
     
     
@@ -133,23 +134,19 @@ void setup() {
     delay(1000);
 
 
+
     Buzzer_UniquePattern();
-    //doTasks();  
+    doTasks();  
     
     //FollowColorLineUntilJunction();
     //exectute_colorLineFollowing();
     
     //FollowBlackLineUntilJunction();
-    
-
-
-    
 
     //MoveDistanceForward(100);
-
     //FollowBlackLine_GivenDistance(300);
-    //armMechanism.holdBox();
-    //robot.pick_box_and_lift(armMechanism);
+
+
     
 }
 

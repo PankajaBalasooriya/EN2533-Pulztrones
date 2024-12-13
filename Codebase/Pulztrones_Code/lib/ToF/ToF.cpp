@@ -82,7 +82,7 @@ float VL53L0X_Multiplexer::getAverageTofDistance(uint8_t sensorChannel, I2CMUX &
   uint8_t validReadings = 0;
 
   for (int i = 0; i < 10; i++) {
-    uint16_t distance = getTofDistance(sensorChannel, mux);
+    int distance = getTofDistance(sensorChannel, mux);
 
     if (distance > 0) 
     { 
