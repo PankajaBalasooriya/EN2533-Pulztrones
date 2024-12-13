@@ -401,10 +401,27 @@ Junction FollowBlackLineUntilJunction(){
         Junction junction = Detect_Junction_type_on_black_line();
         if(junction != Junction::Straight){
             //MotorBreak();
-            setMotorLPWM(0);
-            setMotorRPWM(150);
-            delay(33);
-            setMotorRPWM(0);
+            if(junction == Junction::Right){
+                setMotorLPWM(0);
+                setMotorRPWM(150);
+                delay(33);
+                setMotorRPWM(0);
+                return junction;
+            }
+            else if(junction == Junction::Left){
+                setMotorLPWM(100);
+                setMotorRPWM(0);
+                delay(33);
+                setMotorLPWM(0);
+                return junction;
+            }
+            else{
+                setMotorLPWM(0);
+                setMotorRPWM(100);
+                delay(33);
+                setMotorLPWM(0);
+                return junction;
+            }
             return junction;
         }
 
@@ -422,6 +439,7 @@ Junction FollowBlackLineUntilJunction(){
     }
     
 }
+
 
 void turnRight90() {
     // Variables

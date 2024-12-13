@@ -102,10 +102,10 @@ void setup() {
 
     Buzzer_Toggle(100);
     delay(2000);
-    calibrateIRSensors();
+    //calibrateIRSensors();
     Buzzer_Toggle(100);
 
-    delay(5000);
+    //delay(5000);
     Buzzer_Toggle(100);
     calibrateIRSensorsForBlack();
     Buzzer_Toggle(100);
@@ -129,7 +129,15 @@ void setup() {
     
     //FollowColorLineUntilJunction();
     //exectute_colorLineFollowing();
+    
+    //FollowBlackLineUntilJunction();
+    
 
+    
+
+    //MoveDistanceForward(100);
+
+    FollowBlackLine_GivenDistance(300);
     
 }
 
@@ -145,10 +153,31 @@ void loop() {
     // mux.selectChannel(0); // channel 0 is selected for OLED
     // menu.handleInput(BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT);//MenuSelectioninitiated 
     //Serial2.println(robot.get_front_distance_from_middle_tof());
-    //Junction junction = Detect_Junction_type_on_Color_line();
     
-    //Serial2.println(junction);
-    FollowBlackLine();
+    
+    // readBlackLinePosition();
+    // Junction junction = Detect_Junction_type_on_black_line();
+    
+    // Serial2.println(junction);
+
+
+    //FollowBlackLine();
+
+    // Junction junction = FollowBlackLineUntilJunction();
+    // Serial2.println(junction);
+    // delay(100);
+    // if(junction == Left){
+    //     robot.turn_Left_90_after_moving_forward();
+    // }
+    // else if(junction == Right){
+    //     robot.turn_Right_90_after_moving_forward();
+    // }
+    // else if(junction == T_Junction){
+    //     MoveDistanceForward(30);
+    // }
+    // delay(100);
+
+    
 
 }
 

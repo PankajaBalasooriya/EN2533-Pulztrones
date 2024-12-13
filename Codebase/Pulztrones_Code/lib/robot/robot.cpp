@@ -132,6 +132,19 @@ void Robot::turn_Left_90_after_moving_reverse(){
 }
 
 
+void Robot::Black_turn_Right_90_after_moving_forward(){
+    MoveDistanceForward(22);
+    turnRight90();
+}
+
+void Robot::Black_turn_Left_90_after_moving_forward(){
+    MoveDistanceForward(45);
+    turnLeft90();
+}
+
+
+
+
 String Robot::detect_Color(){
     readRGB(leftS0, leftS1, leftS2, leftS3, leftSensorOut, red, green, blue);
     String color = detectColor(red, green, blue);

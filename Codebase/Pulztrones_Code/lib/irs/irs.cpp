@@ -113,7 +113,7 @@ Junction Detect_Junction_type_on_black_line(){
     int numberOfSensorsOnBlack = 0;
 
     for(int i = 0; i < SensorCount; i++){
-        if(sensorValues[i] > WHITE_LINE_THRESHOLD){
+        if(sensorValues[i] > BLACK_LINE_THRESHOLD){
             numberOfSensorsOnBlack++;
         }
     }
@@ -123,13 +123,13 @@ Junction Detect_Junction_type_on_black_line(){
         int leftSensorValue = analogRead(LEFT_MARKER_SENSOR);
         int rightSensorValue = analogRead(RIGHT_MARKER_SENSOR);
 
-        if (leftSensorValue > WHITE_LINE_THRESHOLD && rightSensorValue > WHITE_LINE_THRESHOLD){
+        if (leftSensorValue > BLACK_LINE_THRESHOLD && rightSensorValue > BLACK_LINE_THRESHOLD){
             return T_Junction;
         }
-        else if (leftSensorValue > WHITE_LINE_THRESHOLD){
+        else if (leftSensorValue > BLACK_LINE_THRESHOLD){
             return Left;
         }
-        else if (rightSensorValue > WHITE_LINE_THRESHOLD){
+        else if (rightSensorValue > BLACK_LINE_THRESHOLD){
             return Right;
         }
         else{
