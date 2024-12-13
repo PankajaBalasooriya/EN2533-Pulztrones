@@ -21,11 +21,13 @@ Junction Detect_Junction_type();
 // Function declarations
 void initIRSensors();
 void calibrateIRSensors();
+void calibrateIRSensorsForBlack();
+
 int readBlackLinePosition();
 int readWhiteLinePosition();
 int readBackWhiteLinePosition();
 Junction Detect_Junction_type_on_black_line();
-Junction Detect_Junction_type_on_Color_line(int number);
+Junction Detect_Junction_type_on_Color_line(int number, int COLOR_LINE_THRESHOLD_LEFT, int COLOR_LINE_THRESHOLD_RIGHT);
 Junction Detect_jun_condition();
 
 int getAverageSensorReading(int sensorPin, int numReadings);

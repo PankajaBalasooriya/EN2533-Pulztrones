@@ -5,8 +5,11 @@
 // Define QTR instance and global variables
 QTRSensors qtr;
 QTRSensors qtrBack;
+QTRSensors qtrBlack;
 uint16_t sensorValues[SensorCount];  // Define sensorValues with a fixed size
 uint16_t sensorValuesBack[SensorCountBack];
+uint16_t sensorValuesBlack[SensorCount];
+
 
 // Initialize the IR sensors
 void initIRSensors() {
@@ -15,6 +18,10 @@ void initIRSensors() {
 
     qtrBack.setTypeAnalog();
     qtrBack.setSensorPins((const uint8_t[]){A10, A13, A11, A12, A15, A13}, SensorCountBack);
+
+    qtrBlack.setTypeAnalog();
+    qtrBlack.setSensorPins((const uint8_t[]){A0, A1, A2, A3, A4, A5, A6, A7}, SensorCount);
+
 }
 
 
@@ -22,7 +29,7 @@ void initIRSensors() {
 
 // Calibrate the IR sensors
 void calibrateIRSensors() {
-    Serial2.println("Starting calibration...");
+    Serial2.println("Starting Blue calibration...");
 
     for (uint8_t i = 0; i < 150; i++) {
         qtr.calibrate();
@@ -33,7 +40,26 @@ void calibrateIRSensors() {
         if (i % 50 == 0) {  // Print every 50 iterations
             Serial2.print("Calibration progress: ");
             Serial2.print(i);
-            Serial2.println("/250");
+            Serial2.println("/150");
+        }
+    }
+
+    Serial2.println("Calibration completed.");
+}
+
+void calibrateIRSensorsForBlack() {
+    Serial2.println("Starting Black calibration...");
+
+    for (uint8_t i = 0; i < 150; i++) {
+        qtrBlack.calibrate();
+
+        delay(20);
+
+        // Print the current calibration progress
+        if (i % 50 == 0) {  // Print every 50 iterations
+            Serial2.print("Calibration progress: ");
+            Serial2.print(i);
+            Serial2.println("/150");
         }
     }
 
@@ -42,7 +68,7 @@ void calibrateIRSensors() {
 
 // Read black line position
 int readBlackLinePosition() {
-    return qtr.readLineBlack(sensorValues);
+    return qtrBlack.readLineBlack(sensorValues);
 }
 
 int readWhiteLinePosition(){
@@ -119,7 +145,7 @@ int readBackWhiteLinePosition(){
     return qtrBack.readLineWhite(sensorValuesBack);
 }
 
-Junction Detect_Junction_type_on_Color_line(int number){
+Junction Detect_Junction_type_on_Color_line(int number, int COLOR_LINE_THRESHOLD_LEFT, int COLOR_LINE_THRESHOLD_RIGHT){
     //bool JunctionDetected = false;
     int numberOfSensorsOnWhite = 0;
 

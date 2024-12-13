@@ -316,8 +316,8 @@ Junction MoveReverseUntillJunction() {
         float pidOutput = PIDLineReverse(error);
 
         // Invert the PID output for reverse movement
-        int leftSpeed = -BASE_SPEED - pidOutput;
-        int rightSpeed = -BASE_SPEED + pidOutput;
+        int leftSpeed = -BASE_SPEED + 10  - pidOutput;
+        int rightSpeed = -BASE_SPEED + 10 + pidOutput;
 
         leftSpeed = constrain(leftSpeed, -MAX_SPEED, -MIN_SPEED);
         rightSpeed = constrain(rightSpeed, -MAX_SPEED, -MIN_SPEED);
@@ -606,10 +606,20 @@ float distance_from_counts(int left_counts, int right_counts){
 
 
 Junction FollowColorLineUntilJunction(int number, String color){
+    int COLOR_LINE_THRESHOLD_LEFT = 450;
+    int COLOR_LINE_THRESHOLD_RIGHT = 450; 
+    if(color == "RED"){
+        COLOR_LINE_THRESHOLD_LEFT = 300;
+        COLOR_LINE_THRESHOLD_RIGHT = 200;
+    }
+    else if(color == "BLUE"){
+        COLOR_LINE_THRESHOLD_LEFT = 450;
+        COLOR_LINE_THRESHOLD_RIGHT = 370;
+    }
     while (true)
     {
         int position = readWhiteLinePosition();
-        Junction junction = Detect_Junction_type_on_Color_line(number);
+        Junction junction = Detect_Junction_type_on_Color_line(number, COLOR_LINE_THRESHOLD_LEFT, COLOR_LINE_THRESHOLD_RIGHT);
         if(junction != Junction::Straight){
             //MotorBreak();
             setMotorLPWM(0);

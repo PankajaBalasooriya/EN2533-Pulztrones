@@ -64,7 +64,7 @@ void doTasks(){
                 robot.set_task(MAZE);
                 break;
             case MAZE:
-                //VB_POS = 4;
+                VB_POS = 2;
                 execute_maze(VB_POS);
                 robot.set_task(COLOR_LINE);
                 break;
@@ -105,22 +105,27 @@ void setup() {
     calibrateIRSensors();
     Buzzer_Toggle(100);
 
+    delay(5000);
+    Buzzer_Toggle(100);
+    calibrateIRSensorsForBlack();
+    Buzzer_Toggle(100);
+
     robot.init();
     //coinDropper.init(COIN_DROPPER_SERVO_PIN);
     //armMechanism.init(ARM_LIFT_SERVO_PIN, GRIPPER_SERVO_PIN);
 
-    robot.set_task(COLOR_LINE);
+    robot.set_task(MovetoMaze);
     
 
     //menu.begin();
 
 
-    
-    
     delay(5000);
+    
+    
 
     Buzzer_UniquePattern();
-    doTasks();  
+    //doTasks();  
     
     //FollowColorLineUntilJunction();
     //exectute_colorLineFollowing();
@@ -132,7 +137,7 @@ void setup() {
 void loop() {
     
     // Serial2.print(getAverageSensorReading(LEFT_MARKER_SENSOR, 5));
-    // Serial2.print(",");
+    // Serial2.print(", ");
     // Serial2.println(getAverageSensorReading(RIGHT_MARKER_SENSOR, 5));
     
     //printIRData();
@@ -143,7 +148,7 @@ void loop() {
     //Junction junction = Detect_Junction_type_on_Color_line();
     
     //Serial2.println(junction);
-    //FollowBlackLine();
+    FollowBlackLine();
 
 }
 
