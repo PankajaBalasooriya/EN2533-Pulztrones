@@ -118,7 +118,7 @@ Junction Detect_Junction_type_on_black_line(){
         }
     }
 
-    if(numberOfSensorsOnBlack > SENSORS_ON_LINE_FOR_JUNCTION_CHECK+1){
+    if(numberOfSensorsOnBlack > SENSORS_ON_LINE_FOR_JUNCTION_CHECK){//+1
         //MotorBreak();
         int leftSensorValue = analogRead(LEFT_MARKER_SENSOR);
         int rightSensorValue = analogRead(RIGHT_MARKER_SENSOR);

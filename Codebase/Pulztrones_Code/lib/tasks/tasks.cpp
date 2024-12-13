@@ -1,9 +1,7 @@
 #include "tasks.h"
 
 
-
 void start_square() {
-
     // Code to execute the start square task
     Serial2.println("Starting.......");
 }
@@ -121,7 +119,6 @@ void execute_MoveToMaze() {
     FollowWhiteLineUntilJunction();
 
 }
-
 
 void execute_maze(int VB_POS) {
     int Gate = 1;
@@ -422,28 +419,7 @@ String exectute_colorLineFollowing(){
     return color;
 }
 
-
-void executeDashedLine(){//execute the task 
-
-}
-void executePortalNavigation(){//execute the task 
-
-}
-void executeBoxArranging(){//execute the task 
-
-}
-void executeChamberInsertion(){//execute the task 
-
-}
-void executeHiddenTask(){//execute the task 
-
-}
-void executeUnevenTerrain(){
-}
-
-
-void execute_box_manup(bool assending){
-
+void execute_box_manup(int assending){
     int box_height;
     int current_box_dest;
     int bottom_tof_dist;
@@ -494,4 +470,62 @@ void execute_box_manup(bool assending){
     robot.pick_box_and_lift(armMechanism);
     goto_box_destination(current_box_dest);
     // robot.drop_box_and_release(armMechanism);
+}
+
+
+
+void executeDashedLine(){//execute the task 
+
+}
+void executePortalNavigation(){//execute the task 
+
+}
+void executeBoxArranging(){//execute the task 
+
+}
+
+void executeChamberInsertion(){//execute the task 
+    robot.Black_turn_Left_90_after_moving_forward();
+    MoveDistanceForward(100);
+    FollowBlackLineUntilJunction();
+    robot.turn_Left_90_after_moving_forward();
+    FollowBlackLineUntilJunction();
+
+    robot.pick_box_and_lift(armMechanism);
+    robot.turn_left_180();
+    FollowBlackLineUntilJunction();
+    robot.turn_Left_90_after_moving_forward();
+
+}
+
+
+void executeHiddenTask(){//execute the task 
+//////////////////////////////////////////
+//Hidden Task///////////////
+//////////////////////////////////////////
+
+    FollowBlackLineUntilJunction();
+    MoveDistanceForward_and_not_stop(30);
+    //Todo: adjust this
+    FollowBlackLine_GivenDistance(250);
+    robot.drop_box_and_release(armMechanism);
+    robot.turn_left_180_after_Dropping();
+    FollowBlackLineUntilJunction();
+    robot.turn_Right_90_after_moving_forward();
+}
+void executeUnevenTerrain(){
+    FollowBlackLineUntilJunction();
+    armMechanism.moveToPickupPosition();
+    MoveDistanceForward(200);
+    MoveDistanceForward_in_uneven(190);
+    turnLeft90_in_uneven();
+
+    MoveDistanceForward_in_uneven(500);
+    turnRight90_in_Uneven();
+    MoveDistanceForward_in_uneven(100);
+    turnRight90_in_Uneven();
+    MoveDistanceForward_in_uneven(200);
+    
+    coinDropper.dropCoin();
+
 }

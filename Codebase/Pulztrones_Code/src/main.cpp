@@ -48,6 +48,7 @@ VL53L0X_Multiplexer tofSensors;
 
 void doTasks(){
   int VB_POS = 0;
+  int order = 0;
   String color = "";
     while (robot.get_task() != STOP) {
         switch (robot.get_task()) {
@@ -70,12 +71,31 @@ void doTasks(){
                 break;
             case COLOR_LINE:
                 color = exectute_colorLineFollowing();
+                if(color == "BLUE"){
+                    order = 1;
+                }
+                else{
+                    order = 0;
+                }
                 robot.set_task(STOP);
                 break;
             case BOX_MANUPILATION:
-                execute_box_manup(0);
+                execute_box_manup(order);
+                robot.set_task(CHAMBER);
+                break;
+            case CHAMBER:
+                executeChamberInsertion();
+                robot.set_task(HIDDENTASK);
+                break;
+            case HIDDENTASK:
+                executeHiddenTask();
+                robot.set_task(UNEVEN);
+                break;
+            case UNEVEN:
+                executeUnevenTerrain();
                 robot.set_task(STOP);
                 break;
+
             case STOP:
                 robot.set_task(STOP);
                 break;
@@ -111,7 +131,7 @@ void setup() {
 
     //delay(5000);
     Buzzer_Toggle(100);
-    //calibrateIRSensorsForBlack();
+    calibrateIRSensorsForBlack();
     Buzzer_Toggle(100);
 
     robot.init();
@@ -119,7 +139,7 @@ void setup() {
     armMechanism.init(ARM_LIFT_SERVO_PIN, GRIPPER_SERVO_PIN);
 
 
-    robot.set_task(BOX_MANUPILATION);
+    robot.set_task(UNEVEN);
 
     
 

@@ -499,6 +499,64 @@ void turnRight90() {
     
 }
 
+void turnRight90_in_Uneven() {
+    // Variables
+    int target_encoder_diff = COUNTS_PER_90_DEGREE_RIGHT;
+    int encoder_diff = 0;
+    int left_encoder_current, right_encoder_current;
+    float error = 0, last_error = 0, derivative = 0;
+    float turn_speed = 0;
+
+    // Reset encoders
+    resetEncoders();
+
+    while (encoder_diff < target_encoder_diff) {
+        // Get current encoder counts
+        left_encoder_current = getLeftEncoderCounts();
+        right_encoder_current = getRightEncoderCounts();
+
+        // Calculate encoder difference
+        encoder_diff = abs(right_encoder_current - left_encoder_current);
+
+        // Calculate error
+        error = target_encoder_diff - encoder_diff;
+
+        // Calculate derivative
+        derivative = error - last_error;
+
+        // PD controller
+        turn_speed = Kp_TURN * error + Kd_TURN * derivative;
+
+        // Limit turn speed
+        turn_speed = fmin(fmax(turn_speed, MIN_TURN_SPEED), MAX_TURN_SPEED);
+
+        // Set motor speeds based on direction
+        float left_speed =  turn_speed + 20;
+        float right_speed = -turn_speed - 20;
+
+        left_speed = left_speed - 20;
+
+
+        // Apply motor speeds
+        setMotorLPWM(left_speed);
+        setMotorRPWM(right_speed);
+
+        // Save current error for next iteration
+        last_error = error;
+
+        // Small delay to avoid overwhelming the microcontroller
+    }
+
+    // Stop motors after reaching the target
+    setMotorLPWM(0);
+    setMotorRPWM(0);
+
+    // Reset encoders
+    resetEncoders();
+
+    
+}
+
 
 void turnLeft90() {
     // Variables
@@ -534,6 +592,64 @@ void turnLeft90() {
         // Set motor speeds based on direction
         float left_speed = -turn_speed;
         float right_speed = turn_speed;
+
+        
+                       
+        left_speed = left_speed + 20;
+        
+
+        // Apply motor speeds
+        setMotorLPWM(left_speed);
+        setMotorRPWM(right_speed);
+
+        // Save current error for next iteration
+        last_error = error;
+
+        // Small delay to avoid overwhelming the microcontroller
+    }
+
+    // Stop motors after reaching the target
+    setMotorLPWM(0);
+    setMotorRPWM(0);
+
+    // Reset encoders
+    resetEncoders();
+}
+
+void turnLeft90_in_uneven() {
+    // Variables
+    int target_encoder_diff = COUNTS_PER_90_DEGREE_LEFT;
+    int encoder_diff = 0;
+    int left_encoder_current, right_encoder_current;
+    float error = 0, last_error = 0, derivative = 0;
+    float turn_speed = 0;
+
+    // Reset encoders
+    resetEncoders();
+
+    while (encoder_diff < target_encoder_diff) {
+        // Get current encoder counts
+        left_encoder_current = getLeftEncoderCounts();
+        right_encoder_current = getRightEncoderCounts();
+
+        // Calculate encoder difference
+        encoder_diff = abs(right_encoder_current - left_encoder_current);
+
+        // Calculate error
+        error = target_encoder_diff - encoder_diff;
+
+        // Calculate derivative
+        derivative = error - last_error;
+
+        // PD controller
+        turn_speed = Kp_TURN * error + Kd_TURN * derivative;
+
+        // Limit turn speed
+        turn_speed = fmin(fmax(turn_speed, MIN_TURN_SPEED), MAX_TURN_SPEED);
+
+        // Set motor speeds based on direction
+        float left_speed = -turn_speed-20;
+        float right_speed = turn_speed+20;
 
         
                        
@@ -672,4 +788,34 @@ Junction FollowColorLineUntilJunction(int number, String color){
 
 
 
+void MoveDistanceForward_in_uneven(float distance){
+    const int target_encoder_count = distance / MM_PER_COUNT;
+    int encoder_count_left = 0;
+    int encoder_count_right = 0;
 
+
+    resetEncoders();
+
+    while(encoder_count_left < target_encoder_count && encoder_count_right < target_encoder_count){
+        encoder_count_left = getLeftEncoderCounts();
+        encoder_count_right = getRightEncoderCounts();
+
+        // Calculate encoder-based PID
+        error_enc = encoder_count_right - encoder_count_left;
+        correction_enc = PIDEnc(error_enc);
+
+        // Combine encoder and IR corrections (with priority on encoder)
+        float total_correction = correction_enc;
+
+        // Calculate motor speeds
+        float left_speed = BASE_SPEED + 25 + total_correction;
+        float right_speed = BASE_SPEED + 25 - total_correction;
+
+        setMotorLPWM(left_speed);
+        setMotorRPWM(right_speed);
+
+    }
+    MotorBreak();
+    setMotorLPWM(0);
+    setMotorRPWM(0);
+}

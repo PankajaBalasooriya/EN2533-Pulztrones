@@ -43,6 +43,9 @@ void turnLeft180();
 int Counting_and_Line_Navigation();
 
 Junction FollowColorLineUntilJunction(int number, String color);
+void MoveDistanceForward_in_uneven(float distance);
+void turnRight90_in_Uneven();
+void turnLeft90_in_uneven();
 
 
 #endif

@@ -17,6 +17,7 @@
 #include "CoinDropper.h"
 
 extern ArmMechanism armMechanism;
+extern CoinDropper coinDropper;
 
 
 
@@ -31,7 +32,6 @@ void execute_box_manup(int assending);
 
 void executeDashedLine();
 void executePortalNavigation();
-void execute_box_manup(bool assending);
 void executeChamberInsertion();
 void executeHiddenTask();
 void executeUnevenTerrain();
