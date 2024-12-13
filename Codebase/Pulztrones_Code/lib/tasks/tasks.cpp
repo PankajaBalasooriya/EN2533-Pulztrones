@@ -403,14 +403,16 @@ String exectute_colorLineFollowing(){
 }
 
 void execute_box_manup(bool assending){
+    int box_height;
+    int current_box_dest;
     Junction FollowBlackLineUntilJunction();
     robot.turn_Left_90_after_moving_forward();
     FollowBlackLine_GivenDistance(33);
-    //getAverageTofDistance(4, 0);
-    //find_destination(0, 4, true);
+    //box_height = robot.get_front_distance_from_bottom_tof();
+    //current_box_dest = find_destination(0, box_height, true);
     goto_box_destination(1);
-    //find_destination(0, 4, true);
+    //find_destination(1, 4, true);
     //goto_box_destination(4);
-    //find_destination(0, 4, true);
+    //find_destination(2, 4, true);
     //goto_box_destination(7);
 }

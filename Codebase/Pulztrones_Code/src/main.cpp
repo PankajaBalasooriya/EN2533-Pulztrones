@@ -75,7 +75,7 @@ void doTasks(){
                 break;
             case BOX_MANUPILATION:
                 execute_box_manup(true);
-                robot.set_task(STOP);
+                robot.set_task(BOX_MANUPILATION);
                 break;
             case STOP:
                 robot.set_task(STOP);

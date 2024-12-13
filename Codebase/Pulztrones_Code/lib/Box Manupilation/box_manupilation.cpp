@@ -113,7 +113,7 @@ void goto_box_destination(int dest){
       //grab_box();
       FollowBlackLineUntilJunction(); FollowBlackLine_GivenDistance(10); FollowBlackLine_GivenDistance(330);
       /*drop_box();*/ robot.turn_left_180();
-      FollowBlackLineUntilJunction(); robot.turn_right_90(); FollowBlackLineUntilJunction(); robot.turn_left_90(); FollowBlackLine_GivenDistance(330);
+      FollowBlackLineUntilJunction(); robot.turn_right_90();/*robot.Black_turn_Right_90_after_moving_forward();*/ FollowBlackLineUntilJunction(); robot.turn_left_90(); FollowBlackLine_GivenDistance(330);
     case 2 : //_|-
       //grab_box();
       FollowBlackLineUntilJunction(); robot.turn_left_90(); FollowBlackLineUntilJunction(); robot.turn_right_90(); FollowBlackLine_GivenDistance(330);
