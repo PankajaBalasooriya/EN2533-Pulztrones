@@ -218,3 +218,40 @@ int isWhiteLineDetected() {
     
     
 }
+
+
+
+Junction Detect_Junction_type_on_dottedLine(){
+    //bool JunctionDetected = false;
+    int numberOfSensorsOnWhite = 0;
+
+    for(int i = 0; i < SensorCount; i++){
+        if(sensorValues[i] < WHITE_LINE_THRESHOLD){
+            numberOfSensorsOnWhite++;
+        }
+    }
+
+    Serial2.println(numberOfSensorsOnWhite);
+
+    if(numberOfSensorsOnWhite > SENSORS_ON_LINE_FOR_JUNCTION_CHECK){
+        //MotorBreak();
+        int leftSensorValue = analogRead(LEFT_MARKER_SENSOR);
+        int rightSensorValue = analogRead(RIGHT_MARKER_SENSOR);
+
+        if (leftSensorValue < WHITE_LINE_THRESHOLD && rightSensorValue < WHITE_LINE_THRESHOLD){
+            return T_Junction;
+        }
+        else if (leftSensorValue < WHITE_LINE_THRESHOLD){
+            return Left;
+        }
+        else if (rightSensorValue < WHITE_LINE_THRESHOLD){
+            return Right;
+        }
+        else{
+            return Straight;
+        }
+    }
+    else{
+        return Straight;
+    }
+}

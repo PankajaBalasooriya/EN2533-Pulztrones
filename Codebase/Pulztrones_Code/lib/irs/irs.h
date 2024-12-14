@@ -32,6 +32,7 @@ Junction Detect_jun_condition();
 
 int getAverageSensorReading(int sensorPin, int numReadings);
 int isWhiteLineDetected();
+Junction Detect_Junction_type_on_dottedLine();
 
 
 #endif
