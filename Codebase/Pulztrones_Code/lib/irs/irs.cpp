@@ -193,3 +193,28 @@ int getAverageSensorReading(int sensorPin, int numReadings) {
 
     return total / numReadings;
 }
+
+
+int isWhiteLineDetected() {
+    int numberOfSensorsOnWhite = 0;
+
+    for (int i = 0; i < SensorCount; i++) {
+        if (sensorValues[i] < WHITE_LINE_THRESHOLD) {
+            numberOfSensorsOnWhite++;
+        }
+    }
+
+    // Check if enough sensors detect the white line
+    if (numberOfSensorsOnWhite == 8)
+    {
+        return 7;
+    }
+    else if(numberOfSensorsOnWhite > SENSORS_ON_LINE_FOR_LINE_CHECK){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+    
+    
+}

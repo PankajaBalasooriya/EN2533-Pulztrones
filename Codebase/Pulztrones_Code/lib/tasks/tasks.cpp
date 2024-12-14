@@ -1,4 +1,5 @@
 #include "tasks.h"
+#include <EEPROM.h>
 
 
 void start_square() {
@@ -368,7 +369,7 @@ bool matrix[3][4] = {
 };
 
 
-
+int order = 0;
 String exectute_colorLineFollowing(){
     String color = robot.detect_Color();
     if(color == "RED"){
@@ -392,6 +393,14 @@ String exectute_colorLineFollowing(){
     delay(1000);
     robot.turn_off_led(BLUE_LED);
     robot.turn_off_led(RED_LED);
+
+    if(color == "BLUE"){
+        order = 1;
+    }
+    else{
+        order = 0;
+    }
+    EEPROM.put(0, order);
 
    //do color line following here
     MoveDistanceForward(100);
@@ -475,8 +484,11 @@ void execute_box_manup(int assending){
 
 
 void executeDashedLine(){//execute the task 
-
+    FollowWhiteLineUntilJunction();
 }
+
+
+
 void executePortalNavigation(){
 
 armMechanism.moveto_TOF_Reading_Position();

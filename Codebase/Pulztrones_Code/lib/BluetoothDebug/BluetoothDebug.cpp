@@ -35,7 +35,7 @@ void printEncoderData() {
 
 void printIRData() {
     // Read QTR sensor values and get the line position
-    int16_t position = readBlackLinePosition();
+    int16_t position = readWhiteLinePosition();
 
     // Print QTR sensor values to Serial2
     for (uint8_t i = 0; i < SensorCount; i++) {

@@ -1,5 +1,6 @@
 #include "MenuSystem.h"
 #include "tasks.h"
+#include "EEPROM.h"
 
 MenuSystem::MenuSystem(uint8_t screenWidth, uint8_t screenHeight, uint8_t oledReset, uint8_t oledAddr) :
     display(screenWidth, screenHeight, &Wire, oledReset),
@@ -49,6 +50,7 @@ void MenuSystem::do_tasks() {
                 else{
                     order = 0;
                 }
+                EEPROM.put(0, order);
                 robot.set_task(DASHEDLINE);
                 break;
             case DASHEDLINE:
@@ -60,6 +62,7 @@ void MenuSystem::do_tasks() {
                 robot.set_task(BOX_MANUPILATION);
                 break;
             case BOX_MANUPILATION:
+                EEPROM.get(0,order);
                 execute_box_manup(order);
                 robot.set_task(CHAMBER);
                 break;

@@ -186,45 +186,15 @@ void setup() {
 
 
 void loop() {
-    //FollowWhiteLineReverse();
+    
     mux.selectChannel(0); // channel 0 is selected for OLED
     menu.handleInput(BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT);//MenuSelectioninitiated 
-    //moveForward(100, 100);
     
-    //
-    
-    // Serial2.print(getAverageSensorReading(LEFT_MARKER_SENSOR, 5));
-    // Serial2.print(", ");
-    // Serial2.println(getAverageSensorReading(RIGHT_MARKER_SENSOR, 5));
-    
-    //printIRData();
 
-    // mux.selectChannel(0); // channel 0 is selected for OLED
-    // menu.handleInput(BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT);//MenuSelectioninitiated 
-    //Serial2.println(robot.get_front_distance_from_middle_tof());
     
+  
     
-    // readBlackLinePosition();
-    // Junction junction = Detect_Junction_type_on_black_line();
-    
-    // Serial2.println(junction);
-
-
-    //FollowBlackLine();
-
-    // Junction junction = FollowBlackLineUntilJunction();
-    // Serial2.println(junction);
-    // delay(100);
-    // if(junction == Left){
-    //     robot.turn_Left_90_after_moving_forward();
-    // }
-    // else if(junction == Right){
-    //     robot.turn_Right_90_after_moving_forward();
-    // }
-    // else if(junction == T_Junction){
-    //     MoveDistanceForward(30);
-    // }
-    // delay(100);
+   //printIRData();
 
     
 

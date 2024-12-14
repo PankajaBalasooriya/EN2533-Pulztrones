@@ -155,6 +155,9 @@ const int RED_LINE_THRESHOLD = 100;
 const int BLUE_LINE_THRESHOLD = 100;
 
 
+const int SENSORS_ON_LINE_FOR_LINE_CHECK = 2;
+
+
 /******************************************************************************
  * ATOMIC OPERATIONS for ATMEGA328 ONLY
  * Since the ATMega328 is an 8 bit processor it is possible that you will end
