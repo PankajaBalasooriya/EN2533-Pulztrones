@@ -522,9 +522,7 @@ armMechanism.moveToRestPosition();
 //execute the task 
 
 
-void executeBoxArranging(){//execute the task 
 
-}
 
 void executeChamberInsertion(){//execute the task 
     robot.Black_turn_Left_90_after_moving_forward();

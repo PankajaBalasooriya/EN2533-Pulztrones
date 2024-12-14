@@ -43,9 +43,6 @@ VL53L0X_Multiplexer tofSensors;
 
 
 
-
-
-
 // void doTasks(){
 //   int VB_POS = 0;
 //   int order = 0;
@@ -115,9 +112,12 @@ VL53L0X_Multiplexer tofSensors;
 // }
 
 
+
   
 
 void setup() {
+
+    
   
     initBluetoothDebug();
     initMotorPins();
@@ -131,6 +131,7 @@ void setup() {
 
     Buzzer_Toggle(100);
     menu.begin();
+    
 
     coinDropper.init(COIN_DROPPER_SERVO_PIN);
     armMechanism.init(ARM_LIFT_SERVO_PIN, GRIPPER_SERVO_PIN);
