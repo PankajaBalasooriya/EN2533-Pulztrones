@@ -46,6 +46,6 @@ Junction FollowColorLineUntilJunction(int number, String color);
 void MoveDistanceForward_in_uneven(float distance);
 void turnRight90_in_Uneven();
 void turnLeft90_in_uneven();
-
+float FollowBlackLineUntilJunction_and_return_Distance();
 
 #endif

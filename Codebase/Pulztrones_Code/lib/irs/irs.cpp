@@ -31,7 +31,7 @@ void initIRSensors() {
 void calibrateIRSensors() {
     Serial2.println("Starting Blue calibration...");
 
-    for (uint8_t i = 0; i < 150; i++) {
+    for (uint8_t i = 0; i < 250; i++) {
         qtr.calibrate();
         qtrBack.calibrate();
         delay(20);
@@ -40,7 +40,7 @@ void calibrateIRSensors() {
         if (i % 50 == 0) {  // Print every 50 iterations
             Serial2.print("Calibration progress: ");
             Serial2.print(i);
-            Serial2.println("/150");
+            Serial2.println("/250");
         }
     }
 
@@ -50,7 +50,7 @@ void calibrateIRSensors() {
 void calibrateIRSensorsForBlack() {
     Serial2.println("Starting Black calibration...");
 
-    for (uint8_t i = 0; i < 150; i++) {
+    for (uint8_t i = 0; i < 250; i++) {
         qtrBlack.calibrate();
 
         delay(20);
@@ -59,7 +59,7 @@ void calibrateIRSensorsForBlack() {
         if (i % 50 == 0) {  // Print every 50 iterations
             Serial2.print("Calibration progress: ");
             Serial2.print(i);
-            Serial2.println("/150");
+            Serial2.println("/250");
         }
     }
 

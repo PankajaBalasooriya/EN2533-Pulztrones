@@ -21,6 +21,7 @@ public:
     void holdBox();
 
     void moveto_TOF_Reading_Position();
+    void moveToRestPosition_without_off();
 
 
 private:
@@ -39,7 +40,7 @@ private:
     static const int GRIPPER_MAX_ANGLE = 120;
     static const int GRIPPER_OPEN_ANGLE = 0;
     static const int GRIPPER_CLOSE_ANGLE = 110;
-    static const int GRIPPER_HOLD_ANGLE = 115;
+    static const int GRIPPER_HOLD_ANGLE = 120;//115
 
     // Timing constants
     static const int MOVEMENT_PAUSE = 500;

@@ -740,15 +740,15 @@ float distance_from_counts(int left_counts, int right_counts){
 
 
 Junction FollowColorLineUntilJunction(int number, String color){
-    int COLOR_LINE_THRESHOLD_LEFT = 450;
-    int COLOR_LINE_THRESHOLD_RIGHT = 450; 
+    int COLOR_LINE_THRESHOLD_LEFT = 500;//450
+    int COLOR_LINE_THRESHOLD_RIGHT = 500; //450
     if(color == "RED"){
-        COLOR_LINE_THRESHOLD_LEFT = 300;
-        COLOR_LINE_THRESHOLD_RIGHT = 200;
+        // COLOR_LINE_THRESHOLD_LEFT = 300;
+        // COLOR_LINE_THRESHOLD_RIGHT = 200;
     }
     else if(color == "BLUE"){
-        COLOR_LINE_THRESHOLD_LEFT = 450;
-        COLOR_LINE_THRESHOLD_RIGHT = 370;
+        // COLOR_LINE_THRESHOLD_LEFT = 450;
+        // COLOR_LINE_THRESHOLD_RIGHT = 370;
     }
     while (true)
     {
@@ -818,4 +818,66 @@ void MoveDistanceForward_in_uneven(float distance){
     MotorBreak();
     setMotorLPWM(0);
     setMotorRPWM(0);
+}
+
+
+
+float FollowBlackLineUntilJunction_and_return_Distance(){
+        int encoder_count_left = 0;
+        int encoder_count_right = 0;
+
+
+        resetEncoders();
+
+    while (true)
+    {
+        
+
+        int position = readBlackLinePosition();
+        Junction junction = Detect_Junction_type_on_black_line();
+        if(junction != Junction::Straight){
+            //MotorBreak();
+            encoder_count_left = getLeftEncoderCounts();
+            encoder_count_right = getRightEncoderCounts();
+
+            float length = distance_from_counts(encoder_count_left, encoder_count_right);
+            Serial2.println(length);
+            
+            if(junction == Junction::Right){
+                setMotorLPWM(0);
+                setMotorRPWM(150);
+                delay(33);
+                setMotorRPWM(0);
+                return length;
+            }
+            else if(junction == Junction::Left){
+                setMotorLPWM(100);
+                setMotorRPWM(0);
+                delay(33);
+                setMotorLPWM(0);
+                return length;
+            }
+            else{
+                setMotorLPWM(0);
+                setMotorRPWM(100);
+                delay(33);
+                setMotorLPWM(0);
+                return length;
+            }
+            return length;
+        }
+
+        // Normal line following code continues...
+        int error = position - 3500;
+        float pidOutput = PIDLine(error);
+        
+        int leftSpeed = BASE_SPEED + pidOutput;
+        int rightSpeed = BASE_SPEED - pidOutput;
+        
+        leftSpeed = constrain(leftSpeed, MIN_SPEED, MAX_SPEED);
+        rightSpeed = constrain(rightSpeed, MIN_SPEED, MAX_SPEED);
+        
+        moveForward(leftSpeed - 20, rightSpeed);//l -20
+    }
+    
 }

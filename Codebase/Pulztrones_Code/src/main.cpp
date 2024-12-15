@@ -138,14 +138,14 @@ void setup() {
 
 
     Buzzer_Toggle(100);
-    //delay(5000);
+    delay(5000);
     Buzzer_Toggle(200);
     calibrateIRSensors(); // In Blue line
     Buzzer_Toggle(100);
 
-    //delay(5000);
+    delay(5000);
     Buzzer_Toggle(200);
-    //calibrateIRSensorsForBlack();
+    calibrateIRSensorsForBlack();
     Buzzer_Toggle(100);
 
     robot.init();
@@ -180,7 +180,7 @@ void setup() {
     //FollowBlackLine_GivenDistance(300);
     //executePortalNavigation();
 
-    exectute_colorLineFollowing();
+    //exectute_colorLineFollowing();
 
     
     
@@ -189,8 +189,8 @@ void setup() {
 
 void loop() {
     
-    //mux.selectChannel(0); // channel 0 is selected for OLED
-    //menu.handleInput(BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT);//MenuSelectioninitiated 
+    mux.selectChannel(0); // channel 0 is selected for OLED
+    menu.handleInput(BUTTON_UP, BUTTON_DOWN, BUTTON_SELECT);//MenuSelectioninitiated 
     
 
     //printIRData();

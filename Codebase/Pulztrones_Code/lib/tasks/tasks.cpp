@@ -376,13 +376,13 @@ String exectute_colorLineFollowing(){
         robot.turn_on_led(RED_LED);
         robot.turn_off_led(BLUE_LED);
         //SENSORS_ON_LINE_FOR_JUNCTION_CHECK_COLOUR = 5;
-        number = 5;
+        number = 4;//5
         
     }
     else if(color == "BLUE"){
         robot.turn_on_led(BLUE_LED);
         robot.turn_off_led(RED_LED);
-        number = 4;
+        number = 3;//4
         
         //SENSORS_ON_LINE_FOR_JUNCTION_CHECK_COLOUR = 4;
     }
@@ -535,13 +535,14 @@ armMechanism.moveToRestPosition();
 
 
 
-
+int distance = 180;
 void executeChamberInsertion(){//execute the task 
     robot.Black_turn_Left_90_after_moving_forward();
     MoveDistanceForward(150);
     FollowBlackLineUntilJunction();
     robot.turn_Left_90_after_moving_forward();
-    FollowBlackLineUntilJunction();
+    // FollowBlackLineUntilJunction();
+    distance = FollowBlackLineUntilJunction_and_return_Distance();
 
     robot.pick_box_and_lift(armMechanism);
     robot.turn_left_180();
@@ -556,16 +557,35 @@ void executeHiddenTask(){//execute the task
 //Hidden Task///////////////
 //////////////////////////////////////////
 
+
+    FollowBlackLineUntilJunction();
+    MoveDistanceForward_and_not_stop(30);
+
+    FollowBlackLineUntilJunction();
+    robot.turn_Right_90_after_moving_forward();
+
+    //try to add real distance here
+    int dist = distance - 15;
+    FollowBlackLine_GivenDistance(100);
+    armMechanism.moveToRestPosition_without_off();
+    delay(1000);
+    armMechanism.moveToPickupPosition();
+    robot.turn_left_180_after_Dropping();
+    FollowBlackLineUntilJunction();
+    robot.turn_Right_90_after_moving_forward();
+
+
+
     FollowBlackLineUntilJunction();
     MoveDistanceForward_and_not_stop(30);
     //Todo: adjust this
-    FollowBlackLine_GivenDistance(250);
+    FollowBlackLine_GivenDistance(160);
     robot.drop_box_and_release(armMechanism);
 
     //Marisiya
     MoveDistanceReverse(70);
     armMechanism.closeGripper();
-    FollowBlackLine_GivenDistance(70);
+    FollowBlackLine_GivenDistance(30);
 
 
 
@@ -579,14 +599,15 @@ void executeUnevenTerrain(){
     FollowBlackLineUntilJunction();
     armMechanism.moveToPickupPosition();
     MoveDistanceForward(200);
-    MoveDistanceForward_in_uneven(190);
-    turnLeft90_in_uneven();
+    MoveDistanceForward_in_uneven(650);
 
-    MoveDistanceForward_in_uneven(500);
-    turnRight90_in_Uneven();
-    MoveDistanceForward_in_uneven(100);
-    turnRight90_in_Uneven();
-    MoveDistanceForward_in_uneven(200);
+    // turnLeft90_in_uneven();
+
+    // MoveDistanceForward_in_uneven(500);
+    // turnRight90_in_Uneven();
+    // MoveDistanceForward_in_uneven(100);
+    // turnRight90_in_Uneven();
+    // MoveDistanceForward_in_uneven(200);
     
     coinDropper.dropCoin();
 
