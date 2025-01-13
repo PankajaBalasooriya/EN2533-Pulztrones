@@ -29,7 +29,12 @@ Our robot was designed to complete a series of challenges inspired by the *Stran
 - **Programming Language**: C++
 - **IDE**: VS Code (PlatformIO)
 - **Libraries**:
+  - Arduino.h
+  - QTRSensors
+  - Wire
+  - Adafruit_GFX
   - Adafruit_SSD1306
+  - VL53L0X
 - **3D Modelling Software**: SolidWorks
 
 ![VS Code](https://img.shields.io/badge/VS_Code-0078d4?logo=visualstudiocode&logoColor=white)
