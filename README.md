@@ -81,7 +81,7 @@ During maze navigation, we encountered a challenge with reverse line-following. 
 To address this, we used two IR arrays—one for forward line-following and another positioned behind the motors for reverse line-following. This setup allowed the robot to receive immediate feedback during both forward and reverse navigation, ensuring efficient and accurate line-following in both directions. Additionally, this solution largely reduced the coding complexity, as we no longer had to account for motor inconsistencies or complex adjustments for reverse navigation.
 
 ### • Line Following Challenge: IR Sensor Isolation
-#### The Problem
+#### Problem
 During our testing, we encountered an issue with the IR sensor array while performing line-following tasks. The array performed well when following a white line on a black background, but it struggled when detecting a black line on a white background. This challenge arose due to the lack of isolation between the IR receivers, causing interference from reflected IR rays emitted by other sensors. The large white background led to inaccurate sensor readings, and this was mainly caused by the need to keep the IR array elevated above the ground to navigate uneven terrain.
 #### Solution
 To address this challenge, we created a custom cover using SolidWorks to isolate the IR receivers. The new design ensures that only the IR rays emitted by the same sensor are received, effectively minimizing interference. This allows only the perpendicular reflected rays to reach the receivers, improving the accuracy of the sensor readings.
