@@ -60,7 +60,7 @@ The competition was structured into multiple tasks, each testing a different asp
 | Fernando A R D | 220161N |rusirufernando513@gmail.com|
 | Dineshara M C | 220128V |chandupadineshara@gmail.com|
 
-<img src="docs/Photos/IMG-20241214-WA0123.jpg" width="500" height="auto" />
+<img src="docs/Photos/IMG-20241214-WA0123.jpg" width="700" height="auto" />
 
 
 # Pin Assignment
