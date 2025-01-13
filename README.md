@@ -80,7 +80,7 @@ To address this, we used two IR arrays—one for forward line-following and anot
 #### The Problem
 During our testing, we encountered an issue with the IR sensor array while performing line-following tasks. The array performed well when following a white line on a black background, but it struggled when detecting a black line on a white background. This challenge arose due to the lack of isolation between the IR receivers, causing interference from reflected IR rays emitted by other sensors. The large white background led to inaccurate sensor readings, and this was mainly caused by the need to keep the IR array elevated above the ground to navigate uneven terrain.
 #### Solution
-To address this challenge, we created a custom part using SolidWorks to isolate the IR receivers. The new design ensures that only the IR rays emitted by the same sensor are received, effectively minimizing interference. This allows only the perpendicular reflected rays to reach the receivers, improving the accuracy of the sensor readings.
+To address this challenge, we created a custom cover using SolidWorks to isolate the IR receivers. The new design ensures that only the IR rays emitted by the same sensor are received, effectively minimizing interference. This allows only the perpendicular reflected rays to reach the receivers, improving the accuracy of the sensor readings.
 
 <img src="docs/Photos/Picsart_25-01-13_22-59-45-507.jpg" width="400" height="auto" />
 
