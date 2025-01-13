@@ -7,7 +7,7 @@ Our robot was designed to complete a series of challenges inspired by the *Stran
 
 ## 🤖 Robot
 
-<img src="docs/Photos/PSX_20241214_1825131%20(1).jpg" width="500" height="auto" />
+<img src="docs/Photos/PSX_20241214_1825131%20(1).jpg" width="700" height="auto" />
 
 ## 🔧 Robot Specifications
 - **Dimensions**: 250mm x 250mm
