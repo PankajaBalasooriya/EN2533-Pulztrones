@@ -5,6 +5,10 @@
 
 Our robot was designed to complete a series of challenges inspired by the *Stranger Things* universe. The competition featured tasks such as line navigation, maze-solving, box manipulation, and terrain traversal. The project involved extensive hardware and software development, with the final product demonstrating the capability to autonomously navigate and solve challenges within a specified arena.
 
+## 🤖 Robot
+
+![Our Robot]()
+
 ## 🚩 Competition Tasks
 
 The competition was structured into multiple tasks, each testing a different aspect of robot performance:
