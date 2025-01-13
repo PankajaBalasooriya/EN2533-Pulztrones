@@ -67,6 +67,11 @@ The competition was structured into multiple tasks, each testing a different asp
 
 <img src="docs/Photos/Screenshot 2025-01-13 192410.png" width="700" height="auto" />
 
+## 💡Testing Issues & Innovative Fixes
+
+## 🏆 Achievements
+- First Place in the EN2533 Robot Design and Competition
+- Completed 7 of 8 tasks within the time limit.
 
 ## 👥 Group Members
 | Name | Index Number |Email|
