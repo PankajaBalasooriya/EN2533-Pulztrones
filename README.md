@@ -16,6 +16,7 @@ Our robot was designed to complete a series of challenges inspired by the *Stran
   - Arduino Mega Board
   - Raykha S8 – TCRT5000 based 8 channel Reflective Sensor Array
   - 12V 77rpm brushed DC motors
+  - MG90 metal wheel servo motors
   - VL53L0XV2 Time of flight sensors
   - Ultrasonic sensors
   - TCS230 Color sensor
@@ -112,7 +113,7 @@ The competition was structured into multiple tasks, each testing a different asp
 | 49             | Digital I/O           |                       |
 | 50             | Digital I/O (SPI MISO)|      Mosfet 2         |
 | 51             | Digital I/O (SPI MOSI)|                       |
-| 52             | Digital I/O (SPI SCK) |      Mosfet 1 (arm)        |
+| 52             | Digital I/O (SPI SCK) |      Mosfet 1 (arm)   |
 | 53             | Digital I/O (SPI SS)  |      RED LED          |
 | A0             | Analog Input          |      Raykha A0        |
 | A1             | Analog Input          |      Raykha A1        |
