@@ -7,7 +7,7 @@ Our robot was designed to complete a series of challenges inspired by the *Stran
 
 ## 🤖 Robot
 
-![Our Robot]()
+![Our Robot](docs/Photos/PSX_20241214_1825131 (1).jpg)
 
 ## 🚩 Competition Tasks
 
