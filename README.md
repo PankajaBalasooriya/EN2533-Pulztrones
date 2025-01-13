@@ -20,6 +20,8 @@ Our robot was designed to complete a series of challenges inspired by the *Stran
   - VL53L0XV2 Time of flight sensors
   - Ultrasonic sensors
   - TCS230 Color sensor
+  - DC-DC step down buck module
+  - DC-DC step up boost module
   
 
 
