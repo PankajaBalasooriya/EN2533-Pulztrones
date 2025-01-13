@@ -46,7 +46,7 @@ The competition was structured into multiple tasks, each testing a different asp
 
 ## 🏟️ Arena
 
-<img src="docs/Photos/Screenshot 2025-01-13 192410.png" width="500" height="auto" />
+<img src="docs/Photos/Screenshot 2025-01-13 192410.png" width="700" height="auto" />
 
 
 ### Group Members
