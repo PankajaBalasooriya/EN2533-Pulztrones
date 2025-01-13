@@ -9,7 +9,7 @@ Our robot was designed to complete a series of challenges inspired by the *Stran
 
 <img src="docs/Photos/PSX_20241214_1825131%20(1).jpg" width="700" height="auto" />
 
-## 🔧 Robot Specifications
+## 🔧 Robot Hardware Specifications
 - **Dimensions**: 250mm x 250mm
 - **Power Supply**: 3 cell Li-po battery with a voltage of 11.1V DC.
 - **Components**:
@@ -23,6 +23,18 @@ Our robot was designed to complete a series of challenges inspired by the *Stran
   - DC-DC step down buck module
   - DC-DC step up boost module
   - LEDs for status indication
+  - 0.96 inch OLED display for debugging
+
+## 💻 Robot Software Specifications
+- **Programming Language**: C++
+- **IDE**: VS Code (PlatformIO)
+- **Libraries**:
+  - Adafruit_SSD1306
+- **3D Modelling Software**: SolidWorks
+  
+![PlatformIO](https://img.shields.io/badge/PlatformIO-000000?logo=platformio&logoColor=white)
+![Arduino](https://img.shields.io/badge/-Arduino-00979D?logo=Arduino&logoColor=white)
+![Solidworks](https://img.shields.io/badge/Solid_Works_-red)
 
 ## ⚙️ Mechanisms
 
