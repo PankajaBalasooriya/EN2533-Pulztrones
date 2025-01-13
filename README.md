@@ -69,14 +69,14 @@ The competition was structured into multiple tasks, each testing a different asp
 
 ## 💡Testing Issues & Innovative Fixes
 
-### Reverse Line Following Challenge
+### ♦ Reverse Line Following Challenge
 #### Problem
 During maze navigation, we encountered a challenge with reverse line-following. We had two options for this: using encoders or the IR array. However, due to the motors being slightly different from each other, using encoders was inefficient for reverse line-following. Moreover, since the IR array was positioned in front of the wheels, it became ineffective during reverse line-following. This is because, when moving in reverse, the IR array was behind the motors in relation to the direction of travel. As a result, the sensors would detect the line after the motors had already moved, leading to a delay in feedback and making the line-following inefficient during reverse navigation.
 
 #### Solution
 To address this, we used two IR arrays—one for forward line-following and another positioned behind the motors for reverse line-following. This setup allowed the robot to receive immediate feedback during both forward and reverse navigation, ensuring efficient and accurate line-following in both directions. Additionally, this solution largely reduced the coding complexity, as we no longer had to account for motor inconsistencies or complex adjustments for reverse navigation.
 
-### Line Following Challenge: IR Sensor Isolation
+### ♦ Line Following Challenge: IR Sensor Isolation
 #### The Problem
 During our testing, we encountered an issue with the IR sensor array while performing line-following tasks. The array performed well when following a white line on a black background, but it struggled when detecting a black line on a white background. This challenge arose due to the lack of isolation between the IR receivers, causing interference from reflected IR rays emitted by other sensors. The large white background led to inaccurate sensor readings, and this was mainly caused by the need to keep the IR array elevated above the ground to navigate uneven terrain.
 #### Solution
