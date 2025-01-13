@@ -31,9 +31,9 @@ Our robot was designed to complete a series of challenges inspired by the *Stran
 - **Libraries**:
   - Adafruit_SSD1306
 - **3D Modelling Software**: SolidWorks
-  
+
+![VS Code](https://img.shields.io/badge/VS_Code-0078d4?logo=visualstudiocode&logoColor=white)
 ![PlatformIO](https://img.shields.io/badge/PlatformIO-000000?logo=platformio&logoColor=white)
-![Arduino](https://img.shields.io/badge/-Arduino-00979D?logo=Arduino&logoColor=white)
 ![Solidworks](https://img.shields.io/badge/Solid_Works_-red)
 
 ## ⚙️ Mechanisms
