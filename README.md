@@ -74,7 +74,7 @@ During our testing, we encountered an issue with the IR sensor array while perfo
 #### Solution
 To address this challenge, we created a custom part using SolidWorks to isolate the IR receivers. The new design ensures that only the IR rays emitted by the same sensor are received, effectively minimizing interference. This allows only the perpendicular reflected rays to reach the receivers, improving the accuracy of the sensor readings.
 
-
+<img src="docs/Photos/Screenshot 2025-01-13 192410.png" width="500" height="auto" />
 ## 🏆 Achievements
 - First Place in the EN2533 Robot Design and Competition
 - Completed 7 of 8 tasks within the time limit.
