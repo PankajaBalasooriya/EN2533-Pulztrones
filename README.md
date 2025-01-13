@@ -76,7 +76,7 @@ The competition was structured into multiple tasks, each testing a different asp
 ## 👥 Group Members
 | Name | Index Number |Email|
 |------|--------------|--------------|
-| Balasooriya B A P I | 220054N | balasooriyabapi.22@uom.lk
+| Balasooriya B A P I | 220054N | balasooriyabapi.22@uom.lk |
 | Liyanage D L B B | 220362G |banuka2002liyanage@gmail.com|
 | Pathirana P D R O | 220448C |oshadha1619@gmail.com|
 | Fernando A R D | 220161N |rusirufernando513@gmail.com|
