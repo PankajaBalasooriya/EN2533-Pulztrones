@@ -9,29 +9,22 @@ Our robot was designed to complete a series of challenges inspired by the *Stran
 
 The competition was structured into multiple tasks, each testing a different aspect of robot performance:
 
-### **Task 1: Line Navigation**  
-Navigate intersecting lines of varying widths and identify a binary code.
+- **Task 1: Line Navigation** – Navigate intersecting lines of varying widths and identify a binary code.
 
-### **Task 2: Maze Navigation and Box Manipulation**  
-Grab a virtual box and move it through a maze with limited movement capabilities.
+- **Task 2: Maze Navigation and Box Manipulation** – Grab a virtual box and move it through a maze with limited movement capabilities.
 
-### **Task 3: Color Line Following**  
-Follow a specific color line based on previously completed checkpoints.
+- **Task 3: Color Line Following** – Follow a specific color line based on previously completed checkpoints.
 
-### **Task 4: Dashed Line Navigation**  
-Track a white dashed line through a complex path.
+- **Task 4: Dashed Line Navigation** – Track a white dashed line through a complex path.
 
-###  **Task 5: Portal Navigation**  
-Time the robot's passage through a portal that opens and closes periodically.
+- **Task 5: Portal Navigation** – Time the robot's passage through a portal that opens and closes periodically.
 
-###  **Task 6: Box Arrangement**  
-Rearrange boxes based on task requirements.
+- **Task 6: Box Arrangement** – Rearrange boxes based on task requirements.
 
-### **Task 7: Hidden Task and Chamber Insertion**  
-Complete an unknown task revealed during the competition.
+- **Task 7: Hidden Task and Chamber Insertion** – Complete an unknown task revealed during the competition.
 
-### **Task 8: Coin Drop and Task Completion**  
-Navigate uneven terrain and drop a coin at a specified spot to close a circuit and finish the task.
+- **Task 8: Coin Drop and Task Completion** – Navigate uneven terrain and drop a coin at a specified spot to close a circuit and finish the task.
+
 
 
 
