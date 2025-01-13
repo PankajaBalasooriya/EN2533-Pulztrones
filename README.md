@@ -10,7 +10,7 @@ Our robot was designed to complete a series of challenges inspired by the *Stran
 <img src="docs/Photos/PSX_20241214_1825131%20(1).jpg" width="500" height="auto" />
 
 ## 🔧 Robot Specifications
-- **Dimensions**: 250mm x 250mm maximum footprint.
+- **Dimensions**: 250mm x 250mm
 - **Power Supply**: 3 cell Li-po battery with a voltage of 11.1V DC.
 - **Components**:
   - Arduino Mega Board
@@ -22,10 +22,7 @@ Our robot was designed to complete a series of challenges inspired by the *Stran
   - TCS230 Color sensor
   - DC-DC step down buck module
   - DC-DC step up boost module
-  
-
-
-LEDs for status indication
+  - LEDs for status indication
 
 ## 🚩 Competition Tasks
 
