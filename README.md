@@ -44,7 +44,7 @@ The competition was structured into multiple tasks, each testing a different asp
 
 - **Task 8: Coin Drop and Task Completion** – Navigate uneven terrain and drop a coin at a specified spot and finish the task.
 
-
+## 🏟️ Arena
 
 
 ### Group Members
