@@ -24,6 +24,8 @@ Our robot was designed to complete a series of challenges inspired by the *Stran
   - DC-DC step up boost module
   - LEDs for status indication
 
+## ⚙️ Mechanisms
+
 ## 🚩 Competition Tasks
 
 The competition was structured into multiple tasks, each testing a different aspect of robot performance:
