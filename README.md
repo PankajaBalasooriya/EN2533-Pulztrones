@@ -73,7 +73,7 @@ The competition was structured into multiple tasks, each testing a different asp
 #### Problem
 During maze navigation, we encountered a challenge with reverse line-following. We had two options for this: using encoders or the IR array. However, due to the motors being slightly different from each other, using encoders was inefficient for reverse line-following. Moreover, since the IR array was positioned in front of the wheels, it became ineffective during reverse line-following. This is because, when moving in reverse, the IR array was behind the motors in relation to the direction of travel. As a result, the sensors would detect the line after the motors had already moved, leading to a delay in feedback and making the line-following inefficient during reverse navigation.
 
-####Solution
+#### Solution
 To address this, we used two IR arrays—one for forward line-following and another positioned behind the motors for reverse line-following. This setup allowed the robot to receive immediate feedback during both forward and reverse navigation, ensuring efficient and accurate line-following in both directions. Additionally, this solution largely reduced the coding complexity, as we no longer had to account for motor inconsistencies or complex adjustments for reverse navigation.
 
 ### Line Following Challenge: IR Sensor Isolation
