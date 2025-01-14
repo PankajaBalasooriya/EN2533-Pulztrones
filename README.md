@@ -85,6 +85,8 @@ The competition was structured into multiple tasks, each testing a different asp
 ## 🏆 Achievements
 - First Place in the EN2533 Robot Design and Competition
 - Completed 7 out of 8 tasks within the time limit.
+[Watch the demo video on YouTube](https://www.youtube.com/shorts/98-_jfOEn1Y?feature=share)
+
 
 ## 💡Testing Issues & Innovative Fixes
 
