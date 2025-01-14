@@ -41,6 +41,52 @@ Our robot was designed to complete a series of challenges inspired by the *Stran
 ![PlatformIO](https://img.shields.io/badge/PlatformIO-000000?logo=platformio&logoColor=white)
 ![Solidworks](https://img.shields.io/badge/Solid_Works_-red)
 
+## 🔧 Robot Hardware Specifications | 💻 Robot Software Specifications
+
+<div style="display: flex; justify-content: space-between;">
+
+<div style="width: 48%;">
+
+### 🔧 **Robot Hardware Specifications**
+- **Dimensions**: 250mm x 250mm
+- **Power Supply**: 3 cell Li-po battery with a voltage of 11.1V DC
+- **Components**:
+  - Arduino Mega Board
+  - Raykha S8 – TCRT5000 based 8 channel Reflective Sensor Array
+  - 12V 77rpm brushed DC motors
+  - MG90 metal wheel servo motors
+  - VL53L0XV2 Time of Flight sensors
+  - Ultrasonic sensors
+  - TCS230 Color sensor
+  - DC-DC step down buck module
+  - DC-DC step up boost module
+  - LEDs for status indication
+  - 0.96 inch OLED display for debugging
+
+</div>
+
+<div style="width: 48%;">
+
+### 💻 **Robot Software Specifications**
+- **Programming Language**: C++
+- **IDE**: VS Code (PlatformIO)
+- **Libraries**:
+  - Arduino.h
+  - QTRSensors
+  - Wire
+  - Adafruit_GFX
+  - Adafruit_SSD1306
+  - VL53L0X
+- **3D Modelling Software**: SolidWorks
+
+![VS Code](https://img.shields.io/badge/VS_Code-0078d4?logo=visualstudiocode&logoColor=white)  
+![PlatformIO](https://img.shields.io/badge/PlatformIO-000000?logo=platformio&logoColor=white)  
+![Solidworks](https://img.shields.io/badge/Solid_Works_-red)
+
+</div>
+
+</div>
+
 ## ⚙️ Mechanisms
 ### Gripper Mechanism
 The gripper mechanism is designed to handle box manipulation tasks efficiently. It consists of two servo motors: one to lift the entire mechanism vertically in a rotational motion and another to control the arms for grabbing the box. The vertical lifting motion prevents the box from sliding along the ground and helps avoid collisions with uneven terrain. Additionally, the mechanism includes a color sensor to identify the color of the line being followed. A ToF (Time-of-Flight) sensor tower with three ToF sensors is integrated to detect the height of the boxes, measure the distance between the robot and the boxes, and check if the portal is open. This combination of sensors ensures precise box handling and accurate navigation during tasks.
