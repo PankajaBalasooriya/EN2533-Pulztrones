@@ -42,6 +42,21 @@ Our robot was designed to complete a series of challenges inspired by the *Stran
 ![Solidworks](https://img.shields.io/badge/Solid_Works_-red)
 
 ## ⚙️ Mechanisms
+### Gripper Mechanism
+The gripper mechanism is designed to handle box manipulation tasks efficiently. It consists of two servo motors: one to lift the entire mechanism vertically in a rotational motion and another to control the arms for grabbing the box. The vertical lifting motion prevents the box from sliding along the ground and helps avoid collisions with uneven terrain. Additionally, the mechanism includes a color sensor to identify the color of the line being followed. A ToF (Time-of-Flight) sensor tower with three ToF sensors is integrated to detect the height of the boxes, measure the distance between the robot and the boxes, and check if the portal is open. This combination of sensors ensures precise box handling and accurate navigation during tasks.
+
+<div style="display: flex; justify-content: space-between;">
+    <img src="docs/Photos/Screenshot 2025-01-14 125835.png" alt="Image 1" width="40%" height="auto">
+    <img src="docs/Photos/Screenshot 2025-01-14 125944.png" alt="Image 2" width="46%" height="auto">
+</div>
+
+### Coin Dropper Mechanism
+The coin dropper mechanism is a simple yet effective design for placing coins in a given location. It consists of a servo motor connected to a custom-designed part that holds the coin. The part rotates horizontally, and when it aligns with the hole in the base, the coin drops into the designated spot.In the final task, the robot encounters a black cross marked on the uneven terrain. This black cross indicates the location where the coin needs to be dropped. The mechanism ensures smooth and controlled coin placement, minimizing errors and enhancing reliability even on challenging surfaces.
+
+<div style="display: flex; justify-content: space-between;">
+    <img src="docs/Photos/Screenshot 2025-01-14 130133.png" alt="Image 1" width="40%" height="auto">
+    <img src="docs/Photos/Screenshot 2025-01-14 130238.png" alt="Image 2" width="46%" height="auto">
+</div>
 
 ## 🚩 Competition Tasks
 
