@@ -54,8 +54,8 @@ The gripper mechanism is designed to handle box manipulation tasks efficiently. 
 The coin dropper mechanism is a simple yet effective design for placing coins in a given location. It consists of a servo motor connected to a custom-designed part that holds the coin. The part rotates horizontally, and when it aligns with the hole in the base, the coin drops into the designated spot.In the final task, the robot encounters a black cross marked on the uneven terrain. This black cross indicates the location where the coin needs to be dropped. The mechanism ensures smooth and controlled coin placement, minimizing errors and enhancing reliability even on challenging surfaces.
 
 <div style="display: flex; justify-content: space-between;">
-    <img src="docs/Photos/Screenshot 2025-01-14 130133.png" alt="Image 1" width="40%" height="auto">
-    <img src="docs/Photos/Screenshot 2025-01-14 130238.png" alt="Image 2" width="46%" height="auto">
+    <img src="docs/Photos/Screenshot 2025-01-14 130133.png" alt="Image 1" width="45%" height="auto">
+    <img src="docs/Photos/Screenshot 2025-01-14 130238.png" alt="Image 2" width="40%" height="auto">
 </div>
 
 ## 🚩 Competition Tasks
