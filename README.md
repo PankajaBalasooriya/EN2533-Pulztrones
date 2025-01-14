@@ -55,7 +55,7 @@ The coin dropper mechanism is a simple yet effective design for placing coins in
 
 <div style="display: flex; justify-content: space-between;">
     <img src="docs/Photos/Screenshot 2025-01-14 130133.png" alt="Image 1" width="45%" height="auto">
-    <img src="docs/Photos/Screenshot 2025-01-14 130238.png" alt="Image 2" width="40%" height="auto">
+    <img src="docs/Photos/Screenshot 2025-01-14 130238.png" alt="Image 2" width="41%" height="auto">
 </div>
 
 ## 🚩 Competition Tasks
