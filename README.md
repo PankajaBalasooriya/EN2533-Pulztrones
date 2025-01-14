@@ -117,7 +117,7 @@ To address this challenge, we created a custom cover using SolidWorks to isolate
 <img src="docs/Photos/IMG-20241214-WA0123.jpg" width="700" height="auto" />
 
 
-# Pin Assignment
+<!-- # Pin Assignment
 | **Pin Number** | **Mode**             | **Assigned Name**     |
 |----------------|----------------------|-----------------------|
 | 0              | Digital I/O (UART RX) |                       |
@@ -189,4 +189,4 @@ To address this challenge, we created a custom cover using SolidWorks to isolate
 | A12            | Analog Input          |                       |
 | A13            | Analog Input          |                       |
 | A14            | Analog Input          |                       |
-| A15            | Analog Input          |                       |
+| A15            | Analog Input          |                       |-->
