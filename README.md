@@ -77,6 +77,7 @@ The competition was structured into multiple tasks, each testing a different asp
 - **Task 7: Hidden Task and Chamber Insertion** – Complete an unknown task revealed during the competition.
 
 - **Task 8: Coin Drop and Task Completion** – Navigate uneven terrain and drop a coin at a specified spot and finish the task.
+- [Task File](https://www.youtube.com/shorts/98-_jfOEn1Y?feature=share)
 
 ## 🏟️ Arena
 
