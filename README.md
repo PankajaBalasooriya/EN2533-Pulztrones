@@ -77,7 +77,7 @@ The competition was structured into multiple tasks, each testing a different asp
 - **Task 7: Hidden Task and Chamber Insertion** – Complete an unknown task revealed during the competition.
 
 - **Task 8: Coin Drop and Task Completion** – Navigate uneven terrain and drop a coin at a specified spot and finish the task.
-- [📘 Robot Design and Competition 2024 Task File](docs/Robot%20Design%20and%20Competition%202024%20Task%20v1.1_compressed.pdf)
+### [📘 Robot Design and Competition 2024 Task File](docs/Robot%20Design%20and%20Competition%202024%20Task%20v1.1_compressed.pdf)
 
 
 ## 🏟️ Arena
